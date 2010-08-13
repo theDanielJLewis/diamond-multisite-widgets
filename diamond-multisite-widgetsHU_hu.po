@@ -1,0 +1,102 @@
+# Translation of the WordPress plugin Diamond MultiSite Widgets 1.0 by Daniel Bozo.
+# Copyright (C) 2010 Daniel Bozo
+# This file is distributed under the same license as the Diamond MultiSite Widgets package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Diamond MultiSite Widgets 1.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/diamond-multisite-widgets\n"
+"POT-Creation-Date: 2010-07-30 06:38+0000\n"
+"PO-Revision-Date: 2010-07-30 08:49+0100\n"
+"Last-Translator: Dániel Bozó <daniel.bozo@amegrant.hu>\n"
+"Language-Team: Amegrant Ltd. <daniel.bozo@amegrant.hu>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Hungarian\n"
+"X-Poedit-Country: Hungary\n"
+
+#: diamond-multisite-widgets.php:40
+#: diamond-multisite-widgets.php:41
+msgid "Diamond Recent Posts"
+msgstr "Diamond Legújabb Bejegyzések"
+
+#: diamond-multisite-widgets.php:120
+#: diamond-multisite-widgets.php:275
+msgid "Widget Title"
+msgstr "Widget Címe"
+
+#: diamond-multisite-widgets.php:128
+msgid "Posts count"
+msgstr "Bejegyzések száma"
+
+#: diamond-multisite-widgets.php:145
+#: diamond-multisite-widgets.php:300
+msgid "Exclude blogs: (The first 50 blogs)"
+msgstr "Kihagyandó blogok (Az első 50 blog)"
+
+#: diamond-multisite-widgets.php:164
+#: diamond-multisite-widgets.php:319
+msgid "Format string"
+msgstr "Formátum"
+
+#: diamond-multisite-widgets.php:165
+msgid "The post's title"
+msgstr "A bejegyzés címe"
+
+#: diamond-multisite-widgets.php:166
+#: diamond-multisite-widgets.php:321
+msgid "The post's date"
+msgstr "A bejegyzés dátuma"
+
+#: diamond-multisite-widgets.php:167
+msgid "The post's author"
+msgstr "A bejegyzés szerzője"
+
+#: diamond-multisite-widgets.php:168
+msgid "The post's blog name"
+msgstr "A bejegyzés blogjának címe"
+
+#: diamond-multisite-widgets.php:170
+#: diamond-multisite-widgets.php:323
+msgid "if you like this widget then"
+msgstr "Ha tetszik ez a widget"
+
+#: diamond-multisite-widgets.php:172
+#: diamond-multisite-widgets.php:325
+msgid "Buy me a beer!"
+msgstr "Vegyél nekem egy sört!"
+
+#: diamond-multisite-widgets.php:193
+#: diamond-multisite-widgets.php:194
+msgid "Diamond Recent Comments"
+msgstr "Diamond Legújabb hozzászólások"
+
+#: diamond-multisite-widgets.php:283
+msgid "Comments count"
+msgstr "Hozzászólások száma"
+
+#: diamond-multisite-widgets.php:320
+msgid "The comment's content"
+msgstr "A hozzászólás tartalma"
+
+#. Plugin Name of the plugin/theme
+msgid "Diamond MultiSite Widgets"
+msgstr "Diamond MultiSite Widgetek"
+
+#. #-#-#-#-#  plugin.pot (Diamond MultiSite Widgets 1.0)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  plugin.pot (Diamond MultiSite Widgets 1.0)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://www.amegrant.hu"
+msgstr "http://www.amegrant.hu"
+
+#. Description of the plugin/theme
+msgid "Multisite recetn posts widget, Multisite recent comments widget. Content from the whole network."
+msgstr "Legújabb bejegyzések és hozzászólások widgetek hálózatos oldalakra"
+
+#. Author of the plugin/theme
+msgid "Daniel Bozo"
+msgstr "Bozó Dániel"
+
