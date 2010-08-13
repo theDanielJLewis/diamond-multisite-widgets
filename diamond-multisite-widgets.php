@@ -4,7 +4,7 @@
  Plugin URI: http://www.amegrant.hu
  Description: Multisite recent posts widget, Multisite recent comments widget. Content from the whole network.
  Author: Daniel Bozo
- Version: 1.0
+ Version: 1.1
  Author URI: http://www.amegrant.hu
  */
  
