@@ -45,9 +45,9 @@
 
 	function widget_endView($args)
 	{
-		global $switched;
-		global $table_prefix;
+		global $switched;		
 		global $wpdb;
+		$table_prefix = $wpdb->base_prefix;
 		
 		$wgt_title=get_option('wgt_title');
 		$wgt_count=get_option('wgt_count');		
@@ -79,9 +79,10 @@
 		$sqlstr .= " ORDER BY post_date_gmt desc " . $limit;		
 		
 		
-		// echo $sqlstr; 
+		 //echo $sqlstr; 
 		$post_list = $wpdb->get_results($sqlstr, ARRAY_A);
-		
+		//echo $wpdb->print_error(); 
+		//print_r($post_list);
 		echo '<ul>';
 		foreach ($post_list AS $post) {
 			echo '<li>';
@@ -198,9 +199,9 @@
 
 	function widget_endView($args)
 	{
-		global $switched;
-		global $table_prefix;
+		global $switched;		
 		global $wpdb;
+		$table_prefix = $wpdb->base_prefix;
 		
 		$wgt_title=get_option('c_wgt_title');
 		$wgt_count=get_option('c_wgt_count');		
