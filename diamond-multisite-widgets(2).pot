@@ -1,0 +1,126 @@
+# Translation of the WordPress plugin Diamond MultiSite Widgets 1.2 by Daniel Bozo.
+# Copyright (C) 2010 Daniel Bozo
+# This file is distributed under the same license as the Diamond MultiSite Widgets package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Diamond MultiSite Widgets 1.2\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/diamond-multisite-widgets\n"
+"POT-Creation-Date: 2010-08-14 19:29+0000\n"
+"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: diamond-multisite-widgets.php:40 diamond-multisite-widgets.php:41
+msgid "Diamond Recent Posts"
+msgstr ""
+
+#: diamond-multisite-widgets.php:137 diamond-multisite-widgets.php:346
+msgid "Widget Title"
+msgstr ""
+
+#: diamond-multisite-widgets.php:145
+msgid "Posts count"
+msgstr ""
+
+#: diamond-multisite-widgets.php:162 diamond-multisite-widgets.php:371
+msgid "Exclude blogs: (The first 50 blogs)"
+msgstr ""
+
+#: diamond-multisite-widgets.php:183 diamond-multisite-widgets.php:390
+msgid "Format string"
+msgstr ""
+
+#: diamond-multisite-widgets.php:184 diamond-multisite-widgets.php:185
+msgid "The post's title"
+msgstr ""
+
+#: diamond-multisite-widgets.php:185 diamond-multisite-widgets.php:392
+msgid "(without link)"
+msgstr ""
+
+#: diamond-multisite-widgets.php:186
+msgid "The post's excerpt"
+msgstr ""
+
+#: diamond-multisite-widgets.php:187 diamond-multisite-widgets.php:393
+msgid "The post's date"
+msgstr ""
+
+#: diamond-multisite-widgets.php:188
+msgid "The post's author"
+msgstr ""
+
+#: diamond-multisite-widgets.php:189 diamond-multisite-widgets.php:395
+msgid "Author's avatar"
+msgstr ""
+
+#: diamond-multisite-widgets.php:190
+msgid "The post's blog name"
+msgstr ""
+
+#: diamond-multisite-widgets.php:202 diamond-multisite-widgets.php:407
+msgid "Avatar Size (px)"
+msgstr ""
+
+#: diamond-multisite-widgets.php:212 diamond-multisite-widgets.php:417
+msgid "Default Avatar URL"
+msgstr ""
+
+#: diamond-multisite-widgets.php:225 diamond-multisite-widgets.php:430
+msgid "\"Read More\" link text"
+msgstr ""
+
+#: diamond-multisite-widgets.php:229 diamond-multisite-widgets.php:435
+msgid "if you like this widget then"
+msgstr ""
+
+#: diamond-multisite-widgets.php:231 diamond-multisite-widgets.php:437
+msgid "Buy me a beer!"
+msgstr ""
+
+#: diamond-multisite-widgets.php:252 diamond-multisite-widgets.php:253
+msgid "Diamond Recent Comments"
+msgstr ""
+
+#: diamond-multisite-widgets.php:354
+msgid "Comments count"
+msgstr ""
+
+#: diamond-multisite-widgets.php:391
+msgid "The comment's content"
+msgstr ""
+
+#: diamond-multisite-widgets.php:392
+msgid "The comment's title"
+msgstr ""
+
+#: diamond-multisite-widgets.php:394
+msgid "The comment's author"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Diamond MultiSite Widgets"
+msgstr ""
+
+#. #-#-#-#-#  plugin.pot (Diamond MultiSite Widgets 1.2)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  plugin.pot (Diamond MultiSite Widgets 1.2)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://www.amegrant.hu"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Multisite recent posts widget, Multisite recent comments widget. Content "
+"from the whole network."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Daniel Bozo"
+msgstr ""
