@@ -1,7 +1,7 @@
 <?php
 /*
  Plugin Name: Diamond MultiSite Widgets
- Plugin URI: http://www.amegrant.hu
+ Plugin URI: http://wordpress.org/extend/plugins/diamond-multisite-widgets/
  Description: Multisite recent posts widget, Multisite recent comments widget. Content from the whole network.
  Author: Daniel Bozo
  Version: 1.2
