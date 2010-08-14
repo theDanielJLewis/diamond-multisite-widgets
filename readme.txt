@@ -17,7 +17,10 @@ Features:<br />
 - You can exclude your main blog or any sub-blogs<br />
 - Yue can format the entries easily with short codes and html tags <br />
 - You can use it on sub-blogs <br />
-- Avatar support
+- Avatar support<br />
+<br />
+<br />
+if you have any question write me an e-mail to daniel.bozo@amegrant.hu
 
 == Changelog ==
 
