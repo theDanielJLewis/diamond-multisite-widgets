@@ -16,7 +16,7 @@ Features:<br />
 - You can choose the entries count<br />
 - You can exclude your main blog or any sub-blogs<br />
 - Yue can format the entries easily with short codes and html tags <br />
-- You can use it on sub-blogs
+- You can use it on sub-blogs<br />
 - Avatar support
 
 == Changelog ==
