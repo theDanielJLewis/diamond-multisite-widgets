@@ -4,7 +4,7 @@
  Plugin URI: http://www.amegrant.hu
  Description: Multisite recent posts widget, Multisite recent comments widget. Content from the whole network.
  Author: Daniel Bozo
- Version: 1.1
+ Version: 1.2
  Author URI: http://www.amegrant.hu
  */
  
@@ -52,7 +52,13 @@
 		$wgt_title=get_option('wgt_title');
 		$wgt_count=get_option('wgt_count');		
 		$wgt_miss= split(';', get_option('wgt_miss'));		
-		$wgt_format= get_option('wgt_format');		
+		$wgt_format = get_option('wgt_format');		
+		$wgt_avsize = get_option('wgt_avsize');		
+		$wgt_mtext = get_option('wgt_mtext');		
+		$wgt_defav = get_option('wgt_defav');		
+		
+		if (!isset($wgt_avsize) || $wgt_avsize == '')
+			$wgt_avsize = 96;
 		
 		extract($args);
 		echo $before_widget.$before_title.$wgt_title.
@@ -89,11 +95,21 @@
 			
 			$txt = ($wgt_format == '') ? '<b>{title}<b> - <i>{date}<i>' : $wgt_format;
 			
-
 			$p = get_blog_post($post["blog_id"], $post["id"]);
+			
+			$av = get_avatar(get_userdata($p->post_author)->user_email, $avsize, $defav);
+			
+			$ex = $p->post_excerpt;
+			if (!isset($ex) || trim($ex) == '')
+				$ex = substr(strip_tags($p->post_content), 0, 65) . '...';
+			
 			$txt = str_replace('{title}', '<a href="' .get_blog_permalink($post["blog_id"], $post["id"]).'">'.$p->post_title.'</a>' , $txt);
+			$txt = str_replace('{more}', '<a href="' .get_blog_permalink($post["blog_id"], $post["id"]).'">'.$wgt_mtext.'</a>' , $txt);
+			$txt = str_replace('{title_txt}', $p->post_title , $txt);
 			$txt = str_replace('{date}', $p->post_date, $txt);
+			$txt = str_replace('{excerpt}', $ex , $txt);
 			$txt = str_replace('{author}', get_userdata($p->post_author)->nickname, $txt);
+			$txt = str_replace('{avatar}', $av , $txt);
 			$txt = str_replace('{blog}', get_blog_option($post["blog_id"], 'blogname') , $txt);		
 			
 			echo $txt;
@@ -159,14 +175,56 @@
 		// Format
 		if ($_POST['wgt_format']) {
 			$option=$_POST['wgt_format'];
+			if (!isset($option) || $option == '')
+				$option = '<b>{title}<b> - <i>{date}<i>';
 			update_option('wgt_format',$option);
 		}
 		$wgt_format=get_option('wgt_format');
 		echo '<label for="wgt_number">' . __('Format string', 'formatstr') .':<br /><input id="wgt_format" name="wgt_format" type="text" value="'.$wgt_format.'" /></label><br />';		
 		echo '{title} - '. __('The post\'s title', 'posttitle').'<br />';
+		echo '{title_txt} - '. __('The post\'s title', 'posttitle').' '.__('(without link)', 'posttitletxt').'<br />';
+		echo '{excerpt} - '. __('The post\'s excerpt', 'postexcerpt').'<br />';		
 		echo '{date} - ' . __('The post\'s date', 'postdate') .'<br />';
 		echo '{author} - ' . __('The post\'s author', 'postauthor') .'<br />';
+		echo '{avatar} - ' . __('Author\'s avatar', 'postauthoravatar') .'<br />';
 		echo '{blog} - '. __('The post\'s blog name', 'postblog') .'<br />';
+		echo '<br />';
+		
+		
+		if ($_POST['wgt_avsize']) {
+			$option=$_POST['wgt_avsize'];
+			if (!isset($option) || $option == '')
+				$option = 96;
+			update_option('wgt_avsize',$option);		
+		}
+		$wgt_text=get_option('wgt_avsize');	
+		
+		echo '<label for="wgt_avsize">' . __('Avatar Size (px)', 'avsize') . ':<br /><input id="wgt_avsize" name="wgt_avsize" type="text" value="'.$wgt_avsize.'" /></label>';
+		echo '<br />';
+		
+		
+		if ($_POST['wgt_defav']) {
+			$option=$_POST['wgt_defav'];			
+			update_option('wgt_defav',$option);		
+		}
+		$wgt_defav=get_option('wgt_defav');	
+		
+		echo '<label for="wgt_defav">' . __('Default Avatar URL', 'defav') . ':<br /><input id="wgt_defav" name="wgt_defav" type="text" value="'.$wgt_defav.'" /></label>';
+		echo '<br />';
+		
+		
+		
+		if ($_POST['wgt_mtext']) {
+			$option=$_POST['wgt_mtext'];
+			if (!isset($option) || $option == '')
+				$option = 'Read More';
+			update_option('wgt_mtext',$option);		
+		}
+		$wgt_mtext=get_option('wgt_mtext');	
+		
+		echo '<label for="wgt_mtext">' . __('"Read More" link text', 'rmtext') . ':<br /><input id="wgt_mtext" name="wgt_mtext" type="text" value="'.$wgt_mtext.'" /></label>';
+		echo '<br />';		
+		
 		echo '<br />';
 		_e('if you like this widget then', 'ifyoulike');
 		echo ': <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40amegrant%2ehu&lc=HU&item_name=Diamond%20Multisite%20WordPress%20Widget&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted" target="_blank">';
@@ -207,6 +265,12 @@
 		$wgt_count=get_option('c_wgt_count');		
 		$wgt_miss= split(';', get_option('c_wgt_miss'));		
 		$wgt_format= get_option('c_wgt_format');		
+		$wgt_avsize = get_option('wgtc_avsize');		
+		$wgt_mtext = get_option('wgtc_mtext');		
+		$wgt_defav = get_option('wgtc_defav');		
+		
+		if (!isset($wgt_avsize) || $wgt_avsize == '')
+			$wgt_avsize = 96;
 		
 		extract($args);
 		echo $before_widget.$before_title.$wgt_title.
@@ -215,7 +279,7 @@
 		$sqlstr = '';
 		$blog_list = get_blog_list( 0, 'all' );
 		if (!in_array(1, $wgt_miss)) {
-			$sqlstr = "SELECT 1 as blog_id, comment_date, comment_id, comment_post_id, comment_content, comment_date_gmt from ".$table_prefix ."comments where comment_approved = 1 ";
+			$sqlstr = "SELECT 1 as blog_id, comment_date, comment_id, comment_post_id, comment_content, comment_date_gmt, comment_author, comment_author_email from ".$table_prefix ."comments where comment_approved = 1 ";
 		}
 		$uni = '';
 		
@@ -223,7 +287,7 @@
 			if (!in_array($blog['blog_id'], $wgt_miss) && $blog['blog_id'] != 1) {
 				if ($sqlstr != '')
 					$uni = ' union ';;	
-				$sqlstr .= $uni . " SELECT ".$blog['blog_id']." as blog_id, comment_date, comment_id, comment_post_id, comment_content, comment_date_gmt  from ".$table_prefix .$blog['blog_id']."_comments where comment_approved = 1 ";				
+				$sqlstr .= $uni . " SELECT ".$blog['blog_id']." as blog_id, comment_date, comment_id, comment_post_id, comment_content, comment_date_gmt, comment_author, comment_author_email   from ".$table_prefix .$blog['blog_id']."_comments where comment_approved = 1 ";				
 			}
 		}
 		
@@ -243,12 +307,18 @@
 			echo '<li>';
 			
 			$txt = ($wgt_format == '') ? '<b>{title}<b> - <i>{date}<i>' : $wgt_format;			
-
+			
 			$p = get_blog_post($comm["blog_id"], $post["comment_post_id"]);
 			$c = $comm['comment_content'];
+			
+			$av = get_avatar($comm['comment_author_email'], $avsize, $defav);
+			
 			if (strlen($c) > 50) 
-				$c = strip_tags(substr($c, 0, 51)) . '...';
+				$c = substr(strip_tags($c), 0, 51) . '...';
 			$txt = str_replace('{title}', '<a href="' .get_blog_permalink($comm["blog_id"], $comm["comment_post_id"]).'">'.$c.'</a>' , $txt);
+			$txt = str_replace('{title_txt}', $c, $txt);
+			$txt = str_replace('{author}', $comm['comment_author'], $txt);
+			$txt = str_replace('{avatar}', $av, $txt);
 			$txt = str_replace('{date}', $comm['comment_date'], $txt);			
 			
 			echo $txt;
@@ -319,8 +389,49 @@
 		$wgt_format=get_option('c_wgt_format');
 		echo '<label for="wgt_number">' . __('Format string', 'formatstr') .':<br /><input id="wgt_format" name="wgt_format" type="text" value="'.$wgt_format.'" /></label><br />';		
 		echo '{title} - '. __('The comment\'s content', 'comcont') . '</p><br />';
+		echo '{title_txt} - '. __('The comment\'s title', 'posttitle').' '.__('(without link)', 'posttitletxt').'<br />';
 		echo '{date} - '.__('The post\'s date', 'commdate'). '</p><br />';
+		echo '{author} - ' . __('The comment\'s author', 'commauthor') .'<br />';
+		echo '{avatar} - ' . __('Author\'s avatar', 'postauthoravatar') .'<br />';
+		echo '<br />';	
+		
+		
+		if ($_POST['wgtc_avsize']) {
+			$option=$_POST['wgtc_avsize'];
+			if (!isset($option) || $option == '')
+				$option = 96;
+			update_option('wgtc_avsize',$option);		
+		}
+		$wgtc_text=get_option('wgtc_avsize');	
+		
+		echo '<label for="wgtc_avsize">' . __('Avatar Size (px)', 'avsize') . ':<br /><input id="wgtc_avsize" name="wgtc_avsize" type="text" value="'.$wgtc_avsize.'" /></label>';
 		echo '<br />';
+		
+		
+		if ($_POST['wgtc_defav']) {
+			$option=$_POST['wgtc_defav'];			
+			update_option('wgtc_defav',$option);		
+		}
+		$wgtc_defav=get_option('wgtc_defav');	
+		
+		echo '<label for="wgtc_defav">' . __('Default Avatar URL', 'defav') . ':<br /><input id="wgtc_defav" name="wgtc_defav" type="text" value="'.$wgtc_defav.'" /></label>';
+		echo '<br />';
+		
+		
+		
+		if ($_POST['wgtc_mtext']) {
+			$option=$_POST['wgtc_mtext'];
+			if (!isset($option) || $option == '')
+				$option = 'Read More';
+			update_option('wgtc_mtext',$option);		
+		}
+		$wgtc_mtext=get_option('wgtc_mtext');	
+		
+		echo '<label for="wgtc_mtext">' . __('"Read More" link text', 'rmtext') . ':<br /><input id="wgtc_mtext" name="wgtc_mtext" type="text" value="'.$wgtc_mtext.'" /></label>';
+		echo '<br />';		
+		
+		echo '<br />';		
+		
 		_e('if you like this widget then', 'ifyoulike');
 		echo ': <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40amegrant%2ehu&lc=HU&item_name=Diamond%20Multisite%20WordPress%20Widget&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted" target="_blank">';
 		_e('Buy me a beer!', 'buy me beer');
