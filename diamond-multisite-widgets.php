@@ -409,7 +409,7 @@
 				$option = 96;
 			update_option('wgtc_avsize',$option);		
 		}
-		$wgtc_text=get_option('wgtc_avsize');	
+		$wgtc_avsize=get_option('wgtc_avsize');	
 		
 		echo '<label for="wgtc_avsize">' . __('Avatar Size (px)', 'avsize') . ':<br /><input id="wgtc_avsize" name="wgtc_avsize" type="text" value="'.$wgtc_avsize.'" /></label>';
 		echo '<br />';
