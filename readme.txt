@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypa
 Tags: recent post, network, multisite, widget, recent comments, MU, WPMU, sidebar
 Requires at least: 3.0.0
 Tested up to: 3.0.1
-Stable tag: 1.2
+Stable tag: 1.2.1
 
 Recent posts and comments from the whole network
 
@@ -33,3 +33,9 @@ if you have any question write me an e-mail to daniel.bozo@amegrant.hu
 - Avatar support
 - 'Read more' link added
 - Excerpt support
+
+= 1.2.1 =
+
+- Avatar size disappears after save bugfix
+- 'Read more' link shorcode documentation added
+

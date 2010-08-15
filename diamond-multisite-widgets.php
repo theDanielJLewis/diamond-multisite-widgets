@@ -4,7 +4,7 @@
  Plugin URI: http://wordpress.org/extend/plugins/diamond-multisite-widgets/
  Description: Multisite recent posts widget, Multisite recent comments widget. Content from the whole network.
  Author: Daniel Bozo
- Version: 1.2
+ Version: 1.2.1
  Author URI: http://www.amegrant.hu
  */
  
@@ -188,6 +188,7 @@
 		echo '{author} - ' . __('The post\'s author', 'postauthor') .'<br />';
 		echo '{avatar} - ' . __('Author\'s avatar', 'postauthoravatar') .'<br />';
 		echo '{blog} - '. __('The post\'s blog name', 'postblog') .'<br />';
+		echo '{more} - '. __('The "Read More" link', 'rmlink') .'<br />';
 		echo '<br />';
 		
 		
@@ -197,9 +198,11 @@
 				$option = 96;
 			update_option('wgt_avsize',$option);		
 		}
-		$wgt_text=get_option('wgt_avsize');	
+		$wgt_avsize=get_option('wgt_avsize');	
 		
-		echo '<label for="wgt_avsize">' . __('Avatar Size (px)', 'avsize') . ':<br /><input id="wgt_avsize" name="wgt_avsize" type="text" value="'.$wgt_avsize.'" /></label>';
+		echo '<label for="wgt_avsize">' . __('Avatar Size (px)', 'avsize') .
+		':<br /><input id="wgt_avsize" name="wgt_avsize" type="text" value="'.
+		$wgt_avsize.'" /></label>';
 		echo '<br />';
 		
 		
@@ -209,7 +212,9 @@
 		}
 		$wgt_defav=get_option('wgt_defav');	
 		
-		echo '<label for="wgt_defav">' . __('Default Avatar URL', 'defav') . ':<br /><input id="wgt_defav" name="wgt_defav" type="text" value="'.$wgt_defav.'" /></label>';
+		echo '<label for="wgt_defav">' . __('Default Avatar URL', 'defav') .
+		':<br /><input id="wgt_defav" name="wgt_defav" type="text" value="'.
+		$wgt_defav.'" /></label>';
 		echo '<br />';
 		
 		
@@ -222,7 +227,9 @@
 		}
 		$wgt_mtext=get_option('wgt_mtext');	
 		
-		echo '<label for="wgt_mtext">' . __('"Read More" link text', 'rmtext') . ':<br /><input id="wgt_mtext" name="wgt_mtext" type="text" value="'.$wgt_mtext.'" /></label>';
+		echo '<label for="wgt_mtext">' . __('"Read More" link text', 'rmtext') . 
+		':<br /><input id="wgt_mtext" name="wgt_mtext" type="text" value="'.
+		$wgt_mtext.'" /></label>';
 		echo '<br />';		
 		
 		echo '<br />';
