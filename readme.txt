@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypa
 Tags: recent post, network, multisite, widget, recent comments, MU, WPMU, sidebar
 Requires at least: 3.0.0
 Tested up to: 3.0.1
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 
 Recent posts and comments from the whole network
 
@@ -16,6 +16,7 @@ Features:<br />
 - You can choose the entries count<br />
 - You can exclude your main blog or any sub-blogs<br />
 - Yue can format the entries easily with short codes and html tags <br />
+- You can set custom datetime format<br />
 - You can use it on sub-blogs<br />
 - Avatar support<br />
 <br />
@@ -38,4 +39,8 @@ if you have any question write me an e-mail to daniel.bozo@amegrant.hu
 
 - Avatar size disappears after save bugfix
 - 'Read more' link shorcode documentation added
+
+= 1.2.2 =
+
+- Custom datetime format
 

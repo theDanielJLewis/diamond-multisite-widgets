@@ -4,7 +4,7 @@
  Plugin URI: http://wordpress.org/extend/plugins/diamond-multisite-widgets/
  Description: Multisite recent posts widget, Multisite recent comments widget. Content from the whole network.
  Author: Daniel Bozo
- Version: 1.2.1
+ Version: 1.2.2
  Author URI: http://www.amegrant.hu
  */
  
@@ -56,6 +56,10 @@
 		$wgt_avsize = get_option('wgt_avsize');		
 		$wgt_mtext = get_option('wgt_mtext');		
 		$wgt_defav = get_option('wgt_defav');		
+		$wgt_dt = get_option('wgt_dt');		
+		
+		if (!isset($wgt_dt) || trim($wgt_dt) =='') 
+			$wgt_dt = 'M. d. Y.';
 		
 		if (!isset($wgt_avsize) || $wgt_avsize == '')
 			$wgt_avsize = 96;
@@ -106,7 +110,7 @@
 			$txt = str_replace('{title}', '<a href="' .get_blog_permalink($post["blog_id"], $post["id"]).'">'.$p->post_title.'</a>' , $txt);
 			$txt = str_replace('{more}', '<a href="' .get_blog_permalink($post["blog_id"], $post["id"]).'">'.$wgt_mtext.'</a>' , $txt);
 			$txt = str_replace('{title_txt}', $p->post_title , $txt);
-			$txt = str_replace('{date}', $p->post_date, $txt);
+			$txt = str_replace('{date}', date_i18n($wgt_dt, strtotime($p->post_date)), $txt);
 			$txt = str_replace('{excerpt}', $ex , $txt);
 			$txt = str_replace('{author}', get_userdata($p->post_author)->nickname, $txt);
 			$txt = str_replace('{avatar}', $av , $txt);
@@ -232,6 +236,23 @@
 		$wgt_mtext.'" /></label>';
 		echo '<br />';		
 		
+		if ($_POST['wgt_dt']) {
+			$option=$_POST['wgt_dt'];			
+			update_option('wgt_dt',$option);		
+		}
+		$wgt_dt=get_option('wgt_dt');	
+		if (!isset($wgt_dt) || trim($wgt_dt) =='') {
+			$wgt_dt = 'M. d. Y.';
+			update_option('wgt_dt',$wgt_dt);				
+		}
+		
+		echo '<label for="wgt_dt">' . __('DateTime format (<a href="http://php.net/manual/en/function.date.php" target="_blank">manual</a>)', 'dttext') . 
+		':<br /><input id="wgt_dt" name="wgt_dt" type="text" value="'.
+		$wgt_dt.'" /></label>';
+		echo '<br />';	
+		
+		
+		
 		echo '<br />';
 		_e('if you like this widget then', 'ifyoulike');
 		echo ': <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40amegrant%2ehu&lc=HU&item_name=Diamond%20Multisite%20WordPress%20Widget&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted" target="_blank">';
@@ -275,6 +296,10 @@
 		$wgt_avsize = get_option('wgtc_avsize');		
 		$wgt_mtext = get_option('wgtc_mtext');		
 		$wgt_defav = get_option('wgtc_defav');		
+		$wgt_dt = get_option('wgtc_dt');		
+		
+		if (!isset($wgt_dt) || trim($wgt_dt) =='') 
+			$wgt_dt = 'M. d. Y.';
 		
 		if (!isset($wgt_avsize) || $wgt_avsize == '')
 			$wgt_avsize = 96;
@@ -326,7 +351,7 @@
 			$txt = str_replace('{title_txt}', $c, $txt);
 			$txt = str_replace('{author}', $comm['comment_author'], $txt);
 			$txt = str_replace('{avatar}', $av, $txt);
-			$txt = str_replace('{date}', $comm['comment_date'], $txt);			
+			$txt = str_replace('{date}', date_i18n($wgt_dt, strtotime($comm['comment_date'])), $txt);			
 			
 			echo $txt;
 			echo '</li>';
@@ -435,7 +460,22 @@
 		$wgtc_mtext=get_option('wgtc_mtext');	
 		
 		echo '<label for="wgtc_mtext">' . __('"Read More" link text', 'rmtext') . ':<br /><input id="wgtc_mtext" name="wgtc_mtext" type="text" value="'.$wgtc_mtext.'" /></label>';
-		echo '<br />';		
+		echo '<br />';	
+
+		if ($_POST['wgtc_dt']) {
+			$option=$_POST['wgtc_dt'];			
+			update_option('wgtc_dt',$option);		
+		}
+		$wgtc_dt=get_option('wgtc_dt');	
+		if (!isset($wgtc_dt) || trim($wgtc_dt) =='') {
+			$wgtc_dt = 'M. d. Y.';
+			update_option('wgtc_dt',$wgtc_dt);				
+		}
+		
+		echo '<label for="wgtc_dt">' . __('DateTime format (<a href="http://php.net/manual/en/function.date.php" target="_blank">manual</a>)', 'dttext') . 
+		':<br /><input id="wgtc_dt" name="wgtc_dt" type="text" value="'.
+		$wgtc_dt.'" /></label>';
+		echo '<br />';			
 		
 		echo '<br />';		
 		
