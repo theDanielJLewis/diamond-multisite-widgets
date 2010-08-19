@@ -4,11 +4,11 @@
  Plugin URI: http://wordpress.org/extend/plugins/diamond-multisite-widgets/
  Description: Multisite recent posts widget, Multisite recent comments widget. Content from the whole network.
  Author: Daniel Bozo
- Version: 1.2.2
+ Version: 1.2.3
  Author URI: http://www.amegrant.hu
  */
  
-/*  Copyright YEAR  PLUGIN_AUTHOR_NAME  (email : PLUGIN AUTHOR EMAIL)
+/*  Copyright 2010  Daniel Bozo  (email : daniel.bozo@amegrant.hu)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as 
@@ -99,9 +99,9 @@
 			
 			$txt = ($wgt_format == '') ? '<b>{title}<b> - <i>{date}<i>' : $wgt_format;
 			
-			$p = get_blog_post($post["blog_id"], $post["id"]);
+			$p = get_blog_post($post["blog_id"], $post["id"]);			
 			
-			$av = get_avatar(get_userdata($p->post_author)->user_email, $avsize, $defav);
+			$av = get_avatar(get_userdata($p->post_author)->user_email, $wgt_avsize, $defav);
 			
 			$ex = $p->post_excerpt;
 			if (!isset($ex) || trim($ex) == '')
@@ -343,7 +343,7 @@
 			$p = get_blog_post($comm["blog_id"], $post["comment_post_id"]);
 			$c = $comm['comment_content'];
 			
-			$av = get_avatar($comm['comment_author_email'], $avsize, $defav);
+			$av = get_avatar($comm['comment_author_email'], $wgt_avsize, $defav);
 			
 			if (strlen($c) > 50) 
 				$c = substr(strip_tags($c), 0, 51) . '...';

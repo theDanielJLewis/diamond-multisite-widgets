@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypa
 Tags: recent post, network, multisite, widget, recent comments, MU, WPMU, sidebar
 Requires at least: 3.0.0
 Tested up to: 3.0.1
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 
 Recent posts and comments from the whole network
 
@@ -43,4 +43,10 @@ if you have any question write me an e-mail to daniel.bozo@amegrant.hu
 = 1.2.2 =
 
 - Custom datetime format
+
+= 1.2.3 =
+
+- Avatar size bugfix
+
+
 
