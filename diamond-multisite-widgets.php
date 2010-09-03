@@ -4,7 +4,7 @@
  Plugin URI: http://wordpress.org/extend/plugins/diamond-multisite-widgets/
  Description: Multisite recent posts widget, Multisite recent comments widget. Content from the whole network. An administration widget on the post-writing window. You can copy your post to the network's sub blogs.
  Author: Daniel Bozo
- Version: 1.3
+ Version: 1.3.1
  Author URI: http://www.amegrant.hu
  */
  
@@ -340,7 +340,7 @@
 			
 			$txt = ($wgt_format == '') ? '<b>{title}<b> - <i>{date}<i>' : $wgt_format;			
 			
-			$p = get_blog_post($comm["blog_id"], $post["comment_post_id"]);
+			$p = get_blog_post($comm["blog_id"], $comm["comment_post_id"]);
 			$c = $comm['comment_content'];
 			
 			$av = get_avatar($comm['comment_author_email'], $wgt_avsize, $defav);
@@ -350,7 +350,9 @@
 			$txt = str_replace('{title}', '<a href="' .get_blog_permalink($comm["blog_id"], $comm["comment_post_id"]).'">'.$c.'</a>' , $txt);
 			$txt = str_replace('{title_txt}', $c, $txt);
 			$txt = str_replace('{author}', $comm['comment_author'], $txt);
-			$txt = str_replace('{avatar}', $av, $txt);
+			$txt = str_replace('{avatar}', $av, $txt);			
+			$txt = str_replace('{post-title}', '<a href="'. get_blog_permalink($comm["blog_id"], $comm["comment_post_id"]) .'">'.$p->post_title.'</a>' , $txt);			
+			$txt = str_replace('{post-title_txt}', $p->post_title , $txt);
 			$txt = str_replace('{date}', date_i18n($wgt_dt, strtotime($comm['comment_date'])), $txt);			
 			
 			echo $txt;
@@ -421,8 +423,10 @@
 		$wgt_format=get_option('c_wgt_format');
 		echo '<label for="wgt_number">' . __('Format string', 'formatstr') .':<br /><input id="wgt_format" name="wgt_format" type="text" value="'.$wgt_format.'" /></label><br />';		
 		echo '{title} - '. __('The comment\'s content', 'comcont') . '</p><br />';
-		echo '{title_txt} - '. __('The comment\'s title', 'posttitle').' '.__('(without link)', 'posttitletxt').'<br />';
-		echo '{date} - '.__('The post\'s date', 'commdate'). '</p><br />';
+		echo '{title_txt} - '. __('The comment\'s content', 'posttitle').' '.__('(without link)', 'posttitletxt').'<br />';
+		echo '{post-title} - '. __('The post\'s title', 'comcont') . '</p><br />';
+		echo '{post-title_txt} - '. __('The post\'s title text', 'posttitle')	.' '.__('(without link)', 'posttitletxt').'<br />';
+		echo '{date} - '.__('The comment\'s date', 'commdate'). '</p><br />';
 		echo '{author} - ' . __('The comment\'s author', 'commauthor') .'<br />';
 		echo '{avatar} - ' . __('Author\'s avatar', 'postauthoravatar') .'<br />';
 		echo '<br />';	
