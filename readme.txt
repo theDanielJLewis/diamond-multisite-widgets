@@ -32,6 +32,7 @@ Broadcast posts
 	This shows tha last 3 posts horizontally in a table on a page or a post.
 	<pre>
 	[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="&lt;table&gt;&lt;tr&gt;" after_content="&lt;/tr&gt;&lt;/table&gt;" before_item="&lt;td&gt;" after_item="&lt;/td&gt;" count=3  /]
+	
 	</pre>
 	
 	- Recent Comments
@@ -41,7 +42,7 @@ Broadcast posts
 	<pre>
 	[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="&lt;table&gt;&lt;tr&gt;" after_content="&lt;/tr&gt;&lt;/table&gt;" before_item="&lt;td&gt;" after_item="&lt;/td&gt;" count=3  /]
 	</pre>
-	</p>
+	
 	<h5>Attributes:</h5>
 	<ul>
 		<li>format: format string. You can use the widget's shortcodes!</li>
