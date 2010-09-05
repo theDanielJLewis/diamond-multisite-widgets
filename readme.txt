@@ -24,8 +24,7 @@ Broadcast posts
 <br />
 - Post/Page shortcodes support:<br />
 - Usage:<br />
-    Recent Posts
-	
+    Recent Posts	<br />
 	[diamond-post  /]
 	<br />
 	This shows tha last 3 posts horizontally in a table on a page or a post.
