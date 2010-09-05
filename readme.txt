@@ -25,23 +25,22 @@ Broadcast posts
 - Post/Page shortcodes support:<br />
 - Usage:<br />
     Recent Posts
+	
 	[diamond-post  /]
-	
-	
-	
+	<br />
 	This shows tha last 3 posts horizontally in a table on a page or a post.
 	
 	[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="&lt;table&gt;&lt;tr&gt;" after_content="&lt;/tr&gt;&lt;/table&gt;" before_item="&lt;td&gt;" after_item="&lt;/td&gt;" count=3  /]
-	
+	<br />
 	
 	
 	- Recent Comments
 	  [diamond-comment  /]
-	
+	<br />
 	This shows tha last 3 comments horizontally in a table.
 	
 	[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="&lt;table&gt;&lt;tr&gt;" after_content="&lt;/tr&gt;&lt;/table&gt;" before_item="&lt;td&gt;" after_item="&lt;/td&gt;" count=3  /]
-	
+	<br />
 	
 	<h5>Attributes:</h5>
 	<ul>
