@@ -6,7 +6,9 @@ Requires at least: 3.0.0
 Tested up to: 3.0.1
 Stable tag: 1.4
 
-Recent posts and comments from the whole network
+<b>Recent posts and comments from the whole network<br/>
+Broadcast posts
+</b>
 
 == Description ==
 
