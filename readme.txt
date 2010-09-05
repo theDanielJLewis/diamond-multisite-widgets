@@ -31,7 +31,7 @@ Broadcast posts
 	
 	This shows tha last 3 posts horizontally in a table on a page or a post.
 	<pre>
-	[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="<table><tr>" after_content="</tr></table>" before_item="<td>" after_item="</td>" count=3  /]
+	[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="&lt;table&gt;&lt;tr&gt;" after_content="&lt;/tr&gt;&lt;/table&gt;" before_item="&lt;td&gt;" after_item="&lt;/td&gt;" count=3  /]
 	</pre>
 	
 	- Recent Comments
@@ -39,7 +39,7 @@ Broadcast posts
 	</pre>
 	This shows tha last 3 comments horizontally in a table.
 	<pre>
-	[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="<table><tr>" after_content="</tr></table>" before_item="<td>" after_item="</td>" count=3  /]
+	[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="&lt;table&gt;&lt;tr&gt;" after_content="&lt;/tr&gt;&lt;/table&gt;" before_item="&lt;td&gt;" after_item="&lt;/td&gt;" count=3  /]
 	</pre>
 	</p>
 	<h5>Attributes:</h5>
