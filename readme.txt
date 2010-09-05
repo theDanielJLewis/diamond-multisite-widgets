@@ -25,39 +25,32 @@ Broadcast posts
 - Post/Page shortcodes support:<br />
 - Usage:<br />
     Recent Posts	<br />
-	<pre><code>[diamond-post  /]</code></pre>
-	<br />
-	This shows tha last 3 posts horizontally in a table on a page or a post.
+	[diamond-post  /]
 	
-	<pre><code>[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="&lt;table&gt;&lt;tr&gt;" after_content="&lt;/tr&gt;&lt;/table&gt;" before_item="&lt;td&gt;" after_item="&lt;/td&gt;" count=3  /]</code></pre>
-	<br />
-	
+	This shows tha last 3 posts horizontally in a table on a page or a post:	
+	[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="&lt;table&gt;&lt;tr&gt;" after_content="&lt;/tr&gt;&lt;/table&gt;" before_item="&lt;td&gt;" after_item="&lt;/td&gt;" count=3  /]	
 	
 	- Recent Comments
-	  <pre><code>[diamond-comment  /]</code></pre>
-	<br />
-	This shows tha last 3 comments horizontally in a table.
+	  [diamond-comment  /]
 	
-	<pre><code>[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="&lt;table&gt;&lt;tr&gt;" after_content="&lt;/tr&gt;&lt;/table&gt;" before_item="&lt;td&gt;" after_item="&lt;/td&gt;" count=3  /]</code></pre>
-	<br />
+	This shows tha last 3 comments horizontally in a table.	
+	[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="&lt;table&gt;&lt;tr&gt;" after_content="&lt;/tr&gt;&lt;/table&gt;" before_item="&lt;td&gt;" after_item="&lt;/td&gt;" count=3  /]	
 	
-	<h5>Attributes:</h5>
-	<ul>
-		<li>format: format string. You can use the widget's shortcodes!</li>
-		<li>before_content: Before the entry-list (Default: &lt;ul&gt;)</li>
-		<li>after_content: After the entry-list (Default: &lt;/ul&gt;)</li>
-		<li>before_item: Before the entry-list item (Default: &lt;li&gt;)</li>
-		<li>after_item: After the entry-list item (Default: &lt;/li&gt;)</li>
-		<li>exclude: Blogs' id you want to exclude (separate with ',')</li>
-		<li>count: Entry count limit</li>
-		<li>avatar_size: Author's avatar's size (px) </li>
-		<li>default_avatar: Custom default avatar's URL</li>
-		<li>date_format: Datetime format string</li>
-	</ul>
-<br />
+	Attributes:	
+		format: format string. You can use the widget's shortcodes!
+		before_content: Before the entry-list (Default: &lt;ul&gt;)
+		after_content: After the entry-list (Default: &lt;/ul&gt;)
+		before_item: Before the entry-list item (Default: &lt;li&gt;)
+		after_item: After the entry-list item (Default: &lt;/li&gt;)
+		exclude: Blogs' id you want to exclude (separate with ',')
+		count: Entry count limit
+		avatar_size: Author's avatar's size (px) 
+		default_avatar: Custom default avatar's URL
+		date_format: Datetime format string
+	
 Broadcast Post On The Network<br />
 - In the publish box, you can copy your post to the network's sub-blogs<br />
-<br />
+
 if you have any question write me an e-mail to daniel.bozo@amegrant.hu
 
 == Changelog ==
