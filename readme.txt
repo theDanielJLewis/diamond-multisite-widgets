@@ -25,20 +25,20 @@ Broadcast posts
 - Post/Page shortcodes support:<br />
 - Usage:<br />
     Recent Posts	<br />
-	[diamond-post  /]
+	<pre><code>[diamond-post  /]</code></pre>
 	<br />
 	This shows tha last 3 posts horizontally in a table on a page or a post.
 	
-	[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="&lt;table&gt;&lt;tr&gt;" after_content="&lt;/tr&gt;&lt;/table&gt;" before_item="&lt;td&gt;" after_item="&lt;/td&gt;" count=3  /]
+	<pre><code>[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="&lt;table&gt;&lt;tr&gt;" after_content="&lt;/tr&gt;&lt;/table&gt;" before_item="&lt;td&gt;" after_item="&lt;/td&gt;" count=3  /]</code></pre>
 	<br />
 	
 	
 	- Recent Comments
-	  [diamond-comment  /]
+	  <pre><code>[diamond-comment  /]</code></pre>
 	<br />
 	This shows tha last 3 comments horizontally in a table.
 	
-	[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="&lt;table&gt;&lt;tr&gt;" after_content="&lt;/tr&gt;&lt;/table&gt;" before_item="&lt;td&gt;" after_item="&lt;/td&gt;" count=3  /]
+	<pre><code>[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="&lt;table&gt;&lt;tr&gt;" after_content="&lt;/tr&gt;&lt;/table&gt;" before_item="&lt;td&gt;" after_item="&lt;/td&gt;" count=3  /]</code></pre>
 	<br />
 	
 	<h5>Attributes:</h5>
