@@ -6,7 +6,7 @@ Requires at least: 3.0.0
 Tested up to: 3.0.1
 Stable tag: 1.4
 
-<b>Recent posts and comments from the whole network<br/>
+<b>Recent posts and comments from the whole network<br />
 Broadcast posts
 </b>
 
@@ -23,24 +23,20 @@ Broadcast posts
 - Avatar support<br />
 <br />
 - Post/Page shortcodes support:<br />
-- Usage:<br/>
-	<p>Recent Posts
+- Usage:<br />
+    Recent Posts
 	<pre>[diamond-post  /]
 	</pre>
-	</p>
-	<p>
-	With attributes:<br/>
+	
+	
 	This shows tha last 3 posts horizontally in a table on a page or a post.
 	<pre>
 	[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="<table><tr>" after_content="</tr></table>" before_item="<td>" after_item="</td>" count=3  /]
 	</pre>
-	</p>
-	<p>Recent Comments
+	
+	- Recent Comments
 	<pre>[diamond-comment  /]
 	</pre>
-	</p>
-	<p>
-	With attributes:<br/>
 	This shows tha last 3 comments horizontally in a table.
 	<pre>
 	[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="<table><tr>" after_content="</tr></table>" before_item="<td>" after_item="</td>" count=3  /]
