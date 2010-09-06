@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypa
 Tags: recent post, network, multisite, widget, recent comments, MU, WPMU, sidebar, broadcast, copy post, share post, network post
 Requires at least: 3.0.0
 Tested up to: 3.0.1
-Stable tag: 1.3.1
+Stable tag: 1.4
 
 Recent posts and comments from the whole network
 
