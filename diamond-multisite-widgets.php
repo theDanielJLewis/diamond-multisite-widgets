@@ -4,7 +4,7 @@
  Plugin URI: http://wordpress.org/extend/plugins/diamond-multisite-widgets/
  Description: Multisite recent posts widget, Multisite recent comments widget. Content from the whole network. An administration widget on the post-writing window. You can copy your post to the network's sub blogs.
  Author: Daniel Bozo
- Version: 1.3.1
+ Version: 1.4
  Author URI: http://www.amegrant.hu
  */
  
@@ -39,16 +39,32 @@
 		 
 		register_sidebar_widget(array(__('Diamond Recent Posts', 'rp-name'),'widgets'),array($this, 'widget_endView'));
 		register_widget_control(array(__('Diamond Recent Posts', 'rp_name'), 'widgets'), array($this, 'widget_controlView'));
+		
+		add_shortcode('diamond-post', array($this, 'diamond_post_handler'));
 		 
 	}
 
+	function diamond_post_handler(  $atts, $content = null  ) {
+				
+		 extract( shortcode_atts( array(
+		'exclude' => '',
+		'count' => '',
+		'format'	 => '',
+		'avatar_size' => '',
+		'default_avatar' => '',
+		'date_format' => '',
+		'before_item' =>'',
+		'after_item' => '',
+		'before_content' => '',
+		'after_content' => ''
+		), $atts ) );
+			
+		return $this->render_output(split(',',$exclude), $count, html_entity_decode($format), $avatar_size, $default_avatar, $date_format, html_entity_decode($before_item), html_entity_decode($after_item), html_entity_decode($before_content), html_entity_decode($after_content));
+	}
+	
 
 	function widget_endView($args)
-	{
-		global $switched;		
-		global $wpdb;
-		$table_prefix = $wpdb->base_prefix;
-		
+	{		
 		$wgt_title=get_option('wgt_title');
 		$wgt_count=get_option('wgt_count');		
 		$wgt_miss= split(';', get_option('wgt_miss'));		
@@ -56,18 +72,52 @@
 		$wgt_avsize = get_option('wgt_avsize');		
 		$wgt_mtext = get_option('wgt_mtext');		
 		$wgt_defav = get_option('wgt_defav');		
-		$wgt_dt = get_option('wgt_dt');		
+		$wgt_dt = get_option('wgt_dt');				
+	
+	//print_r($args);
+		
+		extract($args);
+		
+		$output = '';
+		
+		$output .= $before_widget.$before_title.$wgt_title. $after_title;
+		
+	
+		$output .= $this->render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, '<li>', '</li>', '<ul>', '</ul>') ;
+		
+		$output .=  $after_widget;
+		
+		echo $output;
+	}
+	
+	
+	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, $before_item, $after_item, $before_cont, $after_cont)	 {		
+	
+		global $switched;		
+		global $wpdb;
+		$table_prefix = $wpdb->base_prefix;
 		
 		if (!isset($wgt_dt) || trim($wgt_dt) =='') 
 			$wgt_dt = 'M. d. Y.';
 		
 		if (!isset($wgt_avsize) || $wgt_avsize == '')
 			$wgt_avsize = 96;
+			
+		if (!isset($before_item) || $before_item == '')
+			$before_item = '<li>';	
+			
+		if (!isset($after_item) || $after_item == '')
+			$after_item = '</li>';			
+			
+		if (!isset($before_cont) || $before_cont == '')
+			$before_cont = '<ul>';	
+			
+		if (!isset($after_cont) || $after_cont == '')
+			$after_cont = '</ul>';			
+			
+		if (!isset($wgt_miss) || $wgt_miss == '')
+			$wgt_miss = array ();					
 		
-		extract($args);
-		echo $before_widget.$before_title.$wgt_title.
-		$after_title;
-	
 		$sqlstr = '';
 		$blog_list = get_blog_list( 0, 'all' );
 		if (!in_array(1, $wgt_miss)) {
@@ -92,10 +142,11 @@
 		 //echo $sqlstr; 
 		$post_list = $wpdb->get_results($sqlstr, ARRAY_A);
 		//echo $wpdb->print_error(); 
-		//print_r($post_list);
-		echo '<ul>';
+		
+		$output = '';
+		$output .=  $before_cont;
 		foreach ($post_list AS $post) {
-			echo '<li>';
+			$output .=  $before_item;
 			
 			$txt = ($wgt_format == '') ? '<b>{title}<b> - <i>{date}<i>' : $wgt_format;
 			
@@ -116,16 +167,17 @@
 			$txt = str_replace('{avatar}', $av , $txt);
 			$txt = str_replace('{blog}', get_blog_option($post["blog_id"], 'blogname') , $txt);		
 			
-			echo $txt;
-			echo '</li>';
+			$output .=  $txt;
+			$output .=  $after_item;
 		}
-		echo '</ul>';
+		$output .=  $after_cont;
 		
-		echo $wpdb->print_error(); 
-		//print_r($post_list);		
+		$output .=  $wpdb->print_error();
 		
-		echo $after_widget;
+		return $output; 
+		
 	}
+	
 	 
 	function widget_controlView()
 	{
@@ -279,15 +331,34 @@
 		 
 		register_sidebar_widget(array(__('Diamond Recent Comments', 'rc-name'),'widgets'),array($this, 'widget_endView'));
 		register_widget_control(array(__('Diamond Recent Comments', 'rc-name'), 'widgets'), array($this, 'widget_controlView'));
+		
+		add_shortcode('diamond-comment', array($this, 'diamond_comment_handler'));
 		 
 	}
+	
+	
 
+	function diamond_comment_handler(  $atts, $content = null  ) {
+			
+		 extract( shortcode_atts( array(
+		'exclude' => '',
+		'count' => '',
+		'format'	 => '',
+		'avatar_size' => '',
+		'default_avatar' => '',
+		'date_format' => '',
+		'before_item' =>'',
+		'$after_item' => '',
+		'before_content' => '',
+		'after_content' => ''
+		), $atts ) );
+			
 
+		return $this->render_output(split(',',$exclude), $count, $format, $avatar_size, $default_avatar, $date_format, $before_item, $after_item, $before_content, $after_content);
+	}
+	
 	function widget_endView($args)
-	{
-		global $switched;		
-		global $wpdb;
-		$table_prefix = $wpdb->base_prefix;
+	{		
 		
 		$wgt_title=get_option('c_wgt_title');
 		$wgt_count=get_option('c_wgt_count');		
@@ -298,16 +369,45 @@
 		$wgt_defav = get_option('wgtc_defav');		
 		$wgt_dt = get_option('wgtc_dt');		
 		
+		$output = '';
+		
+		extract($args);
+		$output .= $before_widget.$before_title.$wgt_title.$after_title;	
+
+		$output .= $this->render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, '<li>', '</li>', '<ul>', '</ul>');
+		
+		$output .= $after_widget;
+		
+		echo $output;
+	}
+	
+	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, $before_item, $after_item, $before_cont, $after_cont)	 {	
+	
+		global $switched;		
+		global $wpdb;
+		$table_prefix = $wpdb->base_prefix;
+		
 		if (!isset($wgt_dt) || trim($wgt_dt) =='') 
 			$wgt_dt = 'M. d. Y.';
 		
 		if (!isset($wgt_avsize) || $wgt_avsize == '')
 			$wgt_avsize = 96;
+			
+		if (!isset($before_item) || $before_item == '')
+			$before_item = '<li>';	
+			
+		if (!isset($after_item) || $after_item == '')
+			$after_item = '</li>';			
+			
+		if (!isset($before_cont) || $before_cont == '')
+			$before_cont = '<ul>';	
+			
+		if (!isset($after_cont) || $after_cont == '')
+			$after_cont = '</ul>';			
+			
+		if (!isset($wgt_miss) || $wgt_miss == '')
+			$wgt_miss = array ();				
 		
-		extract($args);
-		echo $before_widget.$before_title.$wgt_title.
-		$after_title;
-	
 		$sqlstr = '';
 		$blog_list = get_blog_list( 0, 'all' );
 		if (!in_array(1, $wgt_miss)) {
@@ -329,14 +429,14 @@
 		$sqlstr .= " ORDER BY comment_date_gmt desc " . $limit;		
 				
 		// echo $sqlstr; 
+		
+		$output = '';
 		 
-		$comm_list = $wpdb->get_results($sqlstr, ARRAY_A);	
+		$comm_list = $wpdb->get_results($sqlstr, ARRAY_A);			
 		
-		
-		
-		echo '<ul>';
+		$output .= $before_cont;
 		foreach ($comm_list AS $comm) {
-			echo '<li>';
+			$output .= $before_item;
 			
 			$txt = ($wgt_format == '') ? '<b>{title}<b> - <i>{date}<i>' : $wgt_format;			
 			
@@ -355,15 +455,14 @@
 			$txt = str_replace('{post-title_txt}', $p->post_title , $txt);
 			$txt = str_replace('{date}', date_i18n($wgt_dt, strtotime($comm['comment_date'])), $txt);			
 			
-			echo $txt;
-			echo '</li>';
+			$output .= $txt;
+			$output .= $after_item;
 		}
-		echo '</ul>';
+		$output .= $after_cont;
 		
-		echo $wpdb->print_error(); 
-		//print_r($post_list);		
+		$output .= $wpdb->print_error(); 
 		
-		echo $after_widget;
+		return $output;
 	}
 	 
 	function widget_controlView()
