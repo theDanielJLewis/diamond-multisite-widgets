@@ -19,6 +19,7 @@ Features:<br />
 - You can set custom datetime format<br />
 - You can use it on sub-blogs<br />
 - Avatar support<br />
+- Posts/Pages shortcode support (read more at the 'Installation' section)<br />
 <br />
 Broadcast Post On The Network<br />
 - In the publish box, you can copy your post to the network's sub-blogs<br />
@@ -26,6 +27,11 @@ Broadcast Post On The Network<br />
 if you have any question write me an e-mail to daniel.bozo@amegrant.hu
 
 == Changelog ==
+
+= 1.4 =
+
+- Posts/Pages shortcode support
+- Refactor the render mechanism
 
 = 1.3.1 =
 
@@ -57,6 +63,37 @@ if you have any question write me an e-mail to daniel.bozo@amegrant.hu
 = 1.1 =
 
 - Now you can use it on sub-blogs
+
+== Installation ==
+
+- Post/Page shortcodes usage:
+
+- Recent Posts
+[diamond-post /]
+
+- This shows tha last 3 posts horizontally in a table on a page or a post:    
+[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="&lt;table&gt;&lt;tr&gt;" after_content="&lt;/tr&gt;&lt;/table&gt;" before_item="&lt;td&gt;" after_item="&lt;/td&gt;" count=3  /]   
+
+- Recent Comments
+  [diamond-comment  /]
+
+- This shows tha last 3 comments horizontally in a table. 
+[diamond-post format="{avatar}- {title} - {author} - {date}" before_content="&lt;table&gt;&lt;tr&gt;" after_content="&lt;/tr&gt;&lt;/table&gt;" before_item="&lt;td&gt;" after_item="&lt;/td&gt;" count=3  /]   
+
+- Attributes: 
+    format: format string. You can use the widget's shortcodes!
+    before_content: Before the entry-list (Default: &lt;ul&gt;)
+    after_content: After the entry-list (Default: &lt;/ul&gt;)
+    before_item: Before the entry-list item (Default: &lt;li&gt;)
+    after_item: After the entry-list item (Default: &lt;/li&gt;)
+    exclude: Blogs' id you want to exclude (separate with ',')
+    count: Entry count limit
+    avatar_size: Author's avatar's size (px) 
+    default_avatar: Custom default avatar's URL
+    date_format: Datetime format string
+
+
+
 
 
 
