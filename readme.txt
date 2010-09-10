@@ -1,17 +1,17 @@
 === Plugin Name ===
 Contributors: Rocky1983
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40amegrant%2ehu&lc=HU&item_name=Diamond%20Multisite%20WordPress%20Widget&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
-Tags: recent post, network, multisite, widget, recent comments, MU, WPMU, sidebar, broadcast, copy post, share post, network post
-Requires at least: 3.0.0
+Tags: recent post, network, multisite, widget, recent comments, MU, WPMU, sidebar, broadcast, copy post, share post, network post, rss, rss feed, recent post rss, network rss
+Requires at least: 3.0
 Tested up to: 3.0.1
-Stable tag: 1.4
+Stable tag: 1.5
 
 Recent posts and comments from the whole network
 
 == Description ==
 
-Recent posts and comments from the whole network
-<br />
+Recent posts and comments from the whole network<br />
+
 Features:<br />
 - You can choose the entries count<br />
 - You can exclude your main blog or any sub-blogs<br />
@@ -20,6 +20,7 @@ Features:<br />
 - You can use it on sub-blogs<br />
 - Avatar support<br />
 - Posts/Pages shortcode support (read more at the 'Installation' section)<br />
+- RSS Recent Post feed<br />
 <br />
 Broadcast Post On The Network<br />
 - In the publish box, you can copy your post to the network's sub-blogs<br />
@@ -27,6 +28,12 @@ Broadcast Post On The Network<br />
 if you have any question write me an e-mail to daniel.bozo@amegrant.hu
 
 == Changelog ==
+
+= 1.5 =
+
+- RSS feed support
+- Admin UI
+- Read more link bugfix
 
 = 1.4 =
 
