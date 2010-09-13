@@ -1,0 +1,215 @@
+# Translation of the WordPress plugin Diamond MultiSite Widgets 1.5 by Daniel Bozo.
+# Copyright (C) 2010 Daniel Bozo
+# This file is distributed under the same license as the Diamond MultiSite Widgets package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Diamond MultiSite Widgets 1.5\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/diamond-multisite-widgets\n"
+"POT-Creation-Date: 2010-09-10 14:05+0000\n"
+"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: diamond-admin.php:20
+msgid "Diamond Options"
+msgstr ""
+
+#. #-#-#-#-#  plugin.pot (Diamond MultiSite Widgets 1.5)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: diamond-admin.php:20
+msgid "Diamond MultiSite Widgets"
+msgstr ""
+
+#: diamond-admin.php:56
+msgid "Broadcast Posts"
+msgstr ""
+
+#: diamond-admin.php:64
+msgid "Enable Broadcast Post Widget"
+msgstr ""
+
+#: diamond-admin.php:67
+msgid ""
+"This widget enables you to copy your posts to other blogs. Check the post "
+"edit window"
+msgstr ""
+
+#: diamond-admin.php:70 diamond-admin.php:85 diamond-admin.php:97
+#: diamond-admin.php:110
+msgid "Update"
+msgstr ""
+
+#: diamond-admin.php:78
+msgid "Recent Posts"
+msgstr ""
+
+#: diamond-admin.php:93
+msgid "Recent Comments"
+msgstr ""
+
+#: diamond-admin.php:105
+msgid "Recent Posts Feed"
+msgstr ""
+
+#: diamond-broadcast-posts.php:19
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: diamond-broadcast-posts.php:85
+msgid "Broadcast this post"
+msgstr ""
+
+#: diamond-broadcast-posts.php:88
+msgid "Select blogs where you want to copy this post"
+msgstr ""
+
+#: diamond-broadcast-posts.php:91
+msgid "--- No broadcast ---"
+msgstr ""
+
+#: diamond-broadcast-posts.php:102
+msgid " (copied)"
+msgstr ""
+
+#: diamond-post-feed.php:119
+msgid "The feed's link"
+msgstr ""
+
+#: diamond-post-feed.php:130 diamond-recent-posts.php:175
+msgid "Posts count"
+msgstr ""
+
+#: diamond-post-feed.php:147 diamond-recent-comments.php:185
+#: diamond-recent-posts.php:192
+msgid "Exclude blogs: (The first 50 blogs)"
+msgstr ""
+
+#: diamond-post-feed.php:166 diamond-recent-comments.php:204
+#: diamond-recent-posts.php:213
+msgid "Format string"
+msgstr ""
+
+#: diamond-post-feed.php:168 diamond-recent-posts.php:216
+msgid "The post's excerpt"
+msgstr ""
+
+#: diamond-post-feed.php:169
+msgid "The post's content"
+msgstr ""
+
+#: diamond-post-feed.php:170 diamond-recent-posts.php:220
+msgid "The post's blog name"
+msgstr ""
+
+#: diamond-recent-comments.php:13 diamond-recent-comments.php:14
+msgid "Diamond Recent Comments"
+msgstr ""
+
+#: diamond-recent-comments.php:160 diamond-recent-posts.php:167
+msgid "Widget Title"
+msgstr ""
+
+#: diamond-recent-comments.php:168
+msgid "Comments count"
+msgstr ""
+
+#: diamond-recent-comments.php:205 diamond-recent-comments.php:206
+msgid "The comment's content"
+msgstr ""
+
+#: diamond-recent-comments.php:206 diamond-recent-comments.php:208
+#: diamond-recent-posts.php:215
+msgid "(without link)"
+msgstr ""
+
+#: diamond-recent-comments.php:207 diamond-recent-posts.php:214
+#: diamond-recent-posts.php:215
+msgid "The post's title"
+msgstr ""
+
+#: diamond-recent-comments.php:208
+msgid "The post's title text"
+msgstr ""
+
+#: diamond-recent-comments.php:209
+msgid "The comment's date"
+msgstr ""
+
+#: diamond-recent-comments.php:210
+msgid "The comment's author"
+msgstr ""
+
+#: diamond-recent-comments.php:211 diamond-recent-posts.php:219
+msgid "Author's avatar"
+msgstr ""
+
+#: diamond-recent-comments.php:221 diamond-recent-posts.php:230
+msgid "Avatar Size (px)"
+msgstr ""
+
+#: diamond-recent-comments.php:231 diamond-recent-posts.php:241
+msgid "Default Avatar URL"
+msgstr ""
+
+#: diamond-recent-comments.php:242 diamond-recent-posts.php:254
+msgid "\"Read More\" link text"
+msgstr ""
+
+#: diamond-recent-comments.php:255 diamond-recent-posts.php:269
+msgid ""
+"DateTime format (<a href=\"http://php.net/manual/en/function.date.php\" "
+"target=\"_blank\">manual</a>)"
+msgstr ""
+
+#: diamond-recent-comments.php:263 diamond-recent-posts.php:277
+msgid "if you like this widget then"
+msgstr ""
+
+#: diamond-recent-comments.php:265 diamond-recent-posts.php:279
+msgid "Buy me a beer!"
+msgstr ""
+
+#: diamond-recent-posts.php:16 diamond-recent-posts.php:17
+msgid "Diamond Recent Posts"
+msgstr ""
+
+#: diamond-recent-posts.php:217
+msgid "The post's date"
+msgstr ""
+
+#: diamond-recent-posts.php:218
+msgid "The post's author"
+msgstr ""
+
+#: diamond-recent-posts.php:221
+msgid "The \"Read More\" link"
+msgstr ""
+
+#: diamond-recent-posts.php:249
+msgid "Read More"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/extend/plugins/diamond-multisite-widgets/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Multisite recent posts widget, Multisite recent comments widget. Content "
+"from the whole network. An administration widget on the post-writing window. "
+"You can copy your post to the network's sub blogs."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Daniel Bozo"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.amegrant.com"
+msgstr ""
