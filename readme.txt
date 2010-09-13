@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypa
 Tags: recent post, network, multisite, widget, recent comments, MU, WPMU, sidebar, broadcast, copy post, share post, network post, rss, rss feed, recent post rss, network rss
 Requires at least: 3.0
 Tested up to: 3.0.1
-Stable tag: 1.5.2
+Stable tag: 1.5.3
 
 Recent posts and comments from the whole network
 
@@ -28,6 +28,11 @@ Broadcast Post On The Network<br />
 if you have any question write me an e-mail to daniel.bozo@amegrant.hu
 
 == Changelog ==
+
+= 1.5.3 =
+
+- Feed fix
+- Read more shordcode support and fix
 
 = 1.5.2 =
 
@@ -106,6 +111,7 @@ if you have any question write me an e-mail to daniel.bozo@amegrant.hu
     avatar_size: Author's avatar's size (px) 
     default_avatar: Custom default avatar's URL
     date_format: Datetime format string
+	more_text: 'Read more' link's text
 
 
 

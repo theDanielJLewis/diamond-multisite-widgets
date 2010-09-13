@@ -30,10 +30,11 @@ class DiamondRP {
 		'before_item' =>'',
 		'after_item' => '',
 		'before_content' => '',
+		'more_text' => '',
 		'after_content' => ''
 		), $atts ) );
 			
-		return $this->render_output(split(',',$exclude), $count, html_entity_decode($format), $avatar_size, $default_avatar, $date_format, html_entity_decode($before_item), html_entity_decode($after_item), html_entity_decode($before_content), html_entity_decode($after_content));
+		return $this->render_output(split(',',$exclude), $count, html_entity_decode($format), $avatar_size, $default_avatar, $date_format, html_entity_decode($before_item), html_entity_decode($after_item), html_entity_decode($before_content), html_entity_decode($after_content), $more_text);
 	}
 	
 
@@ -57,7 +58,7 @@ class DiamondRP {
 		$output .= $before_widget.$before_title.$wgt_title. $after_title;
 		
 	
-		$output .= $this->render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, '<li>', '</li>', '<ul>', '</ul>') ;
+		$output .= $this->render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, '<li>', '</li>', '<ul>', '</ul>', $wgt_mtext) ;
 		
 		$output .=  $after_widget;
 		
@@ -65,7 +66,7 @@ class DiamondRP {
 	}
 	
 	
-	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, $before_item, $after_item, $before_cont, $after_cont)	 {		
+	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, $before_item, $after_item, $before_cont, $after_cont, $wgt_mtext)	 {		
 	
 		global $switched;		
 		global $wpdb;

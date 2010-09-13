@@ -4,7 +4,7 @@
  Plugin URI: http://wordpress.org/extend/plugins/diamond-multisite-widgets/
  Description: Multisite recent posts widget, Multisite recent comments widget. Content from the whole network. An administration widget on the post-writing window. You can copy your post to the network's sub blogs.
  Author: Daniel Bozo
- Version: 1.5.2
+ Version: 1.5.3
  Author URI: http://www.amegrant.com
  */
  

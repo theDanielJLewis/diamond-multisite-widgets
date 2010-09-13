@@ -4,10 +4,10 @@ class DiamondPF {
 
 	function DiamondPF() {
 			add_action('init', array($this, 'init_diamondPF'));			
-			add_filter('generate_rewrite_rules', 'diamond_feed_rewrite');
+			add_filter('generate_rewrite_rules', array($this, 'diamond_feed_rewrite'));
 	}		 
 	
-	function custom_feed_rewrite($wp_rewrite) {
+	function diamond_feed_rewrite($wp_rewrite) {
 		$feed_rules = array(
 		'feed/(.+)' => 'index.php?feed=' . $wp_rewrite->preg_index(1),
 		'(.+).xml' => 'index.php?feed='. $wp_rewrite->preg_index(1)
