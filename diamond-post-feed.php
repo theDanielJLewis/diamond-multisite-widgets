@@ -12,7 +12,7 @@ class DiamondPF {
 		'feed/(.+)' => 'index.php?feed=' . $wp_rewrite->preg_index(1),
 		'(.+).xml' => 'index.php?feed='. $wp_rewrite->preg_index(1)
 		);
-		$wp_rewrite->rules = $feed_rules + $wp_rewrite->rules;
+		$wp_rewrite->rules = $feed_rules + $wp_rewrite->rules;		
 		return $wp_rewrite->rules;
 }
 
