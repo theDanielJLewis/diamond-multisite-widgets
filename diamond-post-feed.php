@@ -3,7 +3,7 @@
 class DiamondPF {
 
 	function DiamondPF() {
-			add_action('init', array($this, 'init_diamondPF'));
+			add_action('init', array($this, 'init_diamondPF'));			
 			add_filter('generate_rewrite_rules', 'diamond_feed_rewrite');
 	}		 
 	
@@ -13,6 +13,7 @@ class DiamondPF {
 		'(.+).xml' => 'index.php?feed='. $wp_rewrite->preg_index(1)
 		);
 		$wp_rewrite->rules = $feed_rules + $wp_rewrite->rules;
+		return $wp_rewrite->rules;
 }
 
 		
@@ -20,7 +21,7 @@ class DiamondPF {
 		$address = get_option('diamond_feed_address');
 		if (!$address || $address == '')
 			$address = 'networkrss';
-		add_feed('networkrss', array($this, 'diamond_post_create_feed'));		 
+		add_feed('networkrss', array($this, 'diamond_post_create_feed'));		 		
 	}
 	
 	function diamond_post_create_feed() {
@@ -34,10 +35,12 @@ class DiamondPF {
 	
 	
 	function render_output($wgt_miss, $wgt_count, $wgt_format)	 {		
-	
+		
 		global $switched;		
 		global $wpdb;
 		$table_prefix = $wpdb->base_prefix;		
+		
+		 header('Content-Type: ' . feed_content_type('rss-http') . '; charset=' . get_option('blog_charset'), true);
 		
 		if (!isset($wgt_miss) || $wgt_miss == '')
 			$wgt_miss = array ();
@@ -48,7 +51,7 @@ class DiamondPF {
 				xmlns:sy="http://purl.org/rss/1.0/modules/syndication/">
 				<channel>
 					<title><?php bloginfo_rss('name'); wp_title_rss(); ?></title>
-					<link><?php bloginfo_rss('url') ?></link>
+					<link><?php self_link(); ?></link>
 					<atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
 					<description><?php bloginfo_rss("description") ?></description>
 					<language><?php echo get_option('rss_language'); ?></language>
@@ -116,7 +119,7 @@ class DiamondPF {
 	function feed_adminPage()
 	{	
 		
-		echo '<a href="' . get_bloginfo( 'url' ). '/feed?=networkrss" target="_blank">' . __('The feed\'s link', 'diamond') . '</a>';
+		echo '<a href="' . get_bloginfo( 'url' ). '/feed/networkrss" target="_blank">' . __('The feed\'s link', 'diamond') . '</a>';
 		echo '<br />';
 		
 			echo '<input type="hidden" name="diamond_post_feed_hidden" value="success" />';
