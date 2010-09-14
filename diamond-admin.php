@@ -62,13 +62,13 @@ class DiamondAdmin {
 			echo ' />';
 			echo '<span class="checkboxtext">';
 			_e('Enable Broadcast Post Widget', 'diamond');
-			echo '</span';
+			echo '</span>';
 			echo '<p class="broadcastp">';
 			_e('This widget enables you to copy your posts to other blogs. Check the post edit window', 'diamond');
 			echo '</p>';
-			echo '<span class="update"';
+			echo '<span class="update">';
 			echo '<input type="submit" name="diamond_broadcast_submit" value="'. __('Update', 'diamond') .'">';
-			echo '</span';
+			echo '</span>';
 			echo '</form>';
 			echo '</div>';		
 		}
@@ -80,10 +80,11 @@ class DiamondAdmin {
 		
 		echo '<form action="" name="diamondpostform" method="post">';
 		echo '<p>';
-		$newWidget->widget_controlView(true);echo '</p>';
-		echo '<span class="update"';
-		echo '<input type="submit" name="diamond_post_submit" value="'. __('Update', 'diamond') .'">';
-		echo '</span';
+		$newWidget->widget_controlView(true);
+		echo '</p>';
+		echo '<span class="update">';
+		echo '<input type="submit" name="diamond_post_submit" value="'. __('Update', 'diamond') .'" />';
+		echo '</span>';
 		echo '</form>';
 		echo '</div>';
 		
@@ -93,9 +94,9 @@ class DiamondAdmin {
 		_e('Recent Comments', 'diamond');
 		echo '</h3>';
 		$newWidget2->widget_controlView(true);
-		echo '<span class="update"';
-		echo '<input type="submit" name="diamond_post_submit" value="'. __('Update', 'diamond') .'">';
-		echo '</span';
+		echo '<span class="update">';
+		echo '<input type="submit" name="diamond_post_submit" value="'. __('Update', 'diamond') .'" />';
+		echo '</span>';
 		echo '</form>';
 		echo '</div>';	
 		
@@ -106,9 +107,9 @@ class DiamondAdmin {
 		echo '</h3>';
 		echo '<form action="" name="diamondfeedform" method="post">';
 		$feedObj->feed_adminPage();
-		echo '<span class="update"';
-		echo '<input type="submit" name="diamond_feed_submit" value="'. __('Update', 'diamond') .'">';
-		echo '</span';
+		echo '<span class="update">';
+		echo '<input type="submit" name="diamond_feed_submit" value="'. __('Update', 'diamond') .'" />';
+		echo '</span>';
 		echo '</form>';
 		echo '</div>';
 		echo '<div class="donate_image_container">';
