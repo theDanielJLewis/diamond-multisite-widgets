@@ -8,8 +8,7 @@ class DiamondAdmin {
 	}		
 	
 	function load_translation_domain() {		
-		$plugin_dir = basename(dirname(dirname(__FILE__)));
-		load_plugin_textdomain( 'diamond', false, $plugin_dir . '/languages' );
+		load_plugin_textdomain( 'diamond', PLUGINDIR.'/'.dirname(plugin_basename(__FILE__)).'/languages' );
 	}
 	
 	function set_style_head() {

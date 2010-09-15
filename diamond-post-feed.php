@@ -44,21 +44,24 @@ class DiamondPF {
 		
 		if (!isset($wgt_miss) || $wgt_miss == '')
 			$wgt_miss = array ();
-		?><rss version="2.0"
-				xmlns:content="http://purl.org/rss/1.0/modules/content/"
-				xmlns:dc="http://purl.org/dc/elements/1.1/"
-				xmlns:atom="http://www.w3.org/2005/Atom"
-				xmlns:sy="http://purl.org/rss/1.0/modules/syndication/">
-				<channel>
-					<title><?php bloginfo_rss('name'); wp_title_rss(); ?></title>
-					<link><?php self_link(); ?></link>
-					<atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
-					<description><?php bloginfo_rss("description") ?></description>
-					<language><?php echo get_option('rss_language'); ?></language>
-					<sy:updatePeriod><?php echo apply_filters( 'rss_update_period', 'hourly' ); ?></sy:updatePeriod>
-					<sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
-					<?php
 			
+		echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
+		
+		?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/" >
+<channel>
+	<title><?php bloginfo_rss('name'); wp_title_rss(); ?></title>
+	<link><?php self_link(); ?></link>
+	<atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
+	<description><?php bloginfo_rss("description") ?></description>
+	<language><?php echo get_option('rss_language'); ?></language>
+	<sy:updatePeriod><?php echo apply_filters( 'rss_update_period', 'hourly' ); ?></sy:updatePeriod>
+	<sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency><?php			
 			
 		$sqlstr = '';
 		$blog_list = get_blog_list( 0, 'all' );
@@ -85,7 +88,7 @@ class DiamondPF {
 		$post_list = $wpdb->get_results($sqlstr, ARRAY_A);		
 		
 		foreach ($post_list AS $post) {
-			echo '<item>';
+			
 			
 			$txt = ($wgt_format == '') ? '{excerpt}' : $wgt_format;
 			
@@ -94,32 +97,30 @@ class DiamondPF {
 			$ex = $p->post_excerpt;
 			//if (!isset($ex) || trim($ex) == '')
 				//$ex = substr(strip_tags($p->post_content), 0, 65) . '...';
-			
-			echo '<title>' . $p->post_title . '</title>';
-			echo '<link>' .get_blog_permalink($post["blog_id"], $post["id"]). '</link>';
-			echo '<dc:creator>' . get_userdata($p->post_author)->nickname . '</dc:creator>';
-			echo '<pubDate>' . mysql2date('D, d M Y H:i:s +0000', date_i18n("d-m-Y H:i:s", strtotime($p->post_date))) . '</pubDate>';
+			echo "\r";							?>
+	<item>
+		<title><?php echo $p->post_title ?></title>
+		<link><?php echo get_blog_permalink($post["blog_id"], $post["id"]) ?></link>
+		<dc:creator><?php echo get_userdata($p->post_author)->nickname ?></dc:creator>
+		<pubDate><?php echo mysql2date('D, d M Y H:i:s +0000', date("d-m-Y H:i:s", strtotime($p->post_date))) ?></pubDate><?php
 
+			//	echo '<content:encoded><![CDATA[' . $p->post_content . ']]></content:encoded>';
 			
 			$txt = str_replace('{content}', $p->post_content , $txt);			
 			$txt = str_replace('{excerpt}', $ex , $txt);			
 			$txt = str_replace('{blog}', get_blog_option($post["blog_id"], 'blogname') , $txt);		
-			
-			echo '<description><![CDATA[' . $txt . ']]></description>';
-		//	echo '<content:encoded><![CDATA[' . $p->post_content . ']]></content:encoded>';
-			
-			echo '</item>';
-		}		
-		
-		?></channel>
-			</rss><?php
+		echo "\r";	?>
+		<description><![CDATA[<?php echo $txt ?>]]></description>			
+	</item><?php }	 echo "\r"; ?>
+</channel>
+</rss><?php
 	}
 
 	 
 	function feed_adminPage()
 	{	
 		
-		echo '<a href="' . get_bloginfo( 'url' ). '/feed/networkrss" target="_blank">' . __('The feed\'s link', 'diamond') . '</a>';
+		echo '<a href="' . get_bloginfo( 'url' ). '?feed=networkrss" target="_blank">' . __('The feed\'s link', 'diamond') . '</a>';
 		echo '<br />';
 		
 			echo '<input type="hidden" name="diamond_post_feed_hidden" value="success" />';

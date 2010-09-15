@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypa
 Tags: recent post, network, multisite, widget, recent comments, MU, WPMU, sidebar, broadcast, copy post, share post, network post, rss, rss feed, recent post rss, network rss
 Requires at least: 3.0
 Tested up to: 3.0.1
-Stable tag: 1.5.4
+Stable tag: 1.5.5
 
 Recent posts and comments from the whole network
 
@@ -25,9 +25,18 @@ Features:<br />
 Broadcast Post On The Network<br />
 - In the publish box, you can copy your post to the network's sub-blogs<br />
 <br />
+Translations<br />
+- Hungarian<br />
+- Japanese (<a href="http://staff.blog.bng.net/" target="_blank">Chestnut</a>)<br />
+<br />
 if you have any question write me an e-mail to daniel.bozo@amegrant.hu
 
 == Changelog ==
+
+= 1.5.5 =
+- Japanese translation
+- Feed template correction
+
 = 1.5.4 =
 - HTML errors on the admin page fixed
 
