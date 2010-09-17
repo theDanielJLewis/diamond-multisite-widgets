@@ -68,6 +68,16 @@ class DiamondRP {
 	
 	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, $before_item, $after_item, $before_cont, $after_cont, $wgt_mtext)	 {		
 	
+		/*
+		$cachekey = 'diamond_post_'.diamond_arr_to_str($wgt_miss).'-'.$count.'-'.$wgt_format .
+		'-'.$wgt_avsize.'-'.$wgt_defav.'-'.$wgt_dt.'-'.$before_item.'-'.$after_item.'-'.$before_cont.'-'.
+		$after_cont.'-'.$wgt_mtext;
+		$output = wp_cache_get($cachekey, 'diamond');
+		print_r(wp_cache_get($cachekey, 'diamond'));			
+		if ($output != false)
+			return $output;			
+		*/
+	
 		global $switched;		
 		global $wpdb;
 		$table_prefix = $wpdb->base_prefix;
@@ -147,7 +157,9 @@ class DiamondRP {
 		}
 		$output .=  $after_cont;
 		
-		$output .=  $wpdb->print_error();
+		$output .=  $wpdb->print_error();		
+		
+		//wp_cache_add($cachekey, $output, 'diamond', 20000);		
 		
 		return $output; 
 		

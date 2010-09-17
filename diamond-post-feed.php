@@ -34,8 +34,8 @@ class DiamondPF {
 	}
 	
 	
-	function render_output($wgt_miss, $wgt_count, $wgt_format)	 {		
-		
+	function render_output($wgt_miss, $wgt_count, $wgt_format)	 {	
+			
 		global $switched;		
 		global $wpdb;
 		$table_prefix = $wpdb->base_prefix;		
@@ -99,10 +99,11 @@ class DiamondPF {
 				//$ex = substr(strip_tags($p->post_content), 0, 65) . '...';
 			echo "\r";							?>
 	<item>
-		<title><?php echo $p->post_title ?></title>
+		<title><![CDATA[<?php echo $p->post_title ?>]]></title>
 		<link><?php echo get_blog_permalink($post["blog_id"], $post["id"]) ?></link>
 		<dc:creator><?php echo get_userdata($p->post_author)->nickname ?></dc:creator>
-		<pubDate><?php echo mysql2date('D, d M Y H:i:s +0000', date("d-m-Y H:i:s", strtotime($p->post_date))) ?></pubDate><?php
+		<guid isPermaLink="false"><?php echo $p->guid ?></guid>
+		<pubDate><?php echo date(DATE_RFC822, strtotime($p->post_date)) ?></pubDate><?php
 
 			//	echo '<content:encoded><![CDATA[' . $p->post_content . ']]></content:encoded>';
 			

@@ -1,12 +1,12 @@
 .recent_posts, .recent_comments, .recent_feed {
 	float : left;
-	width:283px;
+	width:263px;
 	padding:0px 10px 10px 10px;
 	margin-right:5px;
 	border:#CCC solid 1px;
--moz-border-radius: 5px;
-border-radius: 5px;
-background-color:#FFF !important;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color:#FFF !important;
 }
 
 .recent_comments {
@@ -17,16 +17,31 @@ background-color:#FFF !important;
 	
 }
 
-.broadcast_posts {
+.broadcast_posts{
 	background-color:#FFF !important;
-	width:890px;
+	width:590px;
 	margin:0px 20px 10px 0px;
 padding:0px 15px 15px 15px;
 border:#CCC solid 1px;
 -moz-border-radius: 5px;
 border-radius: 5px;
 }
-.broadcast_posts h3, .recent_posts h3, .recent_comments h3, .recent_feed h3{
+
+.shortcode_docs {
+	background-color:#FFF !important;	
+	float: left;
+	margin:10px 50px 10px 0px;
+	padding:0px 15px 15px 15px;
+	border:#CCC solid 1px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.shortcode_docs_td {
+	padding: 10px 10px 10px 10px;
+}
+
+.subtitle, .broadcast_posts h3, .recent_posts h3, .recent_comments h3, .recent_feed h3{
 	color:#036;
 	font-size:16px;
 	font-family:Verdana, Geneva, sans-serif;

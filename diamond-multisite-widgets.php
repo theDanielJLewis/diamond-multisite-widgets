@@ -2,9 +2,9 @@
 /*
  Plugin Name: Diamond MultiSite Widgets
  Plugin URI: http://wordpress.org/extend/plugins/diamond-multisite-widgets/
- Description: Multisite recent posts widget, Multisite recent comments widget. Content from the whole network. An administration widget on the post-writing window. You can copy your post to the network's sub blogs.
+ Description: Multisite bloglist widget, Multisite recent posts widget, Multisite recent comments widget. Content from the whole network. An administration widget on the post-writing window. You can copy your post to the network's sub blogs. Post/Page shortcodes support. RSS Feed support.
  Author: Daniel Bozo
- Version: 1.5.5
+ Version: 1.6
  Author URI: http://www.amegrant.com
  */
  
@@ -23,12 +23,15 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
+	$diamond_multisite_widget_version = "1.6";
+	
+	require_once 'functions.php';
 	require_once 'diamond-post-feed.php';
 	require_once 'diamond-admin.php';
 	require_once 'diamond-recent-posts.php';
 	require_once 'diamond-recent-comments.php';
 	require_once 'diamond-broadcast-posts.php';
+	require_once 'diamond-bloglist.php';
  
  		
 	

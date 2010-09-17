@@ -12,7 +12,8 @@ class DiamondAdmin {
 	}
 	
 	function set_style_head() {
-		echo '<link rel="stylesheet" id="diamond-admin"  href="'. plugins_url("", __FILE__) . '/css/adminstyle.css' .'" type="text/css" media="all" />';	
+		global $diamond_multisite_widget_version;
+		echo '<link rel="stylesheet" id="diamond-admin"  href="'. plugins_url("", __FILE__) . '/css/adminstyle.css?ver='. $diamond_multisite_widget_version .'" type="text/css" media="all" />';	
 	}
 	
 	function my_plugin_menu() {
@@ -38,6 +39,7 @@ class DiamondAdmin {
 		global $newWidget;
 		global $newWidget2;
 		global $feedObj;
+		global $bloglistObj;
 		$this->show_adminHeader();
 		
 		if (is_super_admin()) {		
@@ -49,8 +51,9 @@ class DiamondAdmin {
 				else
 					update_option('diamond_allow_broadcast', 0);
 			}
-		
-			echo '<div class="broadcast_posts" >';
+			
+			
+		echo '<div class="broadcast_posts" >';
 			echo '<h3 class="subtitle">';
 			_e('Broadcast Posts', 'diamond');
 			echo '</h3>';
@@ -70,7 +73,22 @@ class DiamondAdmin {
 			echo '</span>';
 			echo '</form>';
 			echo '</div>';		
-		}
+		}	
+			
+			
+			
+		
+					echo '<div class="recent_posts">';
+				echo '<h3 class="subtitle">';
+				_e('Bloglist', 'diamond');
+				echo '</h3>';
+				echo '<form action="" name="diamondbloglistform" method="post">';
+				$bloglistObj->widget_controlView(true);
+				echo '<span class="update">';
+				echo '<input type="submit" name="diamond_bloglist_submit" value="'. __('Update', 'diamond') .'" />';
+				echo '</span>';
+				echo '</form>';
+				echo '</div>';
 		
 		echo '<div class="recent_posts">';
 		echo '<h3  class="subtitle">';
@@ -100,7 +118,8 @@ class DiamondAdmin {
 		echo '</div>';	
 		
 		echo '<div>';
-			echo '<div class="recent_feed">';
+		
+		echo '<div class="recent_feed">';
 		echo '<h3 class="subtitle">';
 		_e('Recent Posts Feed', 'diamond');
 		echo '</h3>';
@@ -111,13 +130,123 @@ class DiamondAdmin {
 		echo '</span>';
 		echo '</form>';
 		echo '</div>';
+		
+		
 		echo '<div class="donate_image_container">';
 		echo '<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40amegrant%2ehu&lc=HU&item_name=Diamond%20Multisite%20WordPress%20Widget&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted" target="_blank">';
 		echo '<img src="'. plugins_url("", __FILE__) . '/images/buy_me_a_beer.jpg' .'" />';
-		echo '</a>';
+		echo '</a>';		
+		echo '</div>';
 		
 		echo '</div>';
-		echo '</div>';
+		
+	
+		
+		echo '<div class="shortcode_docs">';
+			echo '<h3 class="subtitle">';
+			_e('Shortcodes\' documentation', 'diamond');
+			echo '</h3>';
+			echo '<table width="100%"><tr>';
+			
+			
+			echo '<td class="shortcode_docs_td">';
+			echo '<pre><code>';
+			echo '[diamond-bloglist /]';
+			echo '</code></pre>';
+			echo '<p>'.__('Parameters', 'diamond').':</p>';
+			echo '<ul>';
+			echo '<li>';
+			echo 'format: ' .__('format string. You can use the widget\'s shortcodes!', 'diamond');
+			echo '</li><li>';			
+			echo 'before_content: ' . __('Before the entry-list (Default: &lt;ul&gt;)', 'diamond');
+			echo '</li><li>';
+			echo  'after_content: ' .__('After the entry-list (Default: &lt;/ul&gt;)', 'diamond');
+			echo '</li><li>';
+			echo 'before_item: ' . __('Before the entry-list item (Default: &lt;li&gt;)', 'diamond');
+			echo '</li><li>';
+			echo 'after_item: '. __('After the entry-list item (Default: &lt;/li&gt;)', 'diamond');
+			echo '</li><li>';
+			echo 'exclude: '. __('Blogs\' id you want to exclude (separate with \',\')', 'diamond');
+			echo '</li><li>';
+			echo 'count: '. __('Entry count limit', 'diamond');			
+			echo '</li><li>';
+			echo 'date_format: '. __('Datetime format string', 'diamond');
+			echo '</li><li>';
+			echo 'more_text: '. __('\'Read more\' link\'s text', 'diamond');
+			echo '</li><li>';
+			echo 'order_by: ' . __('Order By: 0: Domain, 1: Reg. Date, 2: Last update', 'diamond'); 
+			echo '</li><li>';
+			echo 'order: ' . __('Order: 0: Ascending, 1: Descending', 'diamond');
+			echo '</ul>';
+			echo '</td>';
+			
+			
+			echo '<td class="shortcode_docs_td">';
+			echo '<pre><code>';
+			echo '[diamond-post /]';
+			echo '</code></pre>';
+			echo '<p>'.__('Parameters', 'diamond').':</p>';
+			echo '<ul>';
+			echo '<li>';
+			echo 'format: ' .__('format string. You can use the widget\'s shortcodes!', 'diamond');
+			echo '</li><li>';			
+			echo 'before_content: ' . __('Before the entry-list (Default: &lt;ul&gt;)', 'diamond');
+			echo '</li><li>';
+			echo  'after_content: ' .__('After the entry-list (Default: &lt;/ul&gt;)', 'diamond');
+			echo '</li><li>';
+			echo 'before_item: ' . __('Before the entry-list item (Default: &lt;li&gt;)', 'diamond');
+			echo '</li><li>';
+			echo 'after_item: '. __('After the entry-list item (Default: &lt;/li&gt;)', 'diamond');
+			echo '</li><li>';
+			echo 'exclude: '. __('Blogs\' id you want to exclude (separate with \',\')', 'diamond');
+			echo '</li><li>';
+			echo 'count: '. __('Entry count limit', 'diamond');
+			echo '</li><li>';
+			echo 'avatar_size: ' . __('Author\'s avatar\'s size (px)', 'diamond'); 
+			echo '</li><li>';
+			echo 'default_avatar: ' . __('Custom default avatar\'s URL', 'diamond');
+			echo '</li><li>';
+			echo 'date_format: '. __('Datetime format string', 'diamond');
+			echo '</li><li>';
+			echo 'more_text: '. __('\'Read more\' link\'s text', 'diamond');
+			echo '</ul>';
+			echo '</td>';
+			
+			
+			
+			echo '<td class="shortcode_docs_td">';
+			echo '<pre><code>';
+			echo '[diamond-comment /]';
+			echo '</code></pre>';
+			echo '<p>'.__('Parameters', 'diamond').':</p>';
+			echo '<ul>';
+			echo '<li>';
+			echo 'format: ' .__('format string. You can use the widget\'s shortcodes!', 'diamond');
+			echo '</li><li>';			
+			echo 'before_content: ' . __('Before the entry-list (Default: &lt;ul&gt;)', 'diamond');
+			echo '</li><li>';
+			echo  'after_content: ' .__('After the entry-list (Default: &lt;/ul&gt;)', 'diamond');
+			echo '</li><li>';
+			echo 'before_item: ' . __('Before the entry-list item (Default: &lt;li&gt;)', 'diamond');
+			echo '</li><li>';
+			echo 'after_item: '. __('After the entry-list item (Default: &lt;/li&gt;)', 'diamond');
+			echo '</li><li>';
+			echo 'exclude: '. __('Blogs\' id you want to exclude (separate with \',\')', 'diamond');
+			echo '</li><li>';
+			echo 'count: '. __('Entry count limit', 'diamond');
+			echo '</li><li>';
+			echo 'avatar_size: ' . __('Author\'s avatar\'s size (px)', 'diamond'); 
+			echo '</li><li>';
+			echo 'default_avatar: ' . __('Custom default avatar\'s URL', 'diamond');
+			echo '</li><li>';
+			echo 'date_format: '. __('Datetime format string', 'diamond');
+			echo '</li><li>';
+			echo 'more_text: '. __('\'Read more\' link\'s text', 'diamond');
+			echo '</ul>';
+			echo '</td>';			
+			
+			echo '</tr></table>';
+			echo '</div>';	
 		
 		
 		
