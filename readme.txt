@@ -18,7 +18,7 @@ Features:<br />
 - You can set custom datetime format<br />
 - You can use it on sub-blogs<br />
 - Avatar support<br />
-- Posts/Pages shortcode support (read more at the 'Installation' section)<br />
+- Posts/Pages shortcode support (read more at the admin page)<br />
 - RSS Recent Post feed<br />
 <br />
 Broadcast Post On The Network<br />
