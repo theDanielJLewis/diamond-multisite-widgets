@@ -222,7 +222,7 @@ class DiamondBL {
 				$tmp .= $sep .$op;
 				$sep = ';';
 			}
-			$options['wgt_miss'] = $tmp;		
+			$options['diamond_bloglist_miss'] = $tmp;		
 		}
 		
 		$wgt_miss=$options['diamond_bloglist_miss'];
