@@ -1,0 +1,231 @@
+# Translation of the WordPress plugin Diamond MultiSite Widgets 1.5 by Daniel Bozo.
+# Copyright (C) 2010 Daniel Bozo
+# This file is distributed under the same license as the Diamond MultiSite Widgets package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Diamond MultiSite Widgets 1.5\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/diamond-multisite-widgets\n"
+"POT-Creation-Date: 2010-09-10 14:05+0000\n"
+"PO-Revision-Date: 2010-09-10 16:52+0100\n"
+"Last-Translator: Dániel Bozó <daniel.bozo@amegrant.hu>\n"
+"Language-Team: Amegrant Ltd. <daniel.bozo@amegrant.hu>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Hungarian\n"
+"X-Poedit-Country: HUNGARY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: diamond-admin.php:20
+msgid "Diamond Options"
+msgstr "Diamond Beállítások"
+
+#. #-#-#-#-#  plugin.pot (Diamond MultiSite Widgets 1.5)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: diamond-admin.php:20
+msgid "Diamond MultiSite Widgets"
+msgstr "Diamond MultiSite Widgets"
+
+#: diamond-admin.php:56
+msgid "Broadcast Posts"
+msgstr "Bejegyzés alblogokra"
+
+#: diamond-admin.php:64
+msgid "Enable Broadcast Post Widget"
+msgstr "A 'Bejegyzés Alblogokra' Widget engedélyezése"
+
+#: diamond-admin.php:67
+msgid "This widget enables you to copy your posts to other blogs. Check the post edit window"
+msgstr "Ez a widget lehetővé teszti bejegyzések másolását az alblogokra. (a bejegyzés szerkesztő űrlapon)"
+
+#: diamond-admin.php:70
+#: diamond-admin.php:85
+#: diamond-admin.php:97
+#: diamond-admin.php:110
+msgid "Update"
+msgstr "Frissítés"
+
+#: diamond-admin.php:78
+msgid "Recent Posts"
+msgstr "Hálózati Legutóbbi Bejegyzések"
+
+#: diamond-admin.php:93
+msgid "Recent Comments"
+msgstr "Hálózati Legutóbbi Hozzászólások"
+
+#: diamond-admin.php:105
+msgid "Recent Posts Feed"
+msgstr "Hálózati Bejegyzés RSS Forrás"
+
+#: diamond-broadcast-posts.php:19
+msgid "M j, Y @ G:i"
+msgstr "Y. F j. @ H:i"
+
+#: diamond-broadcast-posts.php:85
+msgid "Broadcast this post"
+msgstr "Bejegyzés alblogokra másolása"
+
+#: diamond-broadcast-posts.php:88
+msgid "Select blogs where you want to copy this post"
+msgstr "Jelölje ki azokat a blogokat, melyekre át akarja másolni ezt a bejegyzést"
+
+#: diamond-broadcast-posts.php:91
+msgid "--- No broadcast ---"
+msgstr "-- Nincs másolás --"
+
+#: diamond-broadcast-posts.php:102
+msgid " (copied)"
+msgstr "(már másolt)"
+
+#: diamond-post-feed.php:119
+msgid "The feed's link"
+msgstr "A forrás hivatkozása"
+
+#: diamond-post-feed.php:130
+#: diamond-recent-posts.php:175
+msgid "Posts count"
+msgstr "Bejegyzések száma"
+
+#: diamond-post-feed.php:147
+#: diamond-recent-comments.php:185
+#: diamond-recent-posts.php:192
+msgid "Exclude blogs: (The first 50 blogs)"
+msgstr "Mellőzendő Blogok (Az első 50 blog)"
+
+#: diamond-post-feed.php:166
+#: diamond-recent-comments.php:204
+#: diamond-recent-posts.php:213
+msgid "Format string"
+msgstr "Formátum"
+
+#: diamond-post-feed.php:168
+#: diamond-recent-posts.php:216
+msgid "The post's excerpt"
+msgstr "A bejegyzés kivonata"
+
+#: diamond-post-feed.php:169
+msgid "The post's content"
+msgstr "A bejegyzés tartalma"
+
+#: diamond-post-feed.php:170
+#: diamond-recent-posts.php:220
+msgid "The post's blog name"
+msgstr "A bejegyzés blogjának neve"
+
+#: diamond-recent-comments.php:13
+#: diamond-recent-comments.php:14
+msgid "Diamond Recent Comments"
+msgstr "Hálózati Legutóbbi Hozzászólások"
+
+#: diamond-recent-comments.php:160
+#: diamond-recent-posts.php:167
+msgid "Widget Title"
+msgstr "A Widget Címe"
+
+#: diamond-recent-comments.php:168
+msgid "Comments count"
+msgstr "Hozzászólások száma"
+
+#: diamond-recent-comments.php:205
+#: diamond-recent-comments.php:206
+msgid "The comment's content"
+msgstr "A hozzászólás tartalma"
+
+#: diamond-recent-comments.php:206
+#: diamond-recent-comments.php:208
+#: diamond-recent-posts.php:215
+msgid "(without link)"
+msgstr "(hivatkozás nélkül)"
+
+#: diamond-recent-comments.php:207
+#: diamond-recent-posts.php:214
+#: diamond-recent-posts.php:215
+msgid "The post's title"
+msgstr "A bejegyzés címe"
+
+#: diamond-recent-comments.php:208
+msgid "The post's title text"
+msgstr "A bejegyzés címének szövege"
+
+#: diamond-recent-comments.php:209
+msgid "The comment's date"
+msgstr "A hozzászólás dátuma"
+
+#: diamond-recent-comments.php:210
+msgid "The comment's author"
+msgstr "A hozzászólás szerzője"
+
+#: diamond-recent-comments.php:211
+#: diamond-recent-posts.php:219
+msgid "Author's avatar"
+msgstr "Szerző bélyegképe"
+
+#: diamond-recent-comments.php:221
+#: diamond-recent-posts.php:230
+msgid "Avatar Size (px)"
+msgstr "Bélyegkép mérete (px)"
+
+#: diamond-recent-comments.php:231
+#: diamond-recent-posts.php:241
+msgid "Default Avatar URL"
+msgstr "Alapértelmezett bélyegkép ULE-e"
+
+#: diamond-recent-comments.php:242
+#: diamond-recent-posts.php:254
+msgid "\"Read More\" link text"
+msgstr "\"Tovább\" hivatkozás szövege"
+
+#: diamond-recent-comments.php:255
+#: diamond-recent-posts.php:269
+msgid "DateTime format (<a href=\"http://php.net/manual/en/function.date.php\" target=\"_blank\">manual</a>)"
+msgstr "A dátum formázásáról <a href=\"http://php.net/manual/en/function.date.php\" target=\"_blank\"> ITTl</a> olvashat"
+
+#: diamond-recent-comments.php:263
+#: diamond-recent-posts.php:277
+msgid "if you like this widget then"
+msgstr "Ha tetszik a bővítményt"
+
+#: diamond-recent-comments.php:265
+#: diamond-recent-posts.php:279
+msgid "Buy me a beer!"
+msgstr "Vegyen nekem egy sört! :-)"
+
+#: diamond-recent-posts.php:16
+#: diamond-recent-posts.php:17
+msgid "Diamond Recent Posts"
+msgstr "Hálózati Legutóbbi Bejegyzések"
+
+#: diamond-recent-posts.php:217
+msgid "The post's date"
+msgstr "A bejegyzés dátuma"
+
+#: diamond-recent-posts.php:218
+msgid "The post's author"
+msgstr "A bejegyzés szerzője"
+
+#: diamond-recent-posts.php:221
+msgid "The \"Read More\" link"
+msgstr "A \"Tovább\" hivatkozás"
+
+#: diamond-recent-posts.php:249
+msgid "Read More"
+msgstr "Tovább"
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/extend/plugins/diamond-multisite-widgets/"
+msgstr "http://wordpress.org/extend/plugins/diamond-multisite-widgets/"
+
+#. Description of the plugin/theme
+msgid "Multisite recent posts widget, Multisite recent comments widget. Content from the whole network. An administration widget on the post-writing window. You can copy your post to the network's sub blogs."
+msgstr "Legutóbbi bejegyzések és hozzászólások a hálózatról. Bejegyzések másolása alblogokra. RSS forrás a hálózat bejegyzéseire"
+
+#. Author of the plugin/theme
+msgid "Daniel Bozo"
+msgstr "Bozó Dániel"
+
+#. Author URI of the plugin/theme
+msgid "http://www.amegrant.com"
+msgstr "http://www.amegrant.hu"
+
