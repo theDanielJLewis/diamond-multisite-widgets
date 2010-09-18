@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Diamond MultiSite Widgets 1.5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/diamond-multisite-widgets\n"
 "POT-Creation-Date: 2010-09-10 14:05+0000\n"
-"PO-Revision-Date: 2010-09-15 03:24+0900\n"
+"PO-Revision-Date: 2010-09-18 02:35+0900\n"
 "Last-Translator: BNG NET <webmaster@bng.net>\n"
 "Language-Team: BNG NET <webmaster@bng.net>\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,118 @@ msgstr ""
 "X-Poedit-Language: Japanese\n"
 "X-Poedit-Country: JAPAN\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+
+#: Added on 2010/09/18
+msgid "Blogs count"
+msgstr "ブログ数"
+
+#: Added on 2010/09/18
+msgid "Diamond Bloglist"
+msgstr "Diamond ブログリスト"
+
+#: Added on 2010/09/18
+msgid "The blog's posts count"
+msgstr "ブログの記事数"
+
+#: Added on 2010/09/18
+msgid "The blog's last update date"
+msgstr "ブログの最終更新日"
+
+#: Added on 2010/09/18
+msgid "The registration's date"
+msgstr "登録日"
+
+#: Added on 2010/09/18
+msgid "The blog's description"
+msgstr "ブログの説明"
+
+#: Added on 2010/09/18
+msgid "The blog's title"
+msgstr "ブログのタイトル"
+
+#: Added on 2010/09/18
+msgid "Custom default avatar's URL"
+msgstr "デフォルトとするアバターのURL"
+
+#: Added on 2010/09/18
+msgid "Author's avatar's size (px)"
+msgstr "作成者のアバターのサイズ (px)"
+
+#: Added on 2010/09/18
+msgid "Order: 0: Ascending, 1: Descending"
+msgstr "ソート順: 0: 昇順 1: 降順"
+
+#: Added on 2010/09/18
+msgid "Order By: 0: Domain, 1: Reg. Date, 2: Last update"
+msgstr "ソート単位: 0: ドメイン 1: 登録日 2: 最終更新日"
+
+#: Added on 2010/09/18
+msgid "'Read more' link's text"
+msgstr "\"Read more\"リンクのテキスト"
+
+#: Added on 2010/09/18
+msgid "Datetime format string"
+msgstr "日付の書式"
+
+#: Added on 2010/09/18
+msgid "Entry count limit"
+msgstr "表示するエントリー数"
+
+#: Added on 2010/09/18
+msgid "Blogs' id you want to exclude (separate with ',')"
+msgstr "除外したいブログのID (複数指定は「,」区切り)"
+
+#: Added on 2010/09/18
+msgid "After the entry-list item (Default: &lt;/li&gt;)"
+msgstr "エントリーリストアイテムの後 (デフォルト: &lt;/li&gt;)"
+
+#: Added on 2010/09/18
+msgid "Before the entry-list item (Default: &lt;li&gt;)"
+msgstr "エントリーリストアイテムの前 (デフォルト: &lt;li&gt;)"
+
+#: Added on 2010/09/18
+msgid "After the entry-list (Default: &lt;/ul&gt;)"
+msgstr "エントリーリストの後 (デフォルト: &lt;/ul&gt;)"
+
+#: Added on 2010/09/18
+msgid "Before the entry-list (Default: &lt;ul&gt;)"
+msgstr "エントリーリストの前 (デフォルト: &lt;ul&gt;)"
+
+#: Added on 2010/09/18
+msgid "format string. You can use the widget's shortcodes!"
+msgstr "書式。ウィジェットのショートコードが使えます！"
+
+#: Added on 2010/09/18
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: Added on 2010/09/18
+msgid "Shortcodes' documentation"
+msgstr "ショートコードについて"
+
+#: Added on 2010/09/18
+msgid "Sort Order"
+msgstr "ソート方法"
+
+#: Added on 2010/09/18
+msgid "By Domain"
+msgstr "ドメイン"
+
+#: Added on 2010/09/18
+msgid "By Reg. Date"
+msgstr "登録日"
+
+#: Added on 2010/09/18
+msgid "By Last Update"
+msgstr "最終更新日"
+
+#: Added on 2010/09/18
+msgid "Ascending"
+msgstr "昇順"
+
+#: Added on 2010/09/18
+msgid "Descending"
+msgstr "降順"
 
 #: diamond-admin.php:20
 msgid "Diamond Options"
