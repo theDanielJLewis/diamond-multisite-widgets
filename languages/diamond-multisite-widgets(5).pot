@@ -1,0 +1,341 @@
+# Translation of the WordPress plugin Diamond MultiSite Widgets 1.6 by Daniel Bozo.
+# Copyright (C) 2010 Daniel Bozo
+# This file is distributed under the same license as the Diamond MultiSite Widgets package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Diamond MultiSite Widgets 1.6\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/diamond-multisite-widgets\n"
+"POT-Creation-Date: 2010-09-17 12:24+0000\n"
+"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: diamond-admin.php:20
+msgid "Diamond Options"
+msgstr ""
+
+#. #-#-#-#-#  plugin.pot (Diamond MultiSite Widgets 1.6)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: diamond-admin.php:20
+msgid "Diamond MultiSite Widgets"
+msgstr ""
+
+#: diamond-admin.php:58
+msgid "Broadcast Posts"
+msgstr ""
+
+#: diamond-admin.php:66
+msgid "Enable Broadcast Post Widget"
+msgstr ""
+
+#: diamond-admin.php:69
+msgid ""
+"This widget enables you to copy your posts to other blogs. Check the post "
+"edit window"
+msgstr ""
+
+#: diamond-admin.php:72 diamond-admin.php:88 diamond-admin.php:103
+#: diamond-admin.php:115 diamond-admin.php:129
+msgid "Update"
+msgstr ""
+
+#: diamond-admin.php:83
+msgid "Bloglist"
+msgstr ""
+
+#: diamond-admin.php:95
+msgid "Recent Posts"
+msgstr ""
+
+#: diamond-admin.php:111
+msgid "Recent Comments"
+msgstr ""
+
+#: diamond-admin.php:124
+msgid "Recent Posts Feed"
+msgstr ""
+
+#: diamond-admin.php:147
+msgid "Shortcodes' documentation"
+msgstr ""
+
+#: diamond-admin.php:156 diamond-admin.php:188 diamond-admin.php:221
+msgid "Parameters"
+msgstr ""
+
+#: diamond-admin.php:159 diamond-admin.php:191 diamond-admin.php:224
+msgid "format string. You can use the widget's shortcodes!"
+msgstr ""
+
+#: diamond-admin.php:161 diamond-admin.php:193 diamond-admin.php:226
+msgid "Before the entry-list (Default: &lt;ul&gt;)"
+msgstr ""
+
+#: diamond-admin.php:163 diamond-admin.php:195 diamond-admin.php:228
+msgid "After the entry-list (Default: &lt;/ul&gt;)"
+msgstr ""
+
+#: diamond-admin.php:165 diamond-admin.php:197 diamond-admin.php:230
+msgid "Before the entry-list item (Default: &lt;li&gt;)"
+msgstr ""
+
+#: diamond-admin.php:167 diamond-admin.php:199 diamond-admin.php:232
+msgid "After the entry-list item (Default: &lt;/li&gt;)"
+msgstr ""
+
+#: diamond-admin.php:169 diamond-admin.php:201 diamond-admin.php:234
+msgid "Blogs' id you want to exclude (separate with ',')"
+msgstr ""
+
+#: diamond-admin.php:171 diamond-admin.php:203 diamond-admin.php:236
+msgid "Entry count limit"
+msgstr ""
+
+#: diamond-admin.php:173 diamond-admin.php:209 diamond-admin.php:242
+msgid "Datetime format string"
+msgstr ""
+
+#: diamond-admin.php:175 diamond-admin.php:211 diamond-admin.php:244
+msgid "'Read more' link's text"
+msgstr ""
+
+#: diamond-admin.php:177
+msgid "Order By: 0: Domain, 1: Reg. Date, 2: Last update"
+msgstr ""
+
+#: diamond-admin.php:179
+msgid "Order: 0: Ascending, 1: Descending"
+msgstr ""
+
+#: diamond-admin.php:205 diamond-admin.php:238
+msgid "Author's avatar's size (px)"
+msgstr ""
+
+#: diamond-admin.php:207 diamond-admin.php:240
+msgid "Custom default avatar's URL"
+msgstr ""
+
+#: diamond-bloglist.php:16 diamond-bloglist.php:17
+msgid "Diamond Bloglist"
+msgstr ""
+
+#: diamond-bloglist.php:80 diamond-bloglist.php:312
+msgid "M. d. Y."
+msgstr ""
+
+#: diamond-bloglist.php:205 diamond-recent-comments.php:160
+#: diamond-recent-posts.php:180
+msgid "Widget Title"
+msgstr ""
+
+#: diamond-bloglist.php:213
+msgid "Blogs count"
+msgstr ""
+
+#: diamond-bloglist.php:230 diamond-post-feed.php:152
+#: diamond-recent-comments.php:185 diamond-recent-posts.php:205
+msgid "Exclude blogs: (The first 50 blogs)"
+msgstr ""
+
+#: diamond-bloglist.php:251 diamond-post-feed.php:171
+#: diamond-recent-comments.php:204 diamond-recent-posts.php:226
+msgid "Format string"
+msgstr ""
+
+#: diamond-bloglist.php:252 diamond-bloglist.php:253
+msgid "The blog's title"
+msgstr ""
+
+#: diamond-bloglist.php:253 diamond-recent-comments.php:206
+#: diamond-recent-comments.php:208 diamond-recent-posts.php:228
+msgid "(without link)"
+msgstr ""
+
+#: diamond-bloglist.php:254
+msgid "The blog's description"
+msgstr ""
+
+#: diamond-bloglist.php:255
+msgid "The registration's date"
+msgstr ""
+
+#: diamond-bloglist.php:256
+msgid "The blog's last update date"
+msgstr ""
+
+#: diamond-bloglist.php:257
+msgid "The blog's posts count"
+msgstr ""
+
+#: diamond-bloglist.php:258 diamond-recent-posts.php:234
+msgid "The \"Read More\" link"
+msgstr ""
+
+#: diamond-bloglist.php:276
+msgid "Sort Order"
+msgstr ""
+
+#: diamond-bloglist.php:279
+msgid "By Domain"
+msgstr ""
+
+#: diamond-bloglist.php:280
+msgid "By Reg. Date"
+msgstr ""
+
+#: diamond-bloglist.php:281
+msgid "By Last Update"
+msgstr ""
+
+#: diamond-bloglist.php:285
+msgid "Ascending"
+msgstr ""
+
+#: diamond-bloglist.php:286
+msgid "Descending"
+msgstr ""
+
+#: diamond-bloglist.php:296 diamond-recent-posts.php:262
+msgid "Read More"
+msgstr ""
+
+#: diamond-bloglist.php:301 diamond-recent-comments.php:242
+#: diamond-recent-posts.php:267
+msgid "\"Read More\" link text"
+msgstr ""
+
+#: diamond-bloglist.php:319 diamond-recent-comments.php:255
+#: diamond-recent-posts.php:282
+msgid ""
+"DateTime format (<a href=\"http://php.net/manual/en/function.date.php\" "
+"target=\"_blank\">manual</a>)"
+msgstr ""
+
+#: diamond-bloglist.php:327 diamond-recent-comments.php:263
+#: diamond-recent-posts.php:290
+msgid "if you like this widget then"
+msgstr ""
+
+#: diamond-bloglist.php:329 diamond-recent-comments.php:265
+#: diamond-recent-posts.php:292
+msgid "Buy me a beer!"
+msgstr ""
+
+#: diamond-broadcast-posts.php:19
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: diamond-broadcast-posts.php:85
+msgid "Broadcast this post"
+msgstr ""
+
+#: diamond-broadcast-posts.php:88
+msgid "Select blogs where you want to copy this post"
+msgstr ""
+
+#: diamond-broadcast-posts.php:91
+msgid "--- No broadcast ---"
+msgstr ""
+
+#: diamond-broadcast-posts.php:102
+msgid " (copied)"
+msgstr ""
+
+#: diamond-post-feed.php:124
+msgid "The feed's link"
+msgstr ""
+
+#: diamond-post-feed.php:135 diamond-recent-posts.php:188
+msgid "Posts count"
+msgstr ""
+
+#: diamond-post-feed.php:173 diamond-recent-posts.php:229
+msgid "The post's excerpt"
+msgstr ""
+
+#: diamond-post-feed.php:174
+msgid "The post's content"
+msgstr ""
+
+#: diamond-post-feed.php:175 diamond-recent-posts.php:233
+msgid "The post's blog name"
+msgstr ""
+
+#: diamond-recent-comments.php:13 diamond-recent-comments.php:14
+msgid "Diamond Recent Comments"
+msgstr ""
+
+#: diamond-recent-comments.php:168
+msgid "Comments count"
+msgstr ""
+
+#: diamond-recent-comments.php:205 diamond-recent-comments.php:206
+msgid "The comment's content"
+msgstr ""
+
+#: diamond-recent-comments.php:207 diamond-recent-posts.php:227
+#: diamond-recent-posts.php:228
+msgid "The post's title"
+msgstr ""
+
+#: diamond-recent-comments.php:208
+msgid "The post's title text"
+msgstr ""
+
+#: diamond-recent-comments.php:209
+msgid "The comment's date"
+msgstr ""
+
+#: diamond-recent-comments.php:210
+msgid "The comment's author"
+msgstr ""
+
+#: diamond-recent-comments.php:211 diamond-recent-posts.php:232
+msgid "Author's avatar"
+msgstr ""
+
+#: diamond-recent-comments.php:221 diamond-recent-posts.php:243
+msgid "Avatar Size (px)"
+msgstr ""
+
+#: diamond-recent-comments.php:231 diamond-recent-posts.php:254
+msgid "Default Avatar URL"
+msgstr ""
+
+#: diamond-recent-posts.php:16 diamond-recent-posts.php:17
+msgid "Diamond Recent Posts"
+msgstr ""
+
+#: diamond-recent-posts.php:230
+msgid "The post's date"
+msgstr ""
+
+#: diamond-recent-posts.php:231
+msgid "The post's author"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/extend/plugins/diamond-multisite-widgets/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Multisite bloglist widget, Multisite recent posts widget, Multisite recent "
+"comments widget. Content from the whole network. An administration widget on "
+"the post-writing window. You can copy your post to the network's sub blogs. "
+"Post/Page shortcodes support. RSS Feed support."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Daniel Bozo"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.amegrant.com"
+msgstr ""
