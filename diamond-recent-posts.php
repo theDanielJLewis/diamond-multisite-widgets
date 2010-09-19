@@ -68,15 +68,15 @@ class DiamondRP {
 	
 	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, $before_item, $after_item, $before_cont, $after_cont, $wgt_mtext)	 {		
 	
-		/*
-		$cachekey = 'diamond_post_'.diamond_arr_to_str($wgt_miss).'-'.$count.'-'.$wgt_format .
+		global $DiamondCache;
+		
+		$cachekey = 'diamond_post_'.diamond_arr_to_str($wgt_miss).'-'.$wgt_count.'-'.$wgt_format .
 		'-'.$wgt_avsize.'-'.$wgt_defav.'-'.$wgt_dt.'-'.$before_item.'-'.$after_item.'-'.$before_cont.'-'.
 		$after_cont.'-'.$wgt_mtext;
-		$output = wp_cache_get($cachekey, 'diamond');
-		print_r(wp_cache_get($cachekey, 'diamond'));			
+		$output = $DiamondCache->get($cachekey, 'recent-posts');
+					
 		if ($output != false)
-			return $output;			
-		*/
+			return $output;					
 	
 		global $switched;		
 		global $wpdb;
@@ -159,7 +159,7 @@ class DiamondRP {
 		
 		$output .=  $wpdb->print_error();		
 		
-		//wp_cache_add($cachekey, $output, 'diamond', 20000);		
+		$DiamondCache->add($cachekey, 'recent-posts', $output);		
 		
 		return $output; 
 		
@@ -168,6 +168,8 @@ class DiamondRP {
 	 
 	function widget_controlView($is_admin = false)
 	{
+		global $DiamondCache;	
+	
 		// Title
 		if ($_POST['wgt_post_hidden']) {
 			$option=$_POST['wgt_title'];
@@ -178,6 +180,16 @@ class DiamondRP {
 		echo '<input type="hidden" name="wgt_post_hidden" value="success" />';
 		
 		echo '<label for="wgt_title">' . __('Widget Title', 'diamond') . ':<br /><input id="wgt_title" name="wgt_title" type="text" value="'.$wgt_title.'" /></label>';
+		
+		
+		if ($_POST['wgt_post_hidden']) {
+			$DiamondCache->addSettings('recent-posts', 'expire', $_POST['diamond_p_cache']);			
+		}
+		$dccache=$DiamondCache->getSettings('recent-posts', 'expire');		
+		if (!$dccache)
+			$dccache = 120;	
+		echo '<br />';
+		echo '<label for="diamond_p_cache">' . __('Cache Expire Time (sec)', 'diamond') . ':<br /><input id="diamond_p_cache" name="diamond_p_cache" type="text" value="'.$dccache.'" /></label>';
 		
 		// Count
 		if ($_POST['wgt_post_hidden'])	 {

@@ -64,6 +64,16 @@ class DiamondRC {
 	
 	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, $before_item, $after_item, $before_cont, $after_cont)	 {	
 	
+		global $DiamondCache;
+		
+		$cachekey = 'diamond_comments_'.diamond_arr_to_str($wgt_miss).'-'.$wgt_count.'-'.$wgt_format .
+		'-'.$wgt_avsize.'-'.$wgt_defav.'-'.$wgt_dt.'-'.$before_item.'-'.$after_item.'-'.$before_cont.'-'.
+		$after_cont.'-'.$wgt_mtext;
+		$output = $DiamondCache->get($cachekey, 'recent-comments');
+					
+		if ($output != false)
+			return $output;						
+	
 		global $switched;		
 		global $wpdb;
 		$table_prefix = $wpdb->base_prefix;
@@ -143,11 +153,15 @@ class DiamondRC {
 		
 		$output .= $wpdb->print_error(); 
 		
+		$DiamondCache->add($cachekey, 'recent-comments', $output);		
+		
 		return $output;
 	}
 	 
 	function widget_controlView($is_admin = false)
 	{
+		global $DiamondCache;
+	
 		// Title
 		if ($_POST['wgt_comment_hidden']) {
 			$option=$_POST['wgt_title'];
@@ -158,6 +172,15 @@ class DiamondRC {
 		echo '<input type="hidden" name="wgt_comment_hidden" value="success" />';
 		
 		echo '<label for="wgt_title">' . __('Widget Title', 'diamond') . ':<br /><input id="wgt_title" name="wgt_title" type="text" value="'.$wgt_title.'" /></label>';
+		
+		if ($_POST['wgt_comment_hidden']) {
+			$DiamondCache->addSettings('recent-comments', 'expire', $_POST['diamond_c_cache']);			
+		}
+		$dccache=$DiamondCache->getSettings('recent-comments', 'expire');		
+		if (!$dccache)
+			$dccache = 120;	
+		echo '<br />';
+		echo '<label for="diamond_c_cache">' . __('Cache Expire Time (sec)', 'diamond') . ':<br /><input id="diamond_c_cache" name="diamond_c_cache" type="text" value="'.$dccache.'" /></label>';
 		
 		// Count
 		if ($_POST['wgt_comment_hidden']) {

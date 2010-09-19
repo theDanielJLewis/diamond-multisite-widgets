@@ -71,6 +71,16 @@ class DiamondBL {
 	
 	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, $before_item, $after_item, $before_cont, $after_cont, $wgt_mtext, $ord, $ordb)	 {		
 		
+		
+		global $DiamondCache;
+		
+		$cachekey = 'diamond_bloglist_'.diamond_arr_to_str($wgt_miss).'-'.$wgt_count.'-'.$wgt_format .
+		'-'.$wgt_avsize.'-'.$wgt_defav.'-'.$wgt_dt.'-'.$before_item.'-'.$after_item.'-'.$before_cont.'-'.
+		$after_cont.'-'.$wgt_mtext.'-'.$ord.'-'.$ordb;
+		$output = $DiamondCache->get($cachekey, 'bloglist');
+					
+		if ($output != false)
+			return $output;					
 	
 		global $switched;		
 		global $wpdb;
@@ -185,6 +195,8 @@ class DiamondBL {
 		
 		$output .=  $wpdb->print_error();
 		
+		$DiamondCache->add($cachekey, 'bloglist', $output);		
+		
 		return $output; 
 		
 	}
@@ -192,6 +204,8 @@ class DiamondBL {
 	 
 	function widget_controlView($is_admin = false)
 	{
+		global $DiamondCache;
+	
 		$options = get_option('diamond_bloglist_options');
 		// Title
 		if ($_POST['diamond_bloglist_hidden']) {
@@ -203,6 +217,15 @@ class DiamondBL {
 		echo '<input type="hidden" name="diamond_bloglist_hidden" value="success" />';
 		
 		echo '<label for="wgt_title">' . __('Widget Title', 'diamond') . ':<br /><input id="wgt_title" name="wgt_title" type="text" value="'.$wgt_title.'" /></label>';
+		
+		if ($_POST['diamond_bloglist_hidden']) {
+			$DiamondCache->addSettings('bloglist', 'expire', $_POST['diamond_b_cache']);			
+		}
+		$dccache=$DiamondCache->getSettings('bloglist', 'expire');		
+		if (!$dccache)
+			$dccache = 120;	
+		echo '<br />';
+		echo '<label for="diamond_b_cache">' . __('Cache Expire Time (sec)', 'diamond') . ':<br /><input id="diamond_b_cache" name="diamond_b_cache" type="text" value="'.$dccache.'" /></label>';
 		
 		// Count
 		if ($_POST['diamond_bloglist_hidden'])	 {

@@ -4,9 +4,9 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypa
 Tags: recent post, network, multisite, widget, recent comments, MU, WPMU, sidebar, broadcast, copy post, share post, network post, rss, rss feed, recent post rss, network rss, bloglist, sub-blog list, blog list
 Requires at least: 3.0
 Tested up to: 3.0.1
-Stable tag: 1.6.1
+Stable tag: 1.7
 
-Recent posts and comments from the whole network
+Bloglist, recent posts and comments from the whole network
 
 == Description ==
 Bloglist and recent posts and comments from the whole network<br />
@@ -20,6 +20,7 @@ Features:<br />
 - Avatar support<br />
 - Posts/Pages shortcode support (read more at the admin page)<br />
 - RSS Recent Post feed<br />
+- Cache<br />
 <br />
 Broadcast Post On The Network<br />
 - In the publish box, you can copy your post to the network's sub-blogs<br />
@@ -31,6 +32,9 @@ Translations<br />
 if you have any question write me an e-mail to daniel.bozo@amegrant.hu
 
 == Changelog ==
+= 1.7 =
+- Cache
+
 = 1.6.1 =
 - Bloglist Exclude blogs bugfix
 
