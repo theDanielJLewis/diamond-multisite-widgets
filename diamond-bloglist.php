@@ -165,7 +165,7 @@ class DiamondBL {
 		foreach ($blog_list AS $blog) {
 			$output .=  $before_item;
 			
-			$txt = ($wgt_format == '') ? '<b>{title}<b>' : $wgt_format;			
+			$txt = ($wgt_format == '') ? '<b>{title}</b>' : $wgt_format;			
 			
 			$title = '';$desc = '';$burl = '';$pcount = 0;
 			switch_to_blog($blog['blog_id']);					
@@ -267,7 +267,7 @@ class DiamondBL {
 		if ($_POST['diamond_bloglist_hidden']) {
 			$option=$_POST['wgt_format'];
 			if (!isset($option) || $option == '')
-				$option = '<b>{title}<b>';
+				$option = '<b>{title}</b>';
 			$options['diamond_bloglist_format'] = $option;
 		}
 		$wgt_format= $options['diamond_bloglist_format'];

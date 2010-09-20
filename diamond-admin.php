@@ -246,6 +246,12 @@ class DiamondAdmin {
 			echo '</td>';			
 			
 			echo '</tr></table>';
+			echo '<p>';
+			echo __('If you want to use shortcodes in your template files, you can use that this way:');
+			echo '<pre><code>';
+			echo '&lt;?php echo do_shortcode(\'[shortcode option1="value1" option2="value2"]\'); ?&gt;';
+			echo '</code></pre>';
+			echo '</p>';
 			echo '</div>';	
 		
 		
