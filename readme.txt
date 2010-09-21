@@ -32,7 +32,7 @@ Translations<br />
 if you have any question write me an e-mail to daniel.bozo@amegrant.hu
 
 == Changelog ==
-= 1.7.1=
+= 1.7.1 =
 - Bloglist default format fix
 
 = 1.7 =
