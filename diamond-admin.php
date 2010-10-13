@@ -168,6 +168,8 @@ class DiamondAdmin {
 			echo '</li><li>';
 			echo 'exclude: '. __('Blogs\' id you want to exclude (separate with \',\')', 'diamond');
 			echo '</li><li>';
+			echo 'whitelist: '. __('Blogs\' whitelist (separate with \',\')', 'diamond');
+			echo '</li><li>';
 			echo 'count: '. __('Entry count limit', 'diamond');			
 			echo '</li><li>';
 			echo 'date_format: '. __('Datetime format string', 'diamond');
@@ -199,6 +201,8 @@ class DiamondAdmin {
 			echo 'after_item: '. __('After the entry-list item (Default: &lt;/li&gt;)', 'diamond');
 			echo '</li><li>';
 			echo 'exclude: '. __('Blogs\' id you want to exclude (separate with \',\')', 'diamond');
+			echo '</li><li>';
+			echo 'whitelist: '. __('Blogs\' whitelist (separate with \',\')', 'diamond');			
 			echo '</li><li>';
 			echo 'count: '. __('Entry count limit', 'diamond');
 			echo '</li><li>';
@@ -232,6 +236,8 @@ class DiamondAdmin {
 			echo 'after_item: '. __('After the entry-list item (Default: &lt;/li&gt;)', 'diamond');
 			echo '</li><li>';
 			echo 'exclude: '. __('Blogs\' id you want to exclude (separate with \',\')', 'diamond');
+			echo '</li><li>';
+			echo 'whitelist: '. __('Blogs\' whitelist (separate with \',\')', 'diamond');
 			echo '</li><li>';
 			echo 'count: '. __('Entry count limit', 'diamond');
 			echo '</li><li>';

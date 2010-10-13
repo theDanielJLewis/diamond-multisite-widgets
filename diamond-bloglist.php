@@ -33,10 +33,11 @@ class DiamondBL {
 		'more_text' => '',
 		'after_content' => '',
 		'order_by' => '',
-		'order' => ''
+		'order' => '',
+		'whitelist' => ''
 		), $atts ) );
 			
-		return $this->render_output(split(',',$exclude), $count, html_entity_decode($format), $logo_size, $default_logo, $date_format, html_entity_decode($before_item), html_entity_decode($after_item), html_entity_decode($before_content), html_entity_decode($after_content), $more_text, $order_by, $order);
+		return $this->render_output(split(',',$exclude), $count, html_entity_decode($format), $logo_size, $default_logo, $date_format, html_entity_decode($before_item), html_entity_decode($after_item), html_entity_decode($before_content), html_entity_decode($after_content), $more_text, $order_by, $order, $whitelist);
 	}
 	
 
@@ -52,6 +53,7 @@ class DiamondBL {
 		$wgt_mtext = $diamond_bloglist_mtext;		
 		$wgt_defav = $diamond_bloglist_defav;		
 		$wgt_dt = $diamond_bloglist_dt;	
+		$wgt_white = split(';', $diamond_bloglist_white);		
 	
 	//print_r($args);
 		
@@ -61,7 +63,7 @@ class DiamondBL {
 		
 		$output .= $before_widget.$before_title.$wgt_title. $after_title;		
 	
-		$output .= $this->render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, '<li>', '</li>', '<ul>', '</ul>', $wgt_mtext, $diamond_bloglist_order, $diamond_bloglist_order_by) ;
+		$output .= $this->render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, '<li>', '</li>', '<ul>', '</ul>', $wgt_mtext, $diamond_bloglist_order, $diamond_bloglist_order_by, $wgt_white) ;
 		
 		$output .=  $after_widget;
 		
@@ -69,12 +71,12 @@ class DiamondBL {
 	}
 	
 	
-	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, $before_item, $after_item, $before_cont, $after_cont, $wgt_mtext, $ord, $ordb)	 {		
+	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, $before_item, $after_item, $before_cont, $after_cont, $wgt_mtext, $ord, $ordb, $wgt_white)	 {		
 		
 		
 		global $DiamondCache;
 		
-		$cachekey = 'diamond_bloglist_'.diamond_arr_to_str($wgt_miss).'-'.$wgt_count.'-'.$wgt_format .
+		$cachekey = 'diamond_bloglist_'.diamond_arr_to_str($wgt_miss).'-'.$wgt_count.'-'.$wgt_format .diamond_arr_to_str($wgt_white).
 		'-'.$wgt_avsize.'-'.$wgt_defav.'-'.$wgt_dt.'-'.$before_item.'-'.$after_item.'-'.$before_cont.'-'.
 		$after_cont.'-'.$wgt_mtext.'-'.$ord.'-'.$ordb;
 		$output = $DiamondCache->get($cachekey, 'bloglist');
@@ -105,18 +107,32 @@ class DiamondBL {
 			$after_cont = '</ul>';			
 			
 		if (!isset($wgt_miss) || $wgt_miss == '' || (count($wgt_count) == 1 &&  $wgt_miss[0] == ''))
-			$wgt_miss = array ();					
+			$wgt_miss = array ();		
+
+		$white = 0;
+		if (isset($wgt_white) && $wgt_white != '' && count($wgt_white) > 0 && $wgt_white[0] && $wgt_white[0]!='')
+			$white = 1;					
 		
 		$sqlstr = '';
 		
 		$felt = '';$sep = '';
-		if (count($wgt_miss) > 0) {
-			$felt = ' AND blog_id NOT IN (';
-			foreach ($wgt_miss AS $m) {
+		
+		if ($white == 0) {
+			if (count($wgt_miss) > 0) {
+				$felt = ' AND blog_id NOT IN (';
+				foreach ($wgt_miss AS $m) {
+					$felt .= $sep . $m;			
+					$sep = ', ';
+				}
+				$felt .= ') ';
+			}
+		} else {			
+			$felt = ' AND blog_id IN (';
+			foreach ($wgt_white AS $m) {
 				$felt .= $sep . $m;			
 				$sep = ', ';
 			}
-			$felt .= ') ';
+			$felt .= ') ';		
 		}
 		
 		//print_r($wgt_miss);
@@ -261,6 +277,35 @@ class DiamondBL {
 			echo '<br />';
 		}
 		echo '</label>';		
+		
+		
+		
+		// whitelist
+		if ($_POST['diamond_bloglist_hidden']) {		
+			$option=$_POST['wgt_white'];
+			$tmp = '';
+			$sep = '';
+			if (isset($option) && $option != '')
+			foreach ($option AS $op) {			
+				$tmp .= $sep .$op;
+				$sep = ';';
+			}
+			$options['diamond_bloglist_white'] = $tmp;		
+		}
+		
+		$wgt_miss=$options['diamond_bloglist_white'];
+		$miss = split(';',$wgt_miss);
+		echo '<br /><label for="wgt_white">' . __('Whitelist: (The first 50 blogs)','diamond');
+		$blog_list = get_blog_list( 0, 50 ); 
+		echo '<br />';
+		foreach ($blog_list AS $blog) {
+			echo '<input id="wgt_white_'.$blog['blog_id'].'" name="wgt_white[]" type="checkbox" value="'.$blog['blog_id'].'" ';
+			if (in_array($blog['blog_id'], $miss)) echo ' checked="checked" ';
+			echo ' />';
+			echo get_blog_option( $blog['blog_id'], 'blogname' );
+			echo '<br />';
+		}
+		echo '</label>';	
 		
 		
 		// Format

@@ -29,12 +29,13 @@ class DiamondPF {
 		$wgt_count=get_option('diamond_post_feed_count');		
 		$wgt_miss= split(';', get_option('diamond_post_feed_miss'));		
 		$wgt_format = get_option('diamond_post_feed_format');				
+		$wgt_white= split(';', get_option('diamond_post_feed_white'));		
 	
-		$this->render_output($wgt_miss, $wgt_count, $wgt_format) ;		
+		$this->render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_white) ;		
 	}
 	
 	
-	function render_output($wgt_miss, $wgt_count, $wgt_format)	 {	
+	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_white)	 {	
 			
 		global $switched;		
 		global $wpdb;
@@ -44,6 +45,10 @@ class DiamondPF {
 		
 		if (!isset($wgt_miss) || $wgt_miss == '')
 			$wgt_miss = array ();
+			
+		$white = 0;
+		if (isset($wgt_white) && $wgt_white != '' && count($wgt_white) > 0 && $wgt_white[0] && $wgt_white[0]!='')
+			$white = 1;			
 			
 		echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
 		
@@ -65,13 +70,14 @@ class DiamondPF {
 			
 		$sqlstr = '';
 		$blog_list = get_blog_list( 0, 'all' );
-		if (!in_array(1, $wgt_miss)) {
+		if (($white == 0 && !in_array(1, $wgt_miss)) || ($white == 1 && in_array(1, $wgt_white))) {
 			$sqlstr = "SELECT 1 as blog_id, id, post_date_gmt, post_type from ".$table_prefix ."posts where post_status = 'publish' and post_type = 'post' ";
 		}
 		$uni = '';
 		
 		foreach ($blog_list AS $blog) {
-			if (!in_array($blog['blog_id'], $wgt_miss) && $blog['blog_id'] != 1) {
+			if (($white == 0 && !in_array($blog['blog_id'], $wgt_miss) && $blog['blog_id'] != 1) ||
+			($white == 1 && $blog['blog_id'] != 1 && in_array($blog['blog_id'], $wgt_white))) {
 				if ($sqlstr != '')
 					$uni = ' union ';;	
 				$sqlstr .= $uni . " SELECT ".$blog['blog_id']." as blog_id, id, post_date_gmt, post_type from ".$table_prefix .$blog['blog_id']."_posts  where post_status = 'publish' and post_type = 'post' ";				
@@ -160,7 +166,35 @@ class DiamondPF {
 			echo '<br />';
 		}
 		echo '</label>';		
+	
+
+		// whitelist
+		if ($_POST['diamond_post_feed_hidden']) {		
+			$option=$_POST['diamond_post_feed_white'];
+			$tmp = '';
+			$sep = '';
+			if (isset($option) && $option != '')
+			foreach ($option AS $op) {			
+				$tmp .= $sep .$op;
+				$sep = ';';
+			}
+			update_option('diamond_post_feed_white',$tmp);		
+		}
 		
+		$wgt_miss=get_option('diamond_post_feed_white');
+		$miss = split(';',$wgt_miss);
+		echo '<br /><label for="diamond_post_feed_white">' . __('Whitelist: (The first 50 blogs)','diamond');
+		$blog_list = get_blog_list( 0, 50 ); 
+		echo '<br />';
+		foreach ($blog_list AS $blog) {
+			echo '<input id="diamond_post_feed_white_'.$blog['blog_id'].'" name="diamond_post_feed_white[]" type="checkbox" value="'.$blog['blog_id'].'" ';
+			if (in_array($blog['blog_id'], $miss)) echo ' checked="checked" ';
+			echo ' />';
+			echo get_blog_option( $blog['blog_id'], 'blogname' );
+			echo '<br />';
+		}
+		echo '</label>';		
+	
 		
 		// Format
 		if ($_POST['diamond_post_feed_hidden'])	 {

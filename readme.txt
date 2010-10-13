@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypa
 Tags: recent post, network, multisite, widget, recent comments, MU, WPMU, sidebar, broadcast, copy post, share post, network post, rss, rss feed, recent post rss, network rss, bloglist, sub-blog list, blog list
 Requires at least: 3.0
 Tested up to: 3.0.1
-Stable tag: 1.7.1
+Stable tag: 1.7.5
 
 Bloglist, recent posts and comments from the whole network.
 
@@ -13,10 +13,10 @@ Bloglist and recent posts and comments from the whole network<br />
 
 Features:<br />
 - You can choose the entries count<br />
-- You can exclude your main blog or any sub-blogs<br />
 - You can format the entries easily with short codes and html tags <br />
 - You can set custom datetime format<br />
 - You can use it on sub-blogs<br />
+- Blacklist/Whitelist<br />
 - Avatar support<br />
 - Posts/Pages shortcode support (read more at the admin page)<br />
 - RSS Recent Post feed<br />
@@ -32,6 +32,9 @@ Translations<br />
 if you have any question write me an e-mail to daniel.bozo@amegrant.hu
 
 == Changelog ==
+= 1.7.5 =
+- Blogs' Whitelist
+
 = 1.7.1 =
 - Bloglist default format fix
 

@@ -31,11 +31,12 @@ class DiamondRC {
 		'before_item' =>'',
 		'$after_item' => '',
 		'before_content' => '',
-		'after_content' => ''
+		'after_content' => '',
+		'whitelist' => ''
 		), $atts ) );
 			
 
-		return $this->render_output(split(',',$exclude), $count, $format, $avatar_size, $default_avatar, $date_format, $before_item, $after_item, $before_content, $after_content);
+		return $this->render_output(split(',',$exclude), $count, $format, $avatar_size, $default_avatar, $date_format, $before_item, $after_item, $before_content, $after_content, $whitelist);
 	}
 	
 	function widget_endView($args)
@@ -49,24 +50,25 @@ class DiamondRC {
 		$wgt_mtext = get_option('wgtc_mtext');		
 		$wgt_defav = get_option('wgtc_defav');		
 		$wgt_dt = get_option('wgtc_dt');		
+		$wgt_white= split(';', get_option('c_wgt_white'));		
 		
 		$output = '';
 		
 		extract($args);
 		$output .= $before_widget.$before_title.$wgt_title.$after_title;	
 
-		$output .= $this->render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, '<li>', '</li>', '<ul>', '</ul>');
+		$output .= $this->render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, '<li>', '</li>', '<ul>', '</ul>', $wgt_white);
 		
 		$output .= $after_widget;
 		
 		echo $output;
 	}
 	
-	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, $before_item, $after_item, $before_cont, $after_cont)	 {	
+	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, $before_item, $after_item, $before_cont, $after_cont, $wgt_white)	 {	
 	
 		global $DiamondCache;
 		
-		$cachekey = 'diamond_comments_'.diamond_arr_to_str($wgt_miss).'-'.$wgt_count.'-'.$wgt_format .
+		$cachekey = 'diamond_comments_'.diamond_arr_to_str($wgt_miss).'-'.$wgt_count.'-'.$wgt_format . diamond_arr_to_str($wgt_white).
 		'-'.$wgt_avsize.'-'.$wgt_defav.'-'.$wgt_dt.'-'.$before_item.'-'.$after_item.'-'.$before_cont.'-'.
 		$after_cont.'-'.$wgt_mtext;
 		$output = $DiamondCache->get($cachekey, 'recent-comments');
@@ -97,17 +99,22 @@ class DiamondRC {
 			$after_cont = '</ul>';			
 			
 		if (!isset($wgt_miss) || $wgt_miss == '')
-			$wgt_miss = array ();				
+			$wgt_miss = array ();
+
+		$white = 0;
+		if (isset($wgt_white) && $wgt_white != '' && count($wgt_white) > 0 && $wgt_white[0] && $wgt_white[0]!='')
+			$white = 1;		
 		
 		$sqlstr = '';
 		$blog_list = get_blog_list( 0, 'all' );
-		if (!in_array(1, $wgt_miss)) {
+		if (($white == 0 && !in_array(1, $wgt_miss)) || ($white == 1 && in_array(1, $wgt_white))) {
 			$sqlstr = "SELECT 1 as blog_id, comment_date, comment_id, comment_post_id, comment_content, comment_date_gmt, comment_author, comment_author_email from ".$table_prefix ."comments where comment_approved = 1 ";
 		}
 		$uni = '';
 		
 		foreach ($blog_list AS $blog) {
-			if (!in_array($blog['blog_id'], $wgt_miss) && $blog['blog_id'] != 1) {
+			if (($white == 0 && !in_array($blog['blog_id'], $wgt_miss) && $blog['blog_id'] != 1) ||
+			($white == 1 && $blog['blog_id'] != 1 && in_array($blog['blog_id'], $wgt_white))) {
 				if ($sqlstr != '')
 					$uni = ' union ';;	
 				$sqlstr .= $uni . " SELECT ".$blog['blog_id']." as blog_id, comment_date, comment_id, comment_post_id, comment_content, comment_date_gmt, comment_author, comment_author_email   from ".$table_prefix .$blog['blog_id']."_comments where comment_approved = 1 ";				
@@ -129,7 +136,7 @@ class DiamondRC {
 		foreach ($comm_list AS $comm) {
 			$output .= $before_item;
 			
-			$txt = ($wgt_format == '') ? '<b>{title}<b> - <i>{date}<i>' : $wgt_format;			
+			$txt = ($wgt_format == '') ? '<strong>{title}</strong> - {date}' : $wgt_format;			
 			
 			$p = get_blog_post($comm["blog_id"], $comm["comment_post_id"]);
 			$c = $comm['comment_content'];
@@ -217,6 +224,33 @@ class DiamondRC {
 		}
 		echo '</label>';		
 		
+		
+		//Whitelist
+		if ($_POST['wgt_comment_hidden']) {		
+			$option=$_POST['c_wgt_white'];
+			$tmp = '';
+			$sep = '';
+			if (isset($option) && $option != '')
+			foreach ($option AS $op) {			
+				$tmp .= $sep .$op;
+				$sep = ';';
+			}
+			update_option('c_wgt_white',$tmp);		
+		}
+		
+		$wgt_white=get_option('c_wgt_white');
+		$miss = split(';',$wgt_white);
+		echo '<br /><label for="c_wgt_white">' . __('Whitelist: (The first 50 blogs)','diamond');
+		$blog_list = get_blog_list( 0, 50 ); 
+		echo '<br />';
+		foreach ($blog_list AS $blog) {
+			echo '<input id="c_wgt_white_'.$blog['blog_id'].'" name="c_wgt_white[]" type="checkbox" value="'.$blog['blog_id'].'" ';
+			if (in_array($blog['blog_id'], $miss)) echo ' checked="checked" ';
+			echo ' />';
+			echo get_blog_option( $blog['blog_id'], 'blogname' );
+			echo '<br />';
+		}
+		echo '</label>';	
 		
 		// Format
 		if ($_POST['wgt_comment_hidden']) {
