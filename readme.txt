@@ -31,7 +31,7 @@ Translations<br />
 <br />
 if you have any question write me an e-mail to daniel.bozo@amegrant.hu
 <br />
-if you want to work with me <a href="http://www.odesk.com/referrals/track/rocky1983?redir=http%3A%2F%2Fwww.odesk.com%2Fusers%2F%7E%7E62d462b7f34dbdb4">Hire me on oDesk!</a>
+if you want to work with me <a href="http://www.odesk.com/referrals/track/rocky1983?redir=http%3A%2F%2Fwww.odesk.com%2Fusers%2F%7E%7E62d462b7f34dbdb4" target="_blank">Hire me on oDesk!</a>
 
 == Changelog ==
 = 1.7.6 =
