@@ -7,4 +7,16 @@ function diamond_arr_to_str($arg) {
 		$ret.=$a;
 	return $ret;
 }
+
+function get_format_txt($code) {
+	if ($code && $code != '' && substr($code, 0, 8) == 'encrypt:') 
+		return base64_decode(substr($code, 8));
+	return $code;
+}
+
+function get_format_code($txt) {
+	if ($txt && $txt != '') 
+		return 'encrypt:' . base64_encode($txt);
+	return $txt;
+}
 ?>

@@ -140,7 +140,9 @@ class DiamondRP {
 		foreach ($post_list AS $post) {
 			$output .=  $before_item;
 			
+			$wgt_format = get_format_txt($wgt_format);
 			$txt = ($wgt_format == '') ? '<strong>{title}</strong> - {date}' : $wgt_format;
+			
 			
 			$p = get_blog_post($post["blog_id"], $post["id"]);			
 			
@@ -266,9 +268,9 @@ class DiamondRP {
 			$option=$_POST['wgt_format'];
 			if (!isset($option) || $option == '')
 				$option = '<strong>{title}</strong> - {date}';
-			update_option('wgt_format',$option);
+			update_option('wgt_format', get_format_code($option));
 		}
-		$wgt_format=get_option('wgt_format');
+		$wgt_format=htmlentities(str_replace('\"', '"', get_format_txt(get_option('wgt_format'))));
 		echo '<label for="wgt_number">' . __('Format string', 'diamond') .':<br /><input id="wgt_format" name="wgt_format" type="text" value="'.$wgt_format.'" /></label><br />';		
 		echo '{title} - '. __('The post\'s title', 'diamond').'<br />';
 		echo '{title_txt} - '. __('The post\'s title', 'diamond').' '.__('(without link)', 'diamond').'<br />';

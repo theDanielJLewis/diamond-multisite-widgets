@@ -150,12 +150,12 @@ class DiamondBL {
 			
 		$sqlstr .= " ORDER BY ";
 		switch ($ord)	 {
-			case 0:  $sqlstr .= "path ";
+			default:  $sqlstr .= "path ";
 				break;
 			case 1:  $sqlstr .= "registered ";
 				break;
-			case 2:  $sqlstr .= "last_updated ";
-				break;	
+			case 2:  $sqlstr .= "last_updated ";			
+				break;					
 		}
 		
 		if (!$ordb || $ordb=='')
@@ -163,7 +163,7 @@ class DiamondBL {
 		
 		
 		switch ($ordb)	 {
-			case 0:  $sqlstr .= "asc ";
+			default:  $sqlstr .= "asc ";
 				break;
 			case 1:  $sqlstr .= "desc ";
 				break;		
@@ -172,15 +172,45 @@ class DiamondBL {
 		$sqlstr .= $limit;
 		
 		// echo $sqlstr; 
-		$blog_list = $wpdb->get_results($sqlstr, ARRAY_A);
+		$blog_list_temp = $wpdb->get_results($sqlstr, ARRAY_A);
 		echo $wpdb->print_error(); 
 		//print_r($blog_list);
 		
 		$output = '';
 		$output .=  $before_cont;
+		
+		
+		foreach ($blog_list_temp as $blog) {			
+			switch_to_blog($blog['blog_id']);		
+			$count = wp_count_posts()->publish;			
+			$blog_list[$count]  = $blog;			
+			$blog_list[$count]['count'] = $count;
+			restore_current_blog();		
+		}
+		
+		
+		
+		if ($ord == 3)	 {
+			foreach ($blog_list_temp as $blog) {			
+				switch_to_blog($blog['blog_id']);		
+				$count = wp_count_posts()->publish;			
+				$blog_list[$count]  = $blog;			
+				$blog_list[$count]['count'] = $count;
+				restore_current_blog();		
+			}
+		
+			$blog_list = ksort($blog_list);
+			if ($ordb == 1)  {
+				$blog_list = array_reverse($blog_list);
+			}
+		}
+		else
+			$blog_list = $blog_list_temp;
+		
 		foreach ($blog_list AS $blog) {
 			$output .=  $before_item;
 			
+			$wgt_format = get_format_txt($wgt_format);
 			$txt = ($wgt_format == '') ? '<b>{title}</b>' : $wgt_format;			
 			
 			$title = '';$desc = '';$burl = '';$pcount = 0;
@@ -191,9 +221,9 @@ class DiamondBL {
 					$desc = get_bloginfo('description');	
 				$burl = get_bloginfo('url');
 				if (strpos($txt, '{postcount}') !== false)
-					$pcount = wp_count_posts()->publish;
+					$pcount = wp_count_posts()->publish;				
 			restore_current_blog();
-
+			
 			
 			$txt = str_replace('{title}', '<a href="' . $burl .'">'. $title .'</a>' , $txt);
 			$txt = str_replace('{more}', '<a href="' . $burl .'">'.$wgt_mtext.'</a>' , $txt);
@@ -312,10 +342,10 @@ class DiamondBL {
 		if ($_POST['diamond_bloglist_hidden']) {
 			$option=$_POST['wgt_format'];
 			if (!isset($option) || $option == '')
-				$option = '<b>{title}</b>';
-			$options['diamond_bloglist_format'] = $option;
+				$option = '<strong>{title}</strong>';
+			$options['diamond_bloglist_format'] = get_format_code($option);
 		}
-		$wgt_format= $options['diamond_bloglist_format'];
+		$wgt_format= htmlentities(str_replace('\"', '"', get_format_txt($options['diamond_bloglist_format'])));
 		echo '<label for="wgt_number">' . __('Format string', 'diamond') .':<br /><input id="wgt_format" name="wgt_format" type="text" value="'.$wgt_format.'" /></label><br />';		
 		echo '{title} - '. __('The blog\'s title', 'diamond').'<br />';
 		echo '{title_txt} - '. __('The blog\'s title', 'diamond').' '.__('(without link)', 'diamond').'<br />';
@@ -347,6 +377,7 @@ class DiamondBL {
 		echo '<option value="0" '. (($dor == 0)? 'selected="selected"' : '') . '>'.__('By Domain', 'diamond').'</option>';
 		echo '<option value="1" '. (($dor == 1)? 'selected="selected"' : '') . '>'.__('By Reg. Date', 'diamond').'</option>';
 		echo '<option value="2" '. (($dor == 2)? 'selected="selected"' : '') . '>'.__('By Last Update', 'diamond').'</option>';
+		echo '<option value="2" '. (($dor == 2)? 'selected="selected"' : '') . '>'.__('By Post Count', 'diamond').'</option>';
 		echo '</select>';
 		
 		echo '<select id="diamond_bloglist_order_by" name="diamond_bloglist_order_by">';

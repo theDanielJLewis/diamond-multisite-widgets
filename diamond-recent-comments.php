@@ -136,6 +136,7 @@ class DiamondRC {
 		foreach ($comm_list AS $comm) {
 			$output .= $before_item;
 			
+			$wgt_format = get_format_txt($wgt_format);
 			$txt = ($wgt_format == '') ? '<strong>{title}</strong> - {date}' : $wgt_format;			
 			
 			$p = get_blog_post($comm["blog_id"], $comm["comment_post_id"]);
@@ -255,10 +256,12 @@ class DiamondRC {
 		// Format
 		if ($_POST['wgt_comment_hidden']) {
 			$option=$_POST['wgt_format'];
-			update_option('c_wgt_format',$option);
+			if (!$option || trim($option) == '')
+				$option = '<strong>{title}</strong> - {date}';
+			update_option('c_wgt_format', get_format_code($option));
 		}
-		$wgt_format=get_option('c_wgt_format');
-		echo '<label for="wgt_number">' . __('Format string', 'diamond') .':<br /><input id="wgt_format" name="wgt_format" type="text" value="'.$wgt_format.'" /></label><br />';		
+		$wgt_format=htmlentities(str_replace('\"', '"', get_format_txt(get_option('c_wgt_format'))));
+		echo '<label for="wgt_number">' . __('Format string', 'diamond') .': <br /><input id="wgt_format" name="wgt_format" type="text" value="'.$wgt_format.'" /></label><br />';		
 		echo '{title} - '. __('The comment\'s content', 'diamond') . '</p><br />';
 		echo '{title_txt} - '. __('The comment\'s content', 'diamond').' '.__('(without link)', 'diamond').'<br />';
 		echo '{post-title} - '. __('The post\'s title', 'diamond') . '</p><br />';
