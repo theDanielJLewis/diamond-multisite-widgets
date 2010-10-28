@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Diamond MultiSite Widgets 1.5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/diamond-multisite-widgets\n"
 "POT-Creation-Date: 2010-09-10 14:05+0000\n"
-"PO-Revision-Date: 2010-09-21 15:37+0900\n"
+"PO-Revision-Date: 2010-10-28 07:04+0900\n"
 "Last-Translator: BNG NET <webmaster@bng.net>\n"
 "Language-Team: BNG NET <webmaster@bng.net>\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,22 @@ msgstr ""
 "X-Poedit-Language: Japanese\n"
 "X-Poedit-Country: JAPAN\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+
+#: Added on 2010/10/28
+msgid "Blogs' whitelist (separate with ',')"
+msgstr "ブログのホワイトリスト: (複数指定は「,」区切り)"
+
+#: Added on 2010/10/28
+msgid "White List: (The first 50 blogs)"
+msgstr "ホワイトリスト: (最初の50個)"
+
+#: Added on 2010/10/28
+msgid "Whitelist: (The first 50 blogs)"
+msgstr "ホワイトリスト: (最初の50個)"
+
+#: Added on 2010/10/28
+msgid "Bloglist"
+msgstr "ブログリスト"
 
 #: Added on 2010/09/21
 msgid "If you want to use shortcodes in your template files, you can use that this way:"
@@ -212,7 +228,7 @@ msgstr "表示する記事の数"
 #: diamond-recent-comments.php:185
 #: diamond-recent-posts.php:192
 msgid "Exclude blogs: (The first 50 blogs)"
-msgstr "除外するブログ: (ブログ50個)"
+msgstr "除外するブログ: (最初の50個)"
 
 #: diamond-post-feed.php:166
 #: diamond-recent-comments.php:204

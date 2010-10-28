@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypa
 Tags: recent post, network, multisite, widget, recent comments, MU, WPMU, sidebar, broadcast, copy post, share post, network post, rss, rss feed, recent post rss, network rss, bloglist, sub-blog list, blog list
 Requires at least: 3.0
 Tested up to: 3.0.1
-Stable tag: 1.7.6
+Stable tag: 1.7.7
 
 Bloglist, recent posts and comments from the whole network.
 
@@ -34,6 +34,9 @@ if you have any question write me an e-mail to daniel.bozo@amegrant.hu
 if you want to work with me <a href="http://www.odesk.com/referrals/track/rocky1983?redir=http%3A%2F%2Fwww.odesk.com%2Fusers%2F%7E%7E62d462b7f34dbdb4" target="_blank">Hire me on oDesk!</a>
 
 == Changelog ==
+= 1.7.7 =
+- 'By Post Count' bugfix
+
 = 1.7.6 =
 - Format string HTML bugfix
 - 'By Post Count' order option to bloglist

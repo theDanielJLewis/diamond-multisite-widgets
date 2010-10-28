@@ -177,29 +177,18 @@ class DiamondBL {
 		//print_r($blog_list);
 		
 		$output = '';
-		$output .=  $before_cont;
-		
-		
-		foreach ($blog_list_temp as $blog) {			
-			switch_to_blog($blog['blog_id']);		
-			$count = wp_count_posts()->publish;			
-			$blog_list[$count]  = $blog;			
-			$blog_list[$count]['count'] = $count;
-			restore_current_blog();		
-		}
-		
-		
+		$output .=  $before_cont;		
 		
 		if ($ord == 3)	 {
 			foreach ($blog_list_temp as $blog) {			
 				switch_to_blog($blog['blog_id']);		
 				$count = wp_count_posts()->publish;			
+				restore_current_blog();	
 				$blog_list[$count]  = $blog;			
-				$blog_list[$count]['count'] = $count;
-				restore_current_blog();		
+				$blog_list[$count]['count'] = $count;					
 			}
-		
-			$blog_list = ksort($blog_list);
+			
+			ksort($blog_list);
 			if ($ordb == 1)  {
 				$blog_list = array_reverse($blog_list);
 			}
@@ -207,7 +196,7 @@ class DiamondBL {
 		else
 			$blog_list = $blog_list_temp;
 		
-		foreach ($blog_list AS $blog) {
+		foreach ($blog_list as $blog) {
 			$output .=  $before_item;
 			
 			$wgt_format = get_format_txt($wgt_format);
@@ -377,7 +366,7 @@ class DiamondBL {
 		echo '<option value="0" '. (($dor == 0)? 'selected="selected"' : '') . '>'.__('By Domain', 'diamond').'</option>';
 		echo '<option value="1" '. (($dor == 1)? 'selected="selected"' : '') . '>'.__('By Reg. Date', 'diamond').'</option>';
 		echo '<option value="2" '. (($dor == 2)? 'selected="selected"' : '') . '>'.__('By Last Update', 'diamond').'</option>';
-		echo '<option value="2" '. (($dor == 2)? 'selected="selected"' : '') . '>'.__('By Post Count', 'diamond').'</option>';
+		echo '<option value="3" '. (($dor == 3)? 'selected="selected"' : '') . '>'.__('By Post Count', 'diamond').'</option>';
 		echo '</select>';
 		
 		echo '<select id="diamond_bloglist_order_by" name="diamond_bloglist_order_by">';
