@@ -36,7 +36,7 @@ class DiamondRC {
 		), $atts ) );
 			
 
-		return $this->render_output(split(',',$exclude), $count, $format, $avatar_size, $default_avatar, $date_format, $before_item, $after_item, $before_content, $after_content, $whitelist);
+		return $this->render_output(split(',',$exclude), $count, $format, $avatar_size, $default_avatar, $date_format, $before_item, $after_item, $before_content, $after_content, split(',', $whitelist));
 	}
 	
 	function widget_endView($args)
@@ -105,10 +105,12 @@ class DiamondRC {
 		if (isset($wgt_white) && $wgt_white != '' && count($wgt_white) > 0 && $wgt_white[0] && $wgt_white[0]!='')
 			$white = 1;		
 		
+		$first_comment = __('Hi, this is a comment.<br />To delete a comment, just log in and view the post&#039;s comments. There you will have the option to edit or delete them.');
+		$first_comment = get_site_option( 'first_comment', $first_comment );
 		$sqlstr = '';
 		$blog_list = get_blog_list( 0, 'all' );
 		if (($white == 0 && !in_array(1, $wgt_miss)) || ($white == 1 && in_array(1, $wgt_white))) {
-			$sqlstr = "SELECT 1 as blog_id, comment_date, comment_id, comment_post_id, comment_content, comment_date_gmt, comment_author, comment_author_email from ".$table_prefix ."comments where comment_approved = 1 ";
+			$sqlstr = "SELECT 1 as blog_id, comment_date, comment_id, comment_post_id, comment_content, comment_date_gmt, comment_author, comment_author_email from ".$table_prefix ."comments where comment_approved = 1 and (comment_type = '' or comment_type is null) and comment_content <> '".$first_comment."'";
 		}
 		$uni = '';
 		
@@ -117,7 +119,7 @@ class DiamondRC {
 			($white == 1 && $blog['blog_id'] != 1 && in_array($blog['blog_id'], $wgt_white))) {
 				if ($sqlstr != '')
 					$uni = ' union ';;	
-				$sqlstr .= $uni . " SELECT ".$blog['blog_id']." as blog_id, comment_date, comment_id, comment_post_id, comment_content, comment_date_gmt, comment_author, comment_author_email   from ".$table_prefix .$blog['blog_id']."_comments where comment_approved = 1 ";				
+				$sqlstr .= $uni . " SELECT ".$blog['blog_id']." as blog_id, comment_date, comment_id, comment_post_id, comment_content, comment_date_gmt, comment_author, comment_author_email   from ".$table_prefix .$blog['blog_id']."_comments where comment_approved = 1  and (comment_type = '' or comment_type is null) and comment_content <> '".$first_comment."'";				
 			}
 		}
 		
@@ -145,8 +147,8 @@ class DiamondRC {
 			$av = get_avatar($comm['comment_author_email'], $wgt_avsize, $defav);
 			
 			if (strlen($c) > 50) 
-				$c = substr(strip_tags($c), 0, 51) . '...';
-			$txt = str_replace('{title}', '<a href="' .get_blog_permalink($comm["blog_id"], $comm["comment_post_id"]).'">'.$c.'</a>' , $txt);
+				$c = mb_substr(strip_tags($c), 0, 51) . '...';
+			$txt = str_replace('{title}', '<a href="' .get_blog_permalink($comm["blog_id"], $comm["comment_post_id"]).'#comment-'.$comm["comment_id"].'">'.$c.'</a>' , $txt);
 			$txt = str_replace('{title_txt}', $c, $txt);
 			$txt = str_replace('{author}', $comm['comment_author'], $txt);
 			$txt = str_replace('{avatar}', $av, $txt);			
@@ -172,20 +174,20 @@ class DiamondRC {
 	
 		// Title
 		if ($_POST['wgt_comment_hidden']) {
-			$option=$_POST['wgt_title'];
+			$option=$_POST['wgt_c_title'];
 			update_option('c_wgt_title',$option);		
 		}
 		$wgt_title=get_option('c_wgt_title');
 		
 		echo '<input type="hidden" name="wgt_comment_hidden" value="success" />';
 		
-		echo '<label for="wgt_title">' . __('Widget Title', 'diamond') . ':<br /><input id="wgt_title" name="wgt_title" type="text" value="'.$wgt_title.'" /></label>';
+		echo '<label for="wgt_c_title">' . __('Widget Title', 'diamond') . ':<br /><input id="wgt_c_title" name="wgt_c_title" type="text" value="'.$wgt_title.'" /></label>';
 		
 		if ($_POST['wgt_comment_hidden']) {
 			$DiamondCache->addSettings('recent-comments', 'expire', $_POST['diamond_c_cache']);			
 		}
 		$dccache=$DiamondCache->getSettings('recent-comments', 'expire');		
-		if (!$dccache)
+		if ($dccache=='')
 			$dccache = 120;	
 		echo '<br />';
 		echo '<label for="diamond_c_cache">' . __('Cache Expire Time (sec)', 'diamond') . ':<br /><input id="diamond_c_cache" name="diamond_c_cache" type="text" value="'.$dccache.'" /></label>';

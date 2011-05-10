@@ -170,13 +170,19 @@ class DiamondAdmin {
 			echo '</li><li>';
 			echo 'whitelist: '. __('Blogs\' whitelist (separate with \',\')', 'diamond');
 			echo '</li><li>';
+			echo 'min_post_count: '. __('The minimum number of posts', 'diamond');
+			echo '</li><li>';
+			echo 'comment_age: '. __('Tha maximum ages of comments in days if using order="4"', 'diamond');
+			echo '</li><li>';
 			echo 'count: '. __('Entry count limit', 'diamond');			
+			echo '</li><li>';
+			echo 'avatar_size: ' . __('Author\'s avatar\'s size (px)', 'diamond'); 
 			echo '</li><li>';
 			echo 'date_format: '. __('Datetime format string', 'diamond');
 			echo '</li><li>';
 			echo 'more_text: '. __('\'Read more\' link\'s text', 'diamond');
 			echo '</li><li>';
-			echo 'order_by: ' . __('Order By: 0: Domain, 1: Reg. Date, 2: Last update', 'diamond'); 
+			echo 'order_by: ' . __('Order By: 0: Domain, 1: Reg. Date, 2: Last update, 3: Post count, 4: Comment count', 'diamond'); 
 			echo '</li><li>';
 			echo 'order: ' . __('Order: 0: Ascending, 1: Descending', 'diamond');
 			echo '</ul>';
@@ -213,6 +219,8 @@ class DiamondAdmin {
 			echo 'date_format: '. __('Datetime format string', 'diamond');
 			echo '</li><li>';
 			echo 'more_text: '. __('\'Read more\' link\'s text', 'diamond');
+			echo '</li><li>';
+			echo 'post_limit: '. __('Maximum number of posts per blog', 'diamond');
 			echo '</ul>';
 			echo '</td>';
 			

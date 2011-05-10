@@ -2,29 +2,33 @@
  /* Diamond option based cache */
  
 class Diamond_Cache {
+	
+	private $cache_file;
+	
+	
 	function Diamond_Cache() {
+		$this->cache_file = dirname(__FILE__). '/cache_';
+		
 	}
 	
 	function check_group($group) {
-		$old_cache = get_option('diamond_cache_'. $group);
+		
+		$old_cache = maybe_unserialize(file_get_contents($this->cache_file.$group));
+		
 		$new_cache = array ();
 		
-		//print_r($old_cache);
 		if ($old_cache)
 			foreach ($old_cache AS $c) {				
-				//print_r(time() - $c['time']);
 				if (time() - $c['time'] < $c['expire']) {
 					$new_cache[$c['key']] = $c;
 				}
-			}
-		//print_r($new_cache);
-		update_option('diamond_cache_'. $group, $new_cache);
+		}
+    	file_put_contents($this->cache_file.$group, maybe_serialize($new_cache));
 		return $new_cache;
 	}
 	
 	function getSettings($group, $key) {
 		$settings = get_option('diamond_cache_settings');
-		//print_r($settings);
 		if (!$settings[$group])
 			$settings[$group] = array ();
 		return $settings[$group][$key];
@@ -48,14 +52,13 @@ class Diamond_Cache {
 		if ($expire == -1)	{
 			$expire = $this->getSettings($group, 'expire');			
 			
-			//print_r('rokkk:' . $group .'-'. $expire);
 			if (!$expire)
 				$expire = 120;
 		}
 		if ($expire == 0)
 			return;
 		$cache[$key]  = array ( 'key' => $key, 'content' => $value, 'expire' => $expire, 'time' => time());
-		update_option('diamond_cache_'. $group, $cache);
+    	file_put_contents($this->cache_file.$group, maybe_serialize($cache));
 	}	
 }
 

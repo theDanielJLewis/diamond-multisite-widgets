@@ -9,8 +9,8 @@ function diamond_arr_to_str($arg) {
 }
 
 function get_format_txt($code) {
-	if ($code && $code != '' && substr($code, 0, 8) == 'encrypt:') 
-		return base64_decode(substr($code, 8));
+	if ($code && $code != '' && mb_substr($code, 0, 8) == 'encrypt:') 
+		return base64_decode(mb_substr($code, 8));
 	return $code;
 }
 
