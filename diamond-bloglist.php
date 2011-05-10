@@ -24,7 +24,7 @@ class DiamondBL {
 		'exclude' => '',
 		'count' => '',
 		'format'	 => '',
-		'logo_size' => '',
+		'avatar_size' => '',
 		'default_logo' => '',
 		'date_format' => '',
 		'before_item' =>'',
@@ -34,10 +34,13 @@ class DiamondBL {
 		'after_content' => '',
 		'order_by' => '',
 		'order' => '',
-		'whitelist' => ''
+		'whitelist' => '',
+		'comment_age' => '',
+		'min_post_count' => ''
+		
 		), $atts ) );
-			
-		return $this->render_output(split(',',$exclude), $count, html_entity_decode($format), $logo_size, $default_logo, $date_format, html_entity_decode($before_item), html_entity_decode($after_item), html_entity_decode($before_content), html_entity_decode($after_content), $more_text, $order_by, $order, $whitelist);
+
+		return $this->render_output(split(',',$exclude), $count, html_entity_decode($format), $avatar_size, $default_logo, $date_format, html_entity_decode($before_item), html_entity_decode($after_item), html_entity_decode($before_content), html_entity_decode($after_content), $more_text, $order_by, $order, split(',', $whitelist), $min_post_count, $comment_age);
 	}
 	
 
@@ -53,9 +56,11 @@ class DiamondBL {
 		$wgt_mtext = $diamond_bloglist_mtext;		
 		$wgt_defav = $diamond_bloglist_defav;		
 		$wgt_dt = $diamond_bloglist_dt;	
-		$wgt_white = split(';', $diamond_bloglist_white);		
+		$wgt_white = split(';', $diamond_bloglist_white);
+		$min_post_count = $diamond_bloglist_min_post_count; 
+		$comment_age = $wgt_diamond_bloglist_comment_age;
 	
-	//print_r($args);
+		//print_r($bloglist_options);
 		
 		extract($args);
 		
@@ -63,7 +68,7 @@ class DiamondBL {
 		
 		$output .= $before_widget.$before_title.$wgt_title. $after_title;		
 	
-		$output .= $this->render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, '<li>', '</li>', '<ul>', '</ul>', $wgt_mtext, $diamond_bloglist_order, $diamond_bloglist_order_by, $wgt_white) ;
+		$output .= $this->render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, '<li>', '</li>', '<ul>', '</ul>', $wgt_mtext, $diamond_bloglist_order, $diamond_bloglist_order_by, $wgt_white, $min_post_count, $comment_age) ;
 		
 		$output .=  $after_widget;
 		
@@ -71,14 +76,14 @@ class DiamondBL {
 	}
 	
 	
-	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, $before_item, $after_item, $before_cont, $after_cont, $wgt_mtext, $ord, $ordb, $wgt_white)	 {		
+	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, $before_item, $after_item, $before_cont, $after_cont, $wgt_mtext, $ord, $ordb, $wgt_white, $min_post_count, $comment_age)	 {		
 		
 		
 		global $DiamondCache;
 		
 		$cachekey = 'diamond_bloglist_'.diamond_arr_to_str($wgt_miss).'-'.$wgt_count.'-'.$wgt_format .diamond_arr_to_str($wgt_white).
 		'-'.$wgt_avsize.'-'.$wgt_defav.'-'.$wgt_dt.'-'.$before_item.'-'.$after_item.'-'.$before_cont.'-'.
-		$after_cont.'-'.$wgt_mtext.'-'.$ord.'-'.$ordb;
+		$after_cont.'-'.$wgt_mtext.'-'.$ord.'-'.$ordb.'-'.$min_post_count.'-'.$comment_age;
 		$output = $DiamondCache->get($cachekey, 'bloglist');
 					
 		if ($output != false)
@@ -136,26 +141,54 @@ class DiamondBL {
 		}
 		
 		//print_r($wgt_miss);
-		
-		$sqlstr = "SELECT blog_id, registered, last_updated from ".$table_prefix ."blogs where  public = 1	AND spam = 0 AND archived = '0' AND deleted = 0 "	. $felt;	
-		
-		$limit = '';
-		if ((int)$wgt_count > 0)
-			$limit = ' LIMIT 0, '. (int)$wgt_count;
-		
-		
-		 
-		if (!$ord || $ord=='')
-			$ord = 0;
+
+		if ($ord!=4) {
 			
-		$sqlstr .= " ORDER BY ";
-		switch ($ord)	 {
-			default:  $sqlstr .= "path ";
-				break;
-			case 1:  $sqlstr .= "registered ";
-				break;
-			case 2:  $sqlstr .= "last_updated ";			
-				break;					
+			$sqlstr = "SELECT blog_id, registered, last_updated from ".$table_prefix ."blogs where  public = 1	AND spam = 0 AND archived = '0' AND deleted = 0 "	. $felt;	
+			
+			$limit = '';
+			if ((int)$wgt_count > 0)
+				$limit = ' LIMIT 0, '. (int)$wgt_count;
+			
+			
+			 
+			if (!$ord || $ord=='')
+				$ord = 0;
+				
+			$sqlstr .= " ORDER BY ";
+			switch ($ord)	 {
+				default:  $sqlstr .= "path ";
+					break;
+				case 1:  $sqlstr .= "registered ";
+					break;
+				case 2:  $sqlstr .= "last_updated ";			
+					break;					
+			}
+			
+		} else {
+			 //Order by number of comments from last x days
+			$sqlstr = "SELECT blog_id, registered, last_updated from ".$table_prefix ."blogs where  public = 1	AND spam = 0 AND archived = '0' AND deleted = 0 "	. $felt;
+			$blog_list_temp = $wpdb->get_results($sqlstr, ARRAY_A);
+			echo $wpdb->print_error();
+			
+			
+			$sqlstr = '';
+			$age_set = '';
+			if ($comment_age != '' && (int)$comment_age>0) {
+				$age_set = "where datediff(now(), comment_date)<".$comment_age; 
+			}
+			
+			foreach ($blog_list_temp as $blog) {
+				$tbprefix = ($blog['blog_id']==1) ? '' : $blog['blog_id'].'_';
+				$tbprefix = $table_prefix.$tbprefix;
+				if ($sqlstr!='') $sqlstr .= ' union ';
+				$sqlstr .= " select ".$blog['blog_id']." as blog_id, '".$blog['registered']."' as registered, '".$blog['last_updated']."' as last_updated, count(comment_ID) as comment_count from ".$tbprefix."comments ".$age_set." group by blog_id";
+			}
+			$sqlstr .= " order by comment_count ";
+			$limit = '';
+			if ((int)$wgt_count > 0)
+				$limit = ' LIMIT 0, '. (int)$wgt_count;
+			
 		}
 		
 		if (!$ordb || $ordb=='')
@@ -170,8 +203,7 @@ class DiamondBL {
 		}
 		
 		$sqlstr .= $limit;
-		
-		// echo $sqlstr; 
+		//echo $sqlstr;
 		$blog_list_temp = $wpdb->get_results($sqlstr, ARRAY_A);
 		echo $wpdb->print_error(); 
 		//print_r($blog_list);
@@ -197,34 +229,44 @@ class DiamondBL {
 			$blog_list = $blog_list_temp;
 		
 		foreach ($blog_list as $blog) {
-			$output .=  $before_item;
 			
 			$wgt_format = get_format_txt($wgt_format);
 			$txt = ($wgt_format == '') ? '<b>{title}</b>' : $wgt_format;			
 			
-			$title = '';$desc = '';$burl = '';$pcount = 0;
+			$title = '';$desc = '';$burl = '';$pcount = 0;$avatar = '';
 			switch_to_blog($blog['blog_id']);					
 				if (strpos($txt, '{title}') !== false || strpos($txt, '{title_txt}') !== false)
 					$title = get_bloginfo('name');
 				if (strpos($txt, '{description}') !== false)
 					$desc = get_bloginfo('description');	
 				$burl = get_bloginfo('url');
-				if (strpos($txt, '{postcount}') !== false)
-					$pcount = wp_count_posts()->publish;				
+				if (strpos($txt, '{postcount}') !== false || (int)$min_post_count>0)
+					$pcount = wp_count_posts()->publish;
+
+				if (strpos($txt, '{avatar}') !== false)
+					$avatar = get_avatar(get_bloginfo('admin_email'), $wgt_avsize);	
+				
 			restore_current_blog();
 			
 			
-			$txt = str_replace('{title}', '<a href="' . $burl .'">'. $title .'</a>' , $txt);
-			$txt = str_replace('{more}', '<a href="' . $burl .'">'.$wgt_mtext.'</a>' , $txt);
-			$txt = str_replace('{title_txt}', $title , $txt);
-			$txt = str_replace('{reg}', date_i18n($wgt_dt, strtotime($blog['registered'])), $txt);
-			$txt = str_replace('{last_update}', date_i18n($wgt_dt, strtotime($blog['last_updated'])), $txt);
-			$txt = str_replace('{description}', $desc, $txt);
-			$txt = str_replace('{postcount}', $pcount , $txt);
 			
+			if ((int)$min_post_count<=$pcount) {
 			
-			$output .=  $txt;
-			$output .=  $after_item;
+				$output .=  $before_item;
+				//@TODO add trailing shash only if in subdir mode 
+				$txt = str_replace('{title}', '<a href="' . $burl .'/">'. $title .'</a>' , $txt);
+				$txt = str_replace('{more}', '<a href="' . $burl .'/">'.$wgt_mtext.'</a>' , $txt);
+				$txt = str_replace('{title_txt}', $title , $txt);
+				$txt = str_replace('{reg}', date_i18n($wgt_dt, strtotime($blog['registered'])), $txt);
+				$txt = str_replace('{last_update}', date_i18n($wgt_dt, strtotime($blog['last_updated'])), $txt);
+				$txt = str_replace('{description}', $desc, $txt);
+				$txt = str_replace('{postcount}', $pcount , $txt);
+				$txt = str_replace('{comment_count}', $blog['comment_count'] , $txt);
+				$txt = str_replace('{avatar}', $avatar , $txt);
+				
+				$output .=  $txt;
+				$output .=  $after_item;
+			}
 		}
 		$output .=  $after_cont;
 		
@@ -257,7 +299,7 @@ class DiamondBL {
 			$DiamondCache->addSettings('bloglist', 'expire', $_POST['diamond_b_cache']);			
 		}
 		$dccache=$DiamondCache->getSettings('bloglist', 'expire');		
-		if (!$dccache)
+		if ($dccache=='')
 			$dccache = 120;	
 		echo '<br />';
 		echo '<label for="diamond_b_cache">' . __('Cache Expire Time (sec)', 'diamond') . ':<br /><input id="diamond_b_cache" name="diamond_b_cache" type="text" value="'.$dccache.'" /></label>';
@@ -341,7 +383,9 @@ class DiamondBL {
 		echo '{description} - '. __('The blog\'s description', 'diamond').'<br />';		
 		echo '{reg} - ' . __('The registration\'s date', 'diamond') .'<br />';
 		echo '{last_update} - ' . __('The blog\'s last update date', 'diamond') .'<br />';
+		echo '{avatar} - ' . __('Author\'s avatar', 'diamond') .'<br />';
 		echo '{postcount} - ' . __('The blog\'s posts count', 'diamond') .'<br />';		
+		echo '{comment_count} - ' . __('The blog\'s comment count - only works with Order by comment count', 'diamond') .'<br />';		
 		echo '{more} - '. __('The "Read More" link', 'diamond') .'<br />';
 		echo '<br />';
 		
@@ -367,6 +411,7 @@ class DiamondBL {
 		echo '<option value="1" '. (($dor == 1)? 'selected="selected"' : '') . '>'.__('By Reg. Date', 'diamond').'</option>';
 		echo '<option value="2" '. (($dor == 2)? 'selected="selected"' : '') . '>'.__('By Last Update', 'diamond').'</option>';
 		echo '<option value="3" '. (($dor == 3)? 'selected="selected"' : '') . '>'.__('By Post Count', 'diamond').'</option>';
+		echo '<option value="4" '. (($dor == 4)? 'selected="selected"' : '') . '>'.__('By Comment Count', 'diamond').'</option>';
 		echo '</select>';
 		
 		echo '<select id="diamond_bloglist_order_by" name="diamond_bloglist_order_by">';
@@ -401,14 +446,49 @@ class DiamondBL {
 			$options['diamond_bloglist_dt'] = $wgt_dt;				
 		}
 		
-		if ($_POST['diamond_bloglist_hidden'])
-			update_option('diamond_bloglist_options', $options);				
 		
 		echo '<label for="wgt_dt">' . __('DateTime format (<a href="http://php.net/manual/en/function.date.php" target="_blank">manual</a>)', 'diamond') . 
 		':<br /><input id="wgt_dt" name="wgt_dt" type="text" value="'.
 		$wgt_dt.'" /></label>';
 		echo '<br />';	
+
 		
+		if ($_POST['diamond_bloglist_hidden'])	 {
+			$option=$_POST['wgt_min_post_count'];			
+			$options['diamond_bloglist_min_post_count'] = $option;		
+		}
+		$wgt_diamond_bloglist_min_post_count= $options['diamond_bloglist_min_post_count'];	
+		if (!isset($wgt_diamond_bloglist_min_post_count) || trim($wgt_diamond_bloglist_min_post_count) =='') {
+			$wgt_diamond_bloglist_min_post_count = '';
+			$options['diamond_bloglist_min_post_count'] = $wgt_diamond_bloglist_min_post_count;				
+		}
+		
+		
+		echo '<label for="wgt_min_post_count">' . __('The minimum number of posts that the blog should contain to be listed', 'diamond') . 
+		':<br /><input id="wgt_min_post_count" name="wgt_min_post_count" type="text" value="'.
+		$wgt_diamond_bloglist_min_post_count.'" /></label>';
+		echo '<br />';	
+		
+		
+		if ($_POST['diamond_bloglist_hidden'])	 {
+			$option=$_POST['wgt_comment_age'];			
+			$options['diamond_bloglist_comment_age'] = $option;		
+		}
+		$wgt_diamond_bloglist_comment_age= $options['diamond_bloglist_comment_age'];	
+		if (!isset($wgt_diamond_bloglist_comment_age) || trim($wgt_diamond_bloglist_comment_age) =='') {
+			$wgt_diamond_bloglist_comment_age = '';
+			$options['diamond_bloglist_comment_age'] = $wgt_diamond_bloglist_comment_age;				
+		}
+		
+		
+		echo '<label for="wgt_comment_age">' . __('The maximum ages of comments in days if using order by comment count', 'diamond') . 
+		':<br /><input id="wgt_comment_age" name="wgt_comment_age" type="text" value="'.
+		$wgt_diamond_bloglist_comment_age.'" /></label>';
+		echo '<br />';	
+		
+		
+		if ($_POST['diamond_bloglist_hidden'])
+			update_option('diamond_bloglist_options', $options);				
 		
 		if (!$is_admin) {
 			echo '<br />';

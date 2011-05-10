@@ -32,10 +32,11 @@ class DiamondRP {
 		'before_content' => '',
 		'more_text' => '',
 		'after_content' => '',
-		'whitelist' => ''
+		'whitelist' => '',
+		'post_limit' => 0
 		), $atts ) );
 			
-		return $this->render_output(split(',',$exclude), $count, html_entity_decode($format), $avatar_size, $default_avatar, $date_format, html_entity_decode($before_item), html_entity_decode($after_item), html_entity_decode($before_content), html_entity_decode($after_content), $more_text, $whitelist);
+		return $this->render_output(split(',',$exclude), $count, html_entity_decode($format), $avatar_size, $default_avatar, $date_format, html_entity_decode($before_item), html_entity_decode($after_item), html_entity_decode($before_content), html_entity_decode($after_content), $more_text, split(',', $whitelist), $post_limit);
 	}
 	
 
@@ -49,7 +50,9 @@ class DiamondRP {
 		$wgt_mtext = get_option('wgt_mtext');		
 		$wgt_defav = get_option('wgt_defav');		
 		$wgt_dt = get_option('wgt_dt');				
-		$wgt_white = split(';', get_option('wgt_white'));		
+		$wgt_white = split(';', get_option('wgt_white'));
+		$wgt_post_limit = get_option('wgt_post_limit');				
+		
 	
 	//print_r($args);
 		
@@ -60,7 +63,7 @@ class DiamondRP {
 		$output .= $before_widget.$before_title.$wgt_title. $after_title;
 		
 	
-		$output .= $this->render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, '<li>', '</li>', '<ul>', '</ul>', $wgt_mtext, $wgt_white) ;
+		$output .= $this->render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, '<li>', '</li>', '<ul>', '</ul>', $wgt_mtext, $wgt_white, $wgt_post_limit) ;
 		
 		$output .=  $after_widget;
 		
@@ -68,13 +71,13 @@ class DiamondRP {
 	}
 	
 	
-	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, $before_item, $after_item, $before_cont, $after_cont, $wgt_mtext, $wgt_white)	 {		
+	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, $before_item, $after_item, $before_cont, $after_cont, $wgt_mtext, $wgt_white, $post_limit = 0)	 {		
 	
 		global $DiamondCache;
 		
 		$cachekey = 'diamond_post_'.diamond_arr_to_str($wgt_miss).'-'.$wgt_count.'-'.$wgt_format . diamond_arr_to_str($wgt_white) .
 		'-'.$wgt_avsize.'-'.$wgt_defav.'-'.$wgt_dt.'-'.$before_item.'-'.$after_item.'-'.$before_cont.'-'.
-		$after_cont.'-'.$wgt_mtext;
+		$after_cont.'-'.$wgt_mtext.'-'.$post_limit;
 		$output = $DiamondCache->get($cachekey, 'recent-posts');
 					
 		if ($output != false)
@@ -109,10 +112,14 @@ class DiamondRP {
 		if (isset($wgt_white) && $wgt_white != '' && count($wgt_white) > 0 && $wgt_white[0] && $wgt_white[0]!='')
 			$white = 1;		
 		
+		
+		$limitstr = '';
+		if ((int)$post_limit>0) $limitstr = ' LIMIT '.(int)$post_limit;
+		
 		$sqlstr = '';
 		$blog_list = get_blog_list( 0, 'all' );
 		if (($white == 0 && !in_array(1, $wgt_miss)) || ($white == 1 && in_array(1, $wgt_white))) {
-			$sqlstr = "SELECT 1 as blog_id, id, post_date_gmt from ".$table_prefix ."posts where post_status = 'publish' and post_type = 'post' ";
+			$sqlstr = "(SELECT 1 as blog_id, id, post_date_gmt from ".$table_prefix ."posts where post_status = 'publish' and post_type = 'post' and post_title <> '".__('Hello world!')."' ".$limitstr.")";
 		}
 		$uni = '';
 		
@@ -121,7 +128,7 @@ class DiamondRP {
 			($white == 1 && $blog['blog_id'] != 1 && in_array($blog['blog_id'], $wgt_white))) {
 				if ($sqlstr != '')
 					$uni = ' union ';;	
-				$sqlstr .= $uni . " SELECT ".$blog['blog_id']." as blog_id, id, post_date_gmt from ".$table_prefix .$blog['blog_id']."_posts  where post_status = 'publish' and post_type = 'post' ";				
+				$sqlstr .= $uni . " (SELECT ".$blog['blog_id']." as blog_id, id, post_date_gmt from ".$table_prefix .$blog['blog_id']."_posts  where post_status = 'publish' and post_type = 'post' and post_title <> '".__('Hello world!')."' ".$limitstr.")";				
 			}
 		}
 		
@@ -131,7 +138,7 @@ class DiamondRP {
 		$sqlstr .= " ORDER BY post_date_gmt desc " . $limit;		
 		
 		
-		 //echo $sqlstr; 
+		//echo $sqlstr; 
 		$post_list = $wpdb->get_results($sqlstr, ARRAY_A);
 		//echo $wpdb->print_error(); 
 		
@@ -150,7 +157,7 @@ class DiamondRP {
 			
 			$ex = $p->post_excerpt;
 			if (!isset($ex) || trim($ex) == '')
-				$ex = substr(strip_tags($p->post_content), 0, 65) . '...';
+				$ex = mb_substr(strip_tags($p->post_content), 0, 65) . '...';
 			
 			$txt = str_replace('{title}', '<a href="' .get_blog_permalink($post["blog_id"], $post["id"]).'">'.$p->post_title.'</a>' , $txt);
 			$txt = str_replace('{more}', '<a href="' .get_blog_permalink($post["blog_id"], $post["id"]).'">'.$wgt_mtext.'</a>' , $txt);
@@ -160,6 +167,10 @@ class DiamondRP {
 			$txt = str_replace('{author}', get_userdata($p->post_author)->nickname, $txt);
 			$txt = str_replace('{avatar}', $av , $txt);
 			$txt = str_replace('{blog}', get_blog_option($post["blog_id"], 'blogname') , $txt);		
+							$burl = get_blog_option($post["blog_id"], 'home');
+			
+			$txt = str_replace('{blog_link}', '<a href="'.$burl.'/">'.get_blog_option($post["blog_id"], 'blogname').'</a>' , $txt);		
+			$txt = str_replace('{blog_url}', $burl , $txt);		
 			
 			$output .=  $txt;
 			$output .=  $after_item;
@@ -181,21 +192,21 @@ class DiamondRP {
 	
 		// Title
 		if ($_POST['wgt_post_hidden']) {
-			$option=$_POST['wgt_title'];
+			$option=$_POST['wgt_p_title'];
 			update_option('wgt_title',$option);		
 		}
 		$wgt_title=get_option('wgt_title');
 		
 		echo '<input type="hidden" name="wgt_post_hidden" value="success" />';
 		
-		echo '<label for="wgt_title">' . __('Widget Title', 'diamond') . ':<br /><input id="wgt_title" name="wgt_title" type="text" value="'.$wgt_title.'" /></label>';
+		echo '<label for="wgt_p_title">' . __('Widget Title', 'diamond') . ':<br /><input id="wgt__ptitle" name="wgt_p_title" type="text" value="'.$wgt_title.'" /></label>';
 		
 		
 		if ($_POST['wgt_post_hidden']) {
 			$DiamondCache->addSettings('recent-posts', 'expire', $_POST['diamond_p_cache']);			
 		}
 		$dccache=$DiamondCache->getSettings('recent-posts', 'expire');		
-		if (!$dccache)
+		if ($dccache=='')
 			$dccache = 120;	
 		echo '<br />';
 		echo '<label for="diamond_p_cache">' . __('Cache Expire Time (sec)', 'diamond') . ':<br /><input id="diamond_p_cache" name="diamond_p_cache" type="text" value="'.$dccache.'" /></label>';
@@ -279,6 +290,8 @@ class DiamondRP {
 		echo '{author} - ' . __('The post\'s author', 'diamond') .'<br />';
 		echo '{avatar} - ' . __('Author\'s avatar', 'diamond') .'<br />';
 		echo '{blog} - '. __('The post\'s blog name', 'diamond') .'<br />';
+		echo '{blog_link} - '. __('The post\'s blog link', 'diamond') .'<br />';
+		echo '{blog_url} - '. __('The post\'s blog url', 'diamond') .'<br />';
 		echo '{more} - '. __('The "Read More" link', 'diamond') .'<br />';
 		echo '<br />';
 		
@@ -340,6 +353,25 @@ class DiamondRP {
 			_e('Buy me a beer!', 'diamond');
 			echo '</a><br />';
 		}
+		
+		
+		if ($_POST['wgt_post_hidden'])	 {
+			$option=$_POST['wgt_post_limit'];			
+			update_option('wgt_post_limit',$option);		
+		}
+		$wgt_post_limit=get_option('wgt_post_limit');	
+		if (!isset($wgt_post_limit) || trim($wgt_post_limit) =='') {
+			$wgt_post_limit = 0;
+			update_option('wgt_post_limit',$wgt_post_limit);				
+		}
+		
+		echo '<label for="wgt_post_limit">' . __('Maximum posts per blog (0 for unlimited)', 'diamond') . 
+		':<br /><input id="wgt_post_limit" name="wgt_post_limit" type="text" value="'.
+		$wgt_post_limit.'" /></label>';
+		echo '<br />';	
+		
+		
+		
 	}
 	
 	}
