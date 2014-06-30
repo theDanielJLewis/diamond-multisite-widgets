@@ -144,7 +144,7 @@ class DiamondBL {
 
 		if ($ord!=4) {
 			
-			$sqlstr = "SELECT blog_id, registered, last_updated from ".$table_prefix ."blogs where  public = 1	AND spam = 0 AND archived = '0' AND deleted = 0 "	. $felt;	
+			$sqlstr = "SELECT blog_id, registered, last_updated from ".$table_prefix ."blogs where public = 1 AND spam = 0 AND archived = '0' AND deleted = 0 "	. $felt;	
 			
 			$limit = '';
 			if ((int)$wgt_count > 0)
@@ -167,7 +167,7 @@ class DiamondBL {
 			
 		} else {
 			 //Order by number of comments from last x days
-			$sqlstr = "SELECT blog_id, registered, last_updated from ".$table_prefix ."blogs where  public = 1	AND spam = 0 AND archived = '0' AND deleted = 0 "	. $felt;
+			$sqlstr = "SELECT blog_id, registered, last_updated from ".$table_prefix ."blogs where public = 1 AND spam = 0 AND archived = '0' AND deleted = 0 "	. $felt;
 			$blog_list_temp = $wpdb->get_results($sqlstr, ARRAY_A);
 			echo $wpdb->print_error();
 			
