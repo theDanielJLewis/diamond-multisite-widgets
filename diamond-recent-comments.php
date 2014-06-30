@@ -32,11 +32,12 @@ class DiamondRC {
 		'$after_item' => '',
 		'before_content' => '',
 		'after_content' => '',
-		'whitelist' => ''
+		'whitelist' => '',
+		 'comment_type' => ''
 		), $atts ) );
 			
 
-		return $this->render_output(split(',',$exclude), $count, $format, $avatar_size, $default_avatar, $date_format, $before_item, $after_item, $before_content, $after_content, split(',', $whitelist));
+		return $this->render_output(split(',',$exclude), $count, $format, $avatar_size, $default_avatar, $date_format, $before_item, $after_item, $before_content, $after_content, split(',', $whitelist), $comment_type);
 	}
 	
 	function widget_endView($args)
@@ -64,13 +65,13 @@ class DiamondRC {
 		echo $output;
 	}
 	
-	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, $before_item, $after_item, $before_cont, $after_cont, $wgt_white)	 {	
+	function render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_avsize, $wgt_defav, $wgt_dt, $before_item, $after_item, $before_cont, $after_cont, $wgt_white, $comment_type)	 {	
 	
 		global $DiamondCache;
 		
 		$cachekey = 'diamond_comments_'.diamond_arr_to_str($wgt_miss).'-'.$wgt_count.'-'.$wgt_format . diamond_arr_to_str($wgt_white).
 		'-'.$wgt_avsize.'-'.$wgt_defav.'-'.$wgt_dt.'-'.$before_item.'-'.$after_item.'-'.$before_cont.'-'.
-		$after_cont.'-'.$wgt_mtext;
+		$after_cont.'-'.$wgt_mtext.'-'.$comment_type;
 		$output = $DiamondCache->get($cachekey, 'recent-comments');
 					
 		if ($output != false)
@@ -108,9 +109,11 @@ class DiamondRC {
 		$first_comment = __('Hi, this is a comment.<br />To delete a comment, just log in and view the post&#039;s comments. There you will have the option to edit or delete them.');
 		$first_comment = get_site_option( 'first_comment', $first_comment );
 		$sqlstr = '';
+		$where_comment_type = " and (comment_type = '' or comment_type is null) ";
+		if ($comment_type!='') $where_comment_type = " AND comment_type = '".$comment_type."' ";
 		$blog_list = get_blog_list( 0, 'all' );
 		if (($white == 0 && !in_array(1, $wgt_miss)) || ($white == 1 && in_array(1, $wgt_white))) {
-			$sqlstr = "SELECT 1 as blog_id, comment_date, comment_id, comment_post_id, comment_content, comment_date_gmt, comment_author, comment_author_email from ".$table_prefix ."comments where comment_approved = 1 and (comment_type = '' or comment_type is null) and comment_content <> '".$first_comment."'";
+			$sqlstr = "SELECT 1 as blog_id, comment_date, comment_id, comment_post_id, comment_content, comment_date_gmt, comment_author, comment_author_email from ".$table_prefix ."comments where comment_approved = 1 ".$where_comment_type." and comment_content <> '".$first_comment."'";
 		}
 		$uni = '';
 		
@@ -119,7 +122,7 @@ class DiamondRC {
 			($white == 1 && $blog['blog_id'] != 1 && in_array($blog['blog_id'], $wgt_white))) {
 				if ($sqlstr != '')
 					$uni = ' union ';;	
-				$sqlstr .= $uni . " SELECT ".$blog['blog_id']." as blog_id, comment_date, comment_id, comment_post_id, comment_content, comment_date_gmt, comment_author, comment_author_email   from ".$table_prefix .$blog['blog_id']."_comments where comment_approved = 1  and (comment_type = '' or comment_type is null) and comment_content <> '".$first_comment."'";				
+				$sqlstr .= $uni . " SELECT ".$blog['blog_id']." as blog_id, comment_date, comment_id, comment_post_id, comment_content, comment_date_gmt, comment_author, comment_author_email   from ".$table_prefix .$blog['blog_id']."_comments where comment_approved = 1  ".$where_comment_type." and comment_content <> '".$first_comment."'";				
 			}
 		}
 		
@@ -314,8 +317,7 @@ class DiamondRC {
 			update_option('wgtc_dt',$wgtc_dt);				
 		}
 		
-		echo '<label for="wgtc_dt">' . __('DateTime format (<a href="http://php.net/manual/en/function.date.php" target="_blank">manual</a>)', 'diamond') . 
-		':<br /><input id="wgtc_dt" name="wgtc_dt" type="text" value="'.
+		echo '<label for="wgtc_dt">' . __('DateTime format (<a href="http://php.net/manual/en/function.date.php" target="_blank">manual</a>)', 'diamond') . 		':<br /><input id="wgtc_dt" name="wgtc_dt" type="text" value="'.
 		$wgtc_dt.'" /></label>';
 		echo '<br />';			
 		
