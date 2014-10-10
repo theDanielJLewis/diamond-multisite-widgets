@@ -1,10 +1,10 @@
 === Plugin Name ===
-Contributors: Rocky1983
+Contributors: Rocky1983, djosephdesign
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40amegrant%2ehu&lc=HU&item_name=Diamond%20Multisite%20WordPress%20Widget&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
 Tags: recent post, network, multisite, widget, recent comments, MU, WPMU, sidebar, broadcast, copy post, share post, network post, rss, rss feed, recent post rss, network rss, bloglist, sub-blog list, blog list
 Requires at least: 3.0
-Tested up to: 3.1
-Stable tag: 1.8
+Tested up to: 4.0
+Stable tag: 1.8.1
 
 Bloglist, recent posts and comments from the whole network.
 
@@ -34,6 +34,10 @@ if you have any question write me an e-mail to daniel.bozo@amegrant.hu
 if you want to work with me <a href="http://www.odesk.com/referrals/track/rocky1983?redir=http%3A%2F%2Fwww.odesk.com%2Fusers%2F%7E%7E62d462b7f34dbdb4" target="_blank">Hire me on oDesk!</a>
 
 == Changelog ==
+= 1.8.1 =
+- Minor tweak to prevent PHP error on database queries
+- Fix for WordPress SEO sitemaps
+
 = 1.8 =
 - Whitelist shortcodes now works fine
 - You can add 'min_post_count' parameter to the posts shortcode
@@ -132,4 +136,9 @@ if you want to work with me <a href="http://www.odesk.com/referrals/track/rocky1
 = 1.1 =
 
 - Now you can use it on sub-blogs
+
+== Upgrade Notice ==
+
+= 1.8.1 =
+Minor tweak to fix database query errors. Everything still seems to work on WordPress 4.0.
 
