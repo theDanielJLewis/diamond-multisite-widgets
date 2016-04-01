@@ -40,7 +40,7 @@ class DiamondBL {
 		
 		), $atts ) );
 
-		return $this->render_output(split(',',$exclude), $count, html_entity_decode($format), $avatar_size, $default_logo, $date_format, html_entity_decode($before_item), html_entity_decode($after_item), html_entity_decode($before_content), html_entity_decode($after_content), $more_text, $order_by, $order, split(',', $whitelist), $min_post_count, $comment_age);
+		return $this->render_output(explode(',',$exclude), $count, html_entity_decode($format), $avatar_size, $default_logo, $date_format, html_entity_decode($before_item), html_entity_decode($after_item), html_entity_decode($before_content), html_entity_decode($after_content), $more_text, $order_by, $order, explode(',', $whitelist), $min_post_count, $comment_age);
 	}
 	
 
@@ -50,13 +50,13 @@ class DiamondBL {
 		extract($bloglist_options);
 		$wgt_title = $diamond_bloglist_title;
 		$wgt_count = $diamond_bloglist_count;		
-		$wgt_miss = split(';', $diamond_bloglist_miss);		
+		$wgt_miss = explode(';', $diamond_bloglist_miss);		
 		$wgt_format = $diamond_bloglist_format;		
 		$wgt_avsize = $diamond_bloglist_avsize;		
 		$wgt_mtext = $diamond_bloglist_mtext;		
 		$wgt_defav = $diamond_bloglist_defav;		
 		$wgt_dt = $diamond_bloglist_dt;	
-		$wgt_white = split(';', $diamond_bloglist_white);
+		$wgt_white = explode(';', $diamond_bloglist_white);
 		$min_post_count = $diamond_bloglist_min_post_count; 
 		$comment_age = $wgt_diamond_bloglist_comment_age;
 	
@@ -326,7 +326,7 @@ class DiamondBL {
 		}
 		
 		$wgt_miss=$options['diamond_bloglist_miss'];
-		$miss = split(';',$wgt_miss);
+		$miss = explode(';',$wgt_miss);
 		echo '<br /><label for="wgt_miss">' . __('Exclude blogs: (The first 50 blogs)','diamond');
 		$blog_list = get_blog_list( 0, 50 ); 
 		echo '<br />';
@@ -355,7 +355,7 @@ class DiamondBL {
 		}
 		
 		$wgt_miss=$options['diamond_bloglist_white'];
-		$miss = split(';',$wgt_miss);
+		$miss = explode(';',$wgt_miss);
 		echo '<br /><label for="wgt_white">' . __('Whitelist: (The first 50 blogs)','diamond');
 		$blog_list = get_blog_list( 0, 50 ); 
 		echo '<br />';

@@ -36,7 +36,7 @@ class DiamondRP {
 		'post_limit' => 0
 		), $atts ) );
 			
-		return $this->render_output(split(',',$exclude), $count, html_entity_decode($format), $avatar_size, $default_avatar, $date_format, html_entity_decode($before_item), html_entity_decode($after_item), html_entity_decode($before_content), html_entity_decode($after_content), $more_text, split(',', $whitelist), $post_limit);
+		return $this->render_output(explode(',',$exclude), $count, html_entity_decode($format), $avatar_size, $default_avatar, $date_format, html_entity_decode($before_item), html_entity_decode($after_item), html_entity_decode($before_content), html_entity_decode($after_content), $more_text, explode(',', $whitelist), $post_limit);
 	}
 	
 
@@ -44,13 +44,13 @@ class DiamondRP {
 	{		
 		$wgt_title=get_option('wgt_title');
 		$wgt_count=get_option('wgt_count');		
-		$wgt_miss= split(';', get_option('wgt_miss'));		
+		$wgt_miss= explode(';', get_option('wgt_miss'));		
 		$wgt_format = get_option('wgt_format');		
 		$wgt_avsize = get_option('wgt_avsize');		
 		$wgt_mtext = get_option('wgt_mtext');		
 		$wgt_defav = get_option('wgt_defav');		
 		$wgt_dt = get_option('wgt_dt');				
-		$wgt_white = split(';', get_option('wgt_white'));
+		$wgt_white = explode(';', get_option('wgt_white'));
 		$wgt_post_limit = get_option('wgt_post_limit');				
 		
 	
@@ -233,7 +233,7 @@ class DiamondRP {
 		}
 		
 		$wgt_miss=get_option('wgt_miss');
-		$miss = split(';',$wgt_miss);
+		$miss = explode(';',$wgt_miss);
 		echo '<br /><label for="wgt_miss">' . __('Exclude blogs: (The first 50 blogs)','diamond');
 		$blog_list = get_blog_list( 0, 50 ); 
 		echo '<br />';
@@ -260,7 +260,7 @@ class DiamondRP {
 		}
 		
 		$wgt_white=get_option('wgt_white');
-		$miss = split(';',$wgt_white);
+		$miss = explode(';',$wgt_white);
 		echo '<br /><label for="wgt_white">' . __('White List: (The first 50 blogs)','diamond');
 		$blog_list = get_blog_list( 0, 50 ); 
 		echo '<br />';

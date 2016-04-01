@@ -93,7 +93,7 @@
 			$blog_list = get_blog_list( ); 			
 			$shared = get_post_custom_values('diamond_broadcast_blogs', ($_GET['post']) ? $_GET['post'] : 0);
 			
-			$sharr = split(";", $shared[0]);
+			$sharr = explode(";", $shared[0]);
 			
 			foreach ($blog_list AS $blog) {
 				if ($blog['blog_id'] != $wpdb->blogid)
