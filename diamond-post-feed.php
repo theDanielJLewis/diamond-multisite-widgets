@@ -27,9 +27,9 @@ class DiamondPF {
 	function diamond_post_create_feed() {
 		
 		$wgt_count=get_option('diamond_post_feed_count');		
-		$wgt_miss= split(';', get_option('diamond_post_feed_miss'));		
+		$wgt_miss= explode(';', get_option('diamond_post_feed_miss'));		
 		$wgt_format = get_option('diamond_post_feed_format');				
-		$wgt_white= split(';', get_option('diamond_post_feed_white'));		
+		$wgt_white= explode(';', get_option('diamond_post_feed_white'));		
 	
 		$this->render_output($wgt_miss, $wgt_count, $wgt_format, $wgt_white) ;		
 	}
@@ -154,7 +154,7 @@ class DiamondPF {
 		}
 		
 		$wgt_miss=get_option('diamond_post_feed_miss');
-		$miss = split(';',$wgt_miss);
+		$miss = explode(';',$wgt_miss);
 		echo '<br /><label for="diamond_post_feed_miss">' . __('Exclude blogs: (The first 50 blogs)','diamond');
 		$blog_list = get_blog_list( 0, 50 ); 
 		echo '<br />';
@@ -182,7 +182,7 @@ class DiamondPF {
 		}
 		
 		$wgt_miss=get_option('diamond_post_feed_white');
-		$miss = split(';',$wgt_miss);
+		$miss = explode(';',$wgt_miss);
 		echo '<br /><label for="diamond_post_feed_white">' . __('Whitelist: (The first 50 blogs)','diamond');
 		$blog_list = get_blog_list( 0, 50 ); 
 		echo '<br />';

@@ -37,7 +37,7 @@ class DiamondRC {
 		), $atts ) );
 			
 
-		return $this->render_output(split(',',$exclude), $count, $format, $avatar_size, $default_avatar, $date_format, $before_item, $after_item, $before_content, $after_content, split(',', $whitelist), $comment_type);
+		return $this->render_output(explode(',',$exclude), $count, $format, $avatar_size, $default_avatar, $date_format, $before_item, $after_item, $before_content, $after_content, explode(',', $whitelist), $comment_type);
 	}
 	
 	function widget_endView($args)
@@ -45,13 +45,13 @@ class DiamondRC {
 		
 		$wgt_title=get_option('c_wgt_title');
 		$wgt_count=get_option('c_wgt_count');		
-		$wgt_miss= split(';', get_option('c_wgt_miss'));		
+		$wgt_miss= explode(';', get_option('c_wgt_miss'));		
 		$wgt_format= get_option('c_wgt_format');		
 		$wgt_avsize = get_option('wgtc_avsize');		
 		$wgt_mtext = get_option('wgtc_mtext');		
 		$wgt_defav = get_option('wgtc_defav');		
 		$wgt_dt = get_option('wgtc_dt');		
-		$wgt_white= split(';', get_option('c_wgt_white'));		
+		$wgt_white= explode(';', get_option('c_wgt_white'));		
 		
 		$output = '';
 		
@@ -217,7 +217,7 @@ class DiamondRC {
 		}
 		
 		$wgt_miss=get_option('c_wgt_miss');
-		$miss = split(';',$wgt_miss);
+		$miss = explode(';',$wgt_miss);
 		echo '<br /><label for="wgt_miss">' . __('Exclude blogs: (The first 50 blogs)','diamond');
 		$blog_list = get_blog_list( 0, 50 ); 
 		echo '<br />';
@@ -245,7 +245,7 @@ class DiamondRC {
 		}
 		
 		$wgt_white=get_option('c_wgt_white');
-		$miss = split(';',$wgt_white);
+		$miss = explode(';',$wgt_white);
 		echo '<br /><label for="c_wgt_white">' . __('Whitelist: (The first 50 blogs)','diamond');
 		$blog_list = get_blog_list( 0, 50 ); 
 		echo '<br />';
